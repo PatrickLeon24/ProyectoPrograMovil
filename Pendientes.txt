@@ -6,4 +6,4 @@ Llenar database
 Crear Framework sinatra y ruby 
 
 
-Prueba de que puedo hacer commits
+Prueba de que puedo hacer commits con githubDesktop
