@@ -1,0 +1,6 @@
+Hacer diagramas: erd, despligue, casos de usos
+Documentar en readme
+Hacer el schema e inserts
+Crear base de datos sqlite
+Llenar database
+Crear Framework sinatra y ruby 
