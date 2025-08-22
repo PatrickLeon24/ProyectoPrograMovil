@@ -4,3 +4,6 @@ Hacer el schema e inserts
 Crear base de datos sqlite
 Llenar database
 Crear Framework sinatra y ruby 
+
+
+Prueba de que puedo hacer commits
