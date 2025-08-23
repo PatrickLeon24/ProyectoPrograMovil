@@ -1,0 +1,68 @@
+@startuml
+!theme plain
+
+entity "users" {
+  * id: number
+  --
+  * name: varchar
+  * last_name: varchar
+  * email: varchar
+  * birth_date: date
+}
+
+entity "artists" {
+  * id: number
+  --
+  * name: varchar
+  * last_name: varchar
+}
+
+entity "albums" {
+  * id: number
+  --
+  * name: varchar
+  * release_date: date
+  * artist_id: number
+}
+
+entity "songs" {
+  * id: number
+  --
+  * name: varchar
+  * release_date: date
+  * album_id: number
+  * artist_id: number
+}
+
+entity "user_song" {
+  * id: number
+  --
+  * user_id: number
+  * song_id: number
+  * play_count: number
+  * last_played: datetime
+}
+
+' Relaciones
+users ||--o{ user_song
+songs ||--o{ user_song
+
+artists ||--o{ albums
+artists ||--o{ songs
+
+albums ||--o{ songs
+
+' Notas adicionales
+note right of artists
+  Los artistas pueden ser individuales
+  o grupos. name y last_name se usan
+  para artistas individuales
+end note
+
+note right of user_song
+  Tabla asociativa para registrar
+  las canciones que escucha cada usuario
+  y su historial de reproducción
+end note
+
+@enduml
