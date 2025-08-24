@@ -1,0 +1,104 @@
+@startuml
+!theme plain
+
+entity "users" {
+  * id: integer
+  --
+  * name: varchar
+  * last_name: varchar
+  * email: varchar
+  * birth_date: date
+}
+
+entity "artists" {
+  * id: integer
+  --
+  * stage_name: varchar
+  * is_band: boolean
+}
+
+entity "albums" {
+  * id: integer
+  --
+  * name: varchar
+  * release_date: date
+  * artist_id: integer
+}
+
+entity "songs" {
+  * id: integer
+  --
+  * name: varchar
+  * release_date: date
+  * album_id: integer
+}
+
+entity "song_artist" {
+  * id: integer
+  --
+  * song_id: integer
+  * artist_id: integer
+}
+
+entity "user_song" {
+  * id: integer
+  --
+  * user_id: integer
+  * song_id: integer
+  * play_count: integer
+  * last_played: datetime
+  * favorite: boolean
+  * liked_at: datetime
+}
+
+entity "playlists" {
+  * id: integer
+  --
+  * user_id: integer
+  * name: varchar
+  * created_at: datetime
+}
+
+entity "playlist_song" {
+  * id: integer
+  --
+  * playlist_id: integer
+  * song_id: integer
+  * added_at: datetime
+}
+
+' Relaciones
+users ||--o{ user_song
+songs ||--o{ user_song
+
+artists ||--o{ albums
+albums ||--o{ songs
+
+songs ||--o{ song_artist
+artists ||--o{ song_artist
+
+users ||--o{ playlists
+playlists ||--o{ playlist_song
+songs ||--o{ playlist_song
+
+' Notas
+note right of artists
+  stage_name permite artistas solistas o bandas.
+  is_band = true para grupos, false para solistas.
+end note
+
+note right of song_artist
+  Relación N:M entre canciones y artistas
+  (para colaboraciones, feats, etc.)
+end note
+
+note right of playlists
+  Cada usuario puede tener varias playlists.
+end note
+
+note right of user_song
+  Historial de reproducción y "me gusta"
+  para cada usuario en cada canción.
+end note
+
+@enduml
