@@ -4,23 +4,29 @@
 entity "users" {
   * id: integer
   --
-  * name: varchar
-  * last_name: varchar
-  * email: varchar
+  * name: varchar(100)
+  * last_name: varchar(100)
+  * username: varchar(50)
+  * password_hash: varchar(255)
+  * email: varchar(150)
   * birth_date: date
+  * phone: varchar(20)
+  * created_at: datetime
+  * is_verified: boolean
+  * last_login: datetime
 }
 
 entity "artists" {
   * id: integer
   --
-  * stage_name: varchar
+  * stage_name: varchar(100)
   * is_band: boolean
 }
 
 entity "albums" {
   * id: integer
   --
-  * name: varchar
+  * name: varchar(150)
   * release_date: date
   * artist_id: integer
 }
@@ -28,7 +34,7 @@ entity "albums" {
 entity "songs" {
   * id: integer
   --
-  * name: varchar
+  * name: varchar(150)
   * release_date: date
   * album_id: integer
 }
@@ -55,7 +61,7 @@ entity "playlists" {
   * id: integer
   --
   * user_id: integer
-  * name: varchar
+  * name: varchar(100)
   * created_at: datetime
 }
 
