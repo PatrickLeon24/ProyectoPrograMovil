@@ -14,6 +14,9 @@ entity "users" {
   * created_at: datetime
   * is_verified: boolean
   * last_login: datetime
+  * verification_token: varchar(100)
+  * reset_token: varchar(100)
+  * reset_token_expires: datetime
 }
 
 entity "artists" {
@@ -21,6 +24,10 @@ entity "artists" {
   --
   * stage_name: varchar(100)
   * is_band: boolean
+  * biography: text
+  * profile_image: varchar(255)
+  * cover_image: varchar(255)
+  * formed_date: date
 }
 
 entity "albums" {
@@ -28,6 +35,7 @@ entity "albums" {
   --
   * name: varchar(150)
   * release_date: date
+  * cover_image: varchar(255)
   * artist_id: integer
 }
 
@@ -35,8 +43,25 @@ entity "songs" {
   * id: integer
   --
   * name: varchar(150)
+  * duration: integer
+  * file_url: varchar(255)
+  * cover_image: varchar(255)
   * release_date: date
   * album_id: integer
+}
+
+entity "genres" {
+  * id: integer
+  --
+  * name: varchar(50)
+  * description: text
+}
+
+entity "song_genre" {
+  * id: integer
+  --
+  * song_id: integer
+  * genre_id: integer
 }
 
 entity "song_artist" {
@@ -62,6 +87,9 @@ entity "playlists" {
   --
   * user_id: integer
   * name: varchar(100)
+  * description: text
+  * cover_image: varchar(255)
+  * is_public: boolean
   * created_at: datetime
 }
 
@@ -71,6 +99,26 @@ entity "playlist_song" {
   * playlist_id: integer
   * song_id: integer
   * added_at: datetime
+  * order: integer
+}
+
+entity "reviews" {
+  * id: integer
+  --
+  * user_id: integer
+  * song_id: integer
+  * rating: integer
+  * comment: text
+  * created_at: datetime
+}
+
+entity "follows" {
+  * id: integer
+  --
+  * follower_id: integer
+  * followed_id: integer
+  * followed_type: varchar(20)
+  * created_at: datetime
 }
 
 ' Relaciones
@@ -87,10 +135,21 @@ users ||--o{ playlists
 playlists ||--o{ playlist_song
 songs ||--o{ playlist_song
 
+genres ||--o{ song_genre
+songs ||--o{ song_genre
+
+users ||--o{ reviews
+songs ||--o{ reviews
+
+' Relaciones CORREGIDAS para follows
+users ||--o{ follows : "follower"
+users ||--o{ follows : "followed"
+
 ' Notas
 note right of artists
   stage_name permite artistas solistas o bandas.
   is_band = true para grupos, false para solistas.
+  formed_date: fecha de formación de la banda
 end note
 
 note right of song_artist
@@ -100,11 +159,19 @@ end note
 
 note right of playlists
   Cada usuario puede tener varias playlists.
+
+  - is_public: true para playlists públicas
+  false para playlists privadas
 end note
 
 note right of user_song
   Historial de reproducción y "me gusta"
   para cada usuario en cada canción.
+end note
+
+note right of follows
+  followed_type: 'artist' o 'user'
+  Permite seguir tanto artistas como otros usuarios
 end note
 
 @enduml

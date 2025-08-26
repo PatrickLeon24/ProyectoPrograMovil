@@ -1,0 +1,137 @@
+@startuml
+!theme plain
+
+left to right direction
+
+actor "Usuario" as User
+actor "Artista" as Artist
+actor "Administrador" as Admin
+
+rectangle "App Móvil WaveUl" {
+  ' Autenticación y perfil
+  usecase "Registrar cuenta" as UC1
+  usecase "Iniciar sesión" como UC2
+  usecase "Recuperar contraseña" como UC3
+  usecase "Gestionar perfil" como UC4
+  
+  ' Exploración y descubrimiento
+  usecase "Explorar canciones" como UC5
+  usecase "Buscar música" como UC6
+  usecase "Explorar artistas" como UC7
+  usecase "Explorar géneros" como UC8
+  usecase "Explorar álbumes" como UC9
+  
+  ' Reproducción e interacción
+  usecase "Reproducir canciones" como UC10
+  usecase "Gestionar playlists" como UC11
+  usecase "Dar like/me gusta" como UC12
+  usecase "Crear reseñas" como UC13
+  usecase "Seguir artistas/usuarios" como UC14
+  
+  ' Biblioteca personal
+  usecase "Ver historial de reproducción" como UC15
+  usecase "Ver canciones favoritas" como UC16
+  usecase "Ver playlists creadas" como UC17
+}
+
+rectangle "Panel Artista" {
+  usecase "Gestionar perfil artístico" como UC18
+  usecase "Subir canciones" como UC19
+  usecase "Gestionar álbumes" como UC20
+  usecase "Ver estadísticas" como UC21
+}
+
+rectangle "Panel Administración" {
+  usecase "Gestionar usuarios" como UC22
+  usecase "Gestionar contenido" como UC23
+  usecase "Moderar reseñas" como UC24
+  usecase "Gestionar géneros" como UC25
+  usecase "Ver reportes" como UC26
+}
+
+' Relaciones del Usuario
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+User --> UC15
+User --> UC16
+User --> UC17
+
+' Relaciones del Artista
+Artist --> UC2
+Artist --> UC4
+Artist --> UC5
+Artist --> UC6
+Artist --> UC10
+Artist --> UC14
+Artist --> UC18
+Artist --> UC19
+Artist --> UC20
+Artist --> UC21
+
+' Relaciones del Administrador
+Admin --> UC2
+Admin --> UC22
+Admin --> UC23
+Admin --> UC24
+Admin --> UC25
+Admin --> UC26
+
+' Relaciones de inclusión/extensión
+UC1 .> UC2 : <<include>>
+UC3 .> UC2 : <<extend>>
+UC4 .> UC2 : <<include>>
+UC5 .> UC6 : <<include>>
+UC7 .> UC6 : <<include>>
+UC8 .> UC6 : <<include>>
+UC9 .> UC6 : <<include>>
+UC10 .> UC12 : <<include>>
+UC11 .> UC10 : <<include>>
+UC13 .> UC10 : <<include>>
+UC14 .> UC7 : <<include>>
+UC15 .> UC10 : <<include>>
+UC16 .> UC12 : <<include>>
+UC17 .> UC11 : <<include>>
+UC18 .> UC4 : <<include>>
+UC19 .> UC20 : <<include>>
+UC21 .> UC10 : <<include>>
+UC23 .> UC7 : <<include>>
+UC23 .> UC9 : <<include>>
+UC23 .> UC5 : <<include>>
+UC26 .> UC21 : <<include>>
+
+' Notas explicativas
+note right of UC10
+  Incluye: play/pause, skip,
+  control de volumen, modo repeat,
+  y agregar a playlist
+end note
+
+note right of UC11
+  Crear, editar, eliminar playlists
+  Agregar/remover canciones
+  Compartir playlists públicas
+end note
+
+note right of UC18
+  Biografía, imágenes de perfil/portada,
+  información de contacto, redes sociales
+end note
+
+note right of UC21
+  Reproducciones, seguidores,
+  tendencias, demografía de oyentes
+end note
+
+@enduml
