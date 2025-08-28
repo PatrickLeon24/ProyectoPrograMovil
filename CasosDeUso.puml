@@ -10,43 +10,43 @@ actor "Administrador" as Admin
 rectangle "App Móvil WaveUl" {
   ' Autenticación y perfil
   usecase "Registrar cuenta" as UC1
-  usecase "Iniciar sesión" como UC2
-  usecase "Recuperar contraseña" como UC3
-  usecase "Gestionar perfil" como UC4
+  usecase "Iniciar sesión" as UC2
+  usecase "Recuperar contraseña" as UC3
+  usecase "Gestionar perfil" as UC4
   
   ' Exploración y descubrimiento
-  usecase "Explorar canciones" como UC5
-  usecase "Buscar música" como UC6
-  usecase "Explorar artistas" como UC7
-  usecase "Explorar géneros" como UC8
-  usecase "Explorar álbumes" como UC9
+  usecase "Explorar canciones" as UC5
+  usecase "Buscar música" as UC6
+  usecase "Explorar artistas" as UC7
+  usecase "Explorar géneros" as UC8
+  usecase "Explorar álbumes" as UC9
   
   ' Reproducción e interacción
-  usecase "Reproducir canciones" como UC10
-  usecase "Gestionar playlists" como UC11
-  usecase "Dar like/me gusta" como UC12
-  usecase "Crear reseñas" como UC13
-  usecase "Seguir artistas/usuarios" como UC14
+  usecase "Reproducir canciones" as UC10
+  usecase "Gestionar playlists" as UC11
+  usecase "Dar like/me gusta" as UC12
+  usecase "Crear reseñas" as UC13
+  usecase "Seguir artistas/usuarios" as UC14
   
   ' Biblioteca personal
-  usecase "Ver historial de reproducción" como UC15
-  usecase "Ver canciones favoritas" como UC16
-  usecase "Ver playlists creadas" como UC17
+  usecase "Ver historial de reproducción" as UC15
+  usecase "Ver canciones favoritas" as UC16
+  usecase "Ver playlists creadas" as UC17
 }
 
 rectangle "Panel Artista" {
-  usecase "Gestionar perfil artístico" como UC18
-  usecase "Subir canciones" como UC19
-  usecase "Gestionar álbumes" como UC20
-  usecase "Ver estadísticas" como UC21
+  usecase "Gestionar perfil artístico" as UC18
+  usecase "Subir canciones" as UC19
+  usecase "Gestionar álbumes" as UC20
+  usecase "Ver estadísticas" as UC21
 }
 
 rectangle "Panel Administración" {
-  usecase "Gestionar usuarios" como UC22
-  usecase "Gestionar contenido" como UC23
-  usecase "Moderar reseñas" como UC24
-  usecase "Gestionar géneros" como UC25
-  usecase "Ver reportes" como UC26
+  usecase "Gestionar usuarios" as UC22
+  usecase "Gestionar contenido" as UC23
+  usecase "Moderar reseñas" as UC24
+  usecase "Gestionar géneros" as UC25
+  usecase "Ver reportes" as UC26
 }
 
 ' Relaciones del Usuario
@@ -71,10 +71,6 @@ User --> UC17
 ' Relaciones del Artista
 Artist --> UC2
 Artist --> UC4
-Artist --> UC5
-Artist --> UC6
-Artist --> UC10
-Artist --> UC14
 Artist --> UC18
 Artist --> UC19
 Artist --> UC20

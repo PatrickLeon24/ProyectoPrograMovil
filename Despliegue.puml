@@ -1,0 +1,43 @@
+@startuml
+title Diagrama de Despliegue - WaveUl
+
+' Nodos principales
+node "Dispositivos Móviles" {
+  artifact "WaveUl_App.apk"
+}
+
+node "Backend - Replit" {
+  component "API WaveUl"
+  database "SQLite DB"
+}
+
+node "Google" {
+  component "Gmail"
+}
+
+node "Servicios Externos" {
+  
+}
+
+' Conexiones entre nodos
+"Dispositivos Móviles" --> "Backend - Replit" : HTTPS/API REST
+"Backend - Replit" --> "Google" : SMTP/Emails
+"Backend - Replit" --> "Servicios Externos" : HTTPS/APIs
+"Servicios Externos" --> "Dispositivos Móviles" : Push Notifications
+
+' Notas explicativas
+note right of "Backend - Replit"
+  **Plataforma: Replit**
+  - API REST en Python/Node.js
+  - Base de datos SQLite
+  - Autenticación JWT
+end note
+
+note right of "Google"
+  **Servicio de Email:**
+  - Gmail SMTP
+  - Verificación de cuentas
+  - Recuperación de contraseñas
+end note
+
+@enduml
