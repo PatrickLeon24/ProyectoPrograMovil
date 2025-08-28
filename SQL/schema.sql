@@ -137,17 +137,3 @@ CREATE TABLE follows (
     FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE(follower_id, followed_id, followed_type)
 );
-
--- Índices para mejorar el rendimiento
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_username ON users(username);
-CREATE INDEX idx_songs_name ON songs(name);
-CREATE INDEX idx_artists_stage_name ON artists(stage_name);
-CREATE INDEX idx_albums_artist_id ON albums(artist_id);
-CREATE INDEX idx_songs_album_id ON songs(album_id);
-CREATE INDEX idx_user_song_user_id ON user_song(user_id);
-CREATE INDEX idx_user_song_song_id ON user_song(song_id);
-CREATE INDEX idx_playlists_user_id ON playlists(user_id);
-CREATE INDEX idx_reviews_song_id ON reviews(song_id);
-CREATE INDEX idx_follows_follower_id ON follows(follower_id);
-CREATE INDEX idx_follows_followed_id ON follows(followed_id);
