@@ -9,6 +9,7 @@ entity "users" {
   * username: varchar(50)
   * password_hash: varchar(255)
   * email: varchar(150)
+  * profile_image: varchar(255)
   * birth_date: date
   * phone: varchar(20)
   * created_at: datetime
