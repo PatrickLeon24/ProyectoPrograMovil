@@ -10,11 +10,27 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
 
 1. Configuración del backend en Ruby
 
-Descargar Ruby Windows Installer del <a href="https://rubyinstaller.org/downloads/">Sitio Oficial</a> como se aprecia en la Imagen 1.
+    Descargar Ruby Windows Installer del <a href="https://rubyinstaller.org/downloads/">Sitio Oficial</a> como se aprecia en la Imagen 1.
+    ![Sitio Web de RWI](Docs/images/Imagen1.png)
+    <b>Figura 1: Sitio Web de RWI</b>
 
+    -Instalar Ruby y asegurarse de marcar la opción para instalar MSYS2.
 
-<b>Figura 1: Sitio Web de RWI</b>
+    -Verificar la instalación con el siguiente comando: ruby -v
+    ![comando1](Docs/images/Imagen2.png)
+    -Instalar Sinatra y las dependencias necesarias:
+    gem install sinatra sqlite3
 
+2. Configuración del Entorno Flutter
+
+    Descargar Flutter SDK desde el <a href="https://docs.flutter.dev/get-started/install">sitio oficial</a>.
+
+    Extraer el SDK en una carpeta de fácil acceso (ejemplo: C:\src\flutter).
+
+    Configurar la variable de entorno PATH agregando la ruta a la carpeta flutter\bin.
+
+    Verificar la instalación ejecutando:
+    ![comando1](Docs/images/Imagen3.png)
 ## Descripcion Modelo relacional
 
 <b>Figura 2: Modelo Relacional </b>
