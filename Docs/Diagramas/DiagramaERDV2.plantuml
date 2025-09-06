@@ -9,6 +9,7 @@ entity "users" {
   * username: varchar(50)
   * password_hash: varchar(255)
   * email: varchar(150)
+  * profile_image: varchar(255)
   * birth_date: date
   * phone: varchar(20)
   * created_at: datetime
@@ -25,8 +26,7 @@ entity "artists" {
   * stage_name: varchar(100)
   * is_band: boolean
   * biography: text
-  * profile_image: varchar(255)
-  * cover_image: varchar(255)
+  * profile_image: varchar(255)  
   * formed_date: date
 }
 
@@ -39,13 +39,19 @@ entity "albums" {
   * artist_id: integer
 }
 
+entity "album_song"{
+  * id: integer
+  --
+  * album_id: integer
+  * song_id: integer  
+}
+
 entity "songs" {
   * id: integer
   --
   * name: varchar(150)
   * duration: integer
-  * file_url: varchar(255)
-  * cover_image: varchar(255)
+  * file_url: varchar(255)  
   * release_date: date
   * album_id: integer
 }
@@ -90,7 +96,15 @@ entity "playlists" {
   * description: text
   * cover_image: varchar(255)
   * is_public: boolean
+  * save_in: integer
   * created_at: datetime
+}
+
+entity "playlist_user"{
+  *id: integer
+  --
+  * playlist_id
+  * user_id  
 }
 
 entity "playlist_song" {
@@ -109,6 +123,7 @@ entity "reviews" {
   * song_id: integer
   * rating: integer
   * comment: text
+  * likes: integer
   * created_at: datetime
 }
 
@@ -123,23 +138,28 @@ entity "follows" {
 
 ' Relaciones
 users ||--o{ user_song
+users ||--o{ playlists
+users ||--o{playlist_user
+users ||--o{ reviews
+
 songs ||--o{ user_song
+songs ||--o{ playlist_song
+songs ||--o{ song_genre
+songs ||--o{ reviews
 
 artists ||--o{ albums
-albums ||--o{ songs
-
-songs ||--o{ song_artist
 artists ||--o{ song_artist
 
-users ||--o{ playlists
-playlists ||--o{ playlist_song
-songs ||--o{ playlist_song
+albums ||--o{ songs
+albums ||--o{ album_song
+
+songs ||--o{ song_artist
+songs ||--o{ album_song
 
 genres ||--o{ song_genre
-songs ||--o{ song_genre
 
-users ||--o{ reviews
-songs ||--o{ reviews
+playlists ||--o{ playlist_song
+playlists ||--o{ playlist_user
 
 ' Relaciones CORREGIDAS para follows
 users ||--o{ follows : "follower"
@@ -159,15 +179,21 @@ end note
 
 note right of playlists
   Cada usuario puede tener varias playlists.
-
   - is_public: true para playlists públicas
-  false para playlists privadas
+  false para playlists privadas  
+  - save_in: el numero de playlists guardadas
 end note
 
 note right of user_song
   Historial de reproducción y "me gusta"
   para cada usuario en cada canción.
 end note
+
+note right of album_song
+  La misma cancion puede estar en multiples albumes
+  Como albumes recopilatorios, mejores canciones, etc
+end note
+
 
 note right of follows
   followed_type: 'artist' o 'user'
