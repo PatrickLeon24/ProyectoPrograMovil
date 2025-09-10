@@ -31,9 +31,32 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
 
     Verificar la instalación ejecutando:
     ![comando1](Docs/images/Imagen3.png)
-## Descripcion Modelo relacional
 
-<b>Figura 2: Modelo Relacional </b>
+
+## 🗄️ Modelo Relacional (ERD)
+
+A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la información en torno a usuarios, artistas, canciones, playlists y sus interacciones.  
+
+![Modelo Relacional](Docs/images/ERD.png)  
+<b>Figura 2: Modelo Relacional de WaveUl</b>  
+
+### 🔹 Entidades Principales  
+- **users** 🧑: Información de los usuarios (perfil, autenticación, verificación, actividad).  
+- **artists** 🎤: Solistas o bandas, con nombre artístico, biografía e imagen.  
+- **albums** 💿: Agrupaciones de canciones publicadas por artistas.  
+- **songs** 🎶: Pistas musicales con duración, archivo y metadatos.  
+- **genres** 🎼: Clasificación de canciones por género.  
+- **playlists** 📂: Listas de reproducción creadas por usuarios, públicas o privadas.  
+- **reviews** ⭐: Opiniones y valoraciones de canciones.  
+- **follows** 👥: Permite seguir tanto a artistas como a otros usuarios.  
+
+### 🔹 Entidades de Relación  
+- **album_song**: Relación entre álbumes y canciones (recopilatorios).  
+- **song_genre**: Relación entre canciones y géneros.  
+- **song_artist**: Relación entre canciones y artistas (colaboraciones).  
+- **user_song**: Registro de interacciones usuario–canción (reproducciones, favoritos).  
+- **playlist_song**: Canciones dentro de una playlist, con orden y fecha de adición.  
+- **playlist_user**: Relación de colaboración en playlists compartidas.
 
 
 
