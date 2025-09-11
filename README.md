@@ -62,4 +62,70 @@ A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la
 - **review_likes**: Relación usuario–reseña que almacena likes en opiniones. 
 
 
-## Descripción de Casos de Uso - WaveUl
+## Casos de Uso - WaveUl
+
+El sistema WaveUl se organiza en torno a tres tipos de actores principales:
+
+- **Usuario** : oyente de música que explora, reproduce e interactúa con canciones, playlists y artistas.  
+- **Artista** : creador de contenido musical, con acceso a herramientas para gestionar su perfil artístico, canciones y estadísticas.  
+- **Administrador** : encargado de la moderación, gestión de usuarios y control del catálogo musical.  
+
+![Casos de Uso](Docs/images/UseCases.png)  
+**Figura 3: Diagrama de Casos de Uso de WaveUl**
+
+---
+
+###  Autenticación y Perfil
+- **Registrar cuenta (UC1)**: permite a nuevos usuarios crear un perfil en la app.  
+- **Iniciar sesión (UC2)**: acceso de usuarios, artistas y administradores a sus respectivos paneles.  
+- **Recuperar contraseña (UC3)**: recuperación mediante correo/token de verificación.  
+- **Gestionar perfil (UC4)**: actualización de información personal, foto de perfil y ajustes de seguridad.  
+
+---
+
+###  Exploración y Descubrimiento
+- **Explorar canciones (UC5)**: navegar por el catálogo general.  
+- **Buscar música (UC6)**: búsqueda avanzada por nombre, género, artista o álbum.  
+- **Explorar artistas (UC7)**: consulta de perfiles artísticos y discografía.  
+- **Explorar géneros (UC8)**: descubrimiento de música organizada por categorías musicales.  
+- **Explorar álbumes (UC9)**: visualización de discos publicados por artistas.  
+- **Explorar playlists (UC27)**: acceso a playlists públicas y destacadas.  
+- **Explorar perfiles (UC28)**: posibilidad de visitar perfiles de otros usuarios.  
+
+---
+
+###  Reproducción e Interacción
+- **Reproducir canciones (UC10)**: incluye controles de play/pause, skip, volumen, repeat y añadir a playlists.  
+- **Gestionar playlists (UC11)**: crear, editar, eliminar, compartir y organizar playlists.  
+- **Dar like/me gusta (UC12)**: marcar canciones o reseñas como favoritas.  
+- **Crear reseñas (UC13)**: permitir a los usuarios opinar y valorar canciones.  
+- **Ver reseñas (UC31)**: lectura de comentarios y puntuaciones de la comunidad.  
+- **Seguir artistas/usuarios (UC14)**: suscripción a contenido de interés.  
+- **Reportar/Ocultar contenido (UC29)**: denunciar o bloquear canciones, usuarios, reseñas o playlists.  
+
+---
+
+###  Biblioteca Personal
+- **Ver historial de reproducción (UC15)**: acceso al registro de canciones escuchadas.  
+- **Ver canciones favoritas (UC16)**: listado de temas marcados con “me gusta”.  
+- **Ver playlists creadas (UC17)**: gestión de playlists propias.  
+- **Ver nuevas recomendaciones (UC30)**: sugerencias personalizadas basadas en hábitos de escucha.  
+
+---
+
+###  Panel del Artista
+- **Gestionar perfil artístico (UC18)**: edición de biografía, imágenes, redes sociales y datos de la banda/solista.  
+- **Subir canciones (UC19)**: carga de pistas nuevas al catálogo.  
+- **Gestionar álbumes (UC20)**: creación y edición de álbumes.  
+- **Ver estadísticas (UC21)**: análisis de reproducciones, seguidores, demografía y tendencias.  
+
+---
+
+###  Panel de Administración
+- **Gestionar usuarios (UC22)**: alta, baja o suspensión de cuentas.  
+- **Gestionar contenido (UC23)**: control sobre canciones, álbumes y artistas cargados.  
+- **Moderar reseñas (UC24)**: validación y moderación de opiniones de la comunidad.  
+- **Gestionar géneros (UC25)**: administración de categorías musicales.  
+- **Ver reportes (UC26)**: análisis y seguimiento de contenido denunciado.  
+
+---
