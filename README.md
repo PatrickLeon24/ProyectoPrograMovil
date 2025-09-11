@@ -59,5 +59,4 @@ A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la
 - **playlist_user**: Relación de colaboración en playlists compartidas.
 
 
-
 ## Descripción de Casos de Uso - WaveUl

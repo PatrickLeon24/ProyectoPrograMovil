@@ -20,6 +20,14 @@ entity "users" {
   * reset_token_expires: datetime
 }
 
+entity "admins" {
+  * id: integer
+  --
+  * user_id: integer
+  * role: varchar(50)  ' Ej: superadmin, moderador
+  * created_at: datetime
+}
+
 entity "artists" {
   * id: integer
   --
@@ -127,6 +135,14 @@ entity "reviews" {
   * created_at: datetime
 }
 
+entity "review_likes" {
+  * id: integer
+  --
+  * review_id: integer
+  * user_id: integer
+  * created_at: datetime
+}
+
 entity "follows" {
   * id: integer
   --
@@ -136,11 +152,24 @@ entity "follows" {
   * created_at: datetime
 }
 
+entity "reports" {
+  * id: integer
+  --
+  * user_id: integer
+  * content_type: varchar(20)  ' Ej: song, review, playlist
+  * content_id: integer
+  * reason: text
+  * created_at: datetime
+}
+
 ' Relaciones
 users ||--o{ user_song
 users ||--o{ playlists
-users ||--o{playlist_user
+users ||--o{ playlist_user
 users ||--o{ reviews
+users ||--o{ review_likes
+users ||--o{ reports
+users ||--o{ admins
 
 songs ||--o{ user_song
 songs ||--o{ playlist_song
@@ -166,6 +195,14 @@ users ||--o{ follows : "follower"
 users ||--o{ follows : "followed"
 
 ' Notas
+note right of reports
+  content_type indica qué se reporta:
+  - song
+  - review
+  - playlist
+  content_id apunta al ID real.
+end note
+
 note right of artists
   stage_name permite artistas solistas o bandas.
   is_band = true para grupos, false para solistas.
@@ -198,6 +235,11 @@ end note
 note right of follows
   followed_type: 'artist' o 'user'
   Permite seguir tanto artistas como otros usuarios
+end note
+
+note right of review_likes
+  Se registra quién dio like a qué reseña.
+  Evita duplicados y da trazabilidad.
 end note
 
 @enduml
