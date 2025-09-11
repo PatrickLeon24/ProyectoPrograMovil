@@ -1,43 +1,49 @@
 @startuml
-title Diagrama de Despliegue - WaveUl
+title Diagrama de Despliegue - WaveUl (Versión actual con Emails)
 
 ' Nodos principales
-node "Dispositivos Móviles" {
-  artifact "WaveUl_App.apk"
+node "Dispositivo Móvil (Usuario)" {
+  artifact "WaveUl_App.apk" as app
 }
 
-node "Backend - Replit" {
-  component "API WaveUl"
-  database "SQLite DB"
+node "Servidor Backend" {
+  component "API WaveUl (Sinatra/Ruby)"
+  database "SQLite3 DB"
 }
 
 node "Google" {
-  component "Gmail"
-}
-
-node "Servicios Externos" {
-  
+  component "Google OAuth 2.0"
+  component "Gmail SMTP"
 }
 
 ' Conexiones entre nodos
-"Dispositivos Móviles" --> "Backend - Replit" : HTTPS/API REST
-"Backend - Replit" --> "Google" : SMTP/Emails
-"Backend - Replit" --> "Servicios Externos" : HTTPS/APIs
-"Servicios Externos" --> "Dispositivos Móviles" : Push Notifications
+app --> "Servidor Backend" : HTTPS/API REST
+"Servidor Backend" --> "Google OAuth 2.0" : Autenticación OAuth
+"Servidor Backend" --> "SQLite3 DB" : Consultas SQL
+"Servidor Backend" --> "Gmail SMTP" : Envío de Emails (recuperación/verificación)
 
 ' Notas explicativas
-note right of "Backend - Replit"
-  **Plataforma: Replit**
-  - API REST en Python/Node.js
-  - Base de datos SQLite
-  - Autenticación JWT
+note right of "Servidor Backend"
+  **Backend:**
+  - Framework: Sinatra (Ruby)
+  - Base de datos: SQLite3
+  - API REST (para Flutter)
+  - Autenticación con Google OAuth
+  - Envío de correos por SMTP
 end note
 
 note right of "Google"
-  **Servicio de Email:**
-  - Gmail SMTP
-  - Verificación de cuentas
-  - Recuperación de contraseñas
+  **Servicios de Google:**
+  - OAuth 2.0: inicio de sesión seguro
+  - Gmail SMTP: envío de correos
+    (verificación y recuperación)
+end note
+
+note right of app
+  **Aplicación Móvil (Flutter):**
+  - Interfaz del usuario
+  - Consume API REST
+  - Manejo de tokens JWT
 end note
 
 @enduml

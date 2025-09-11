@@ -129,3 +129,10 @@ El sistema WaveUl se organiza en torno a tres tipos de actores principales:
 - **Ver reportes (UC26)**: análisis y seguimiento de contenido denunciado.  
 
 ---
+
+
+
+
+REportes: especificar bien como seria la relacion polimorfica
+SUPERADMIN: usuarios comunes y artistas
+Moderador : solo actividad de los usuarios 

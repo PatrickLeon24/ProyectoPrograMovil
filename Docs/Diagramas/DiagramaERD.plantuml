@@ -62,6 +62,7 @@ entity "songs" {
   * file_url: varchar(255)  
   * release_date: date
   * album_id: integer
+  * play_count_global: integer
 }
 
 entity "genres" {

@@ -46,6 +46,7 @@ CREATE TABLE songs (
     cover_image VARCHAR(255),
     release_date DATE NOT NULL,
     album_id INTEGER,
+    play_count_global: integer,
     FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE SET NULL
 );
 
