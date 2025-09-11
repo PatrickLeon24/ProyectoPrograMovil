@@ -1,6 +1,10 @@
 #Hacer diagramas: erd,
 despligue, 
-casos de usos
+casos de usos (completado):
+  *Autenticación y perfil --> 100%
+  *Exploración y descubrimiento --> 100%
+  *Reproducción e interacción --> 75%
+  --solo faltaria un par de vistas de artistas, admin, historial
 Documentar en readme
 Hacer el schema e inserts
 Crear base de datos sqlite

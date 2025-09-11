@@ -20,6 +20,8 @@ rectangle "App Móvil WaveUl" {
   usecase "Explorar artistas" as UC7
   usecase "Explorar géneros" as UC8
   usecase "Explorar álbumes" as UC9
+  usecase "Explorar playlists" as UC27
+  usecase "Explorar perfiles" as UC28
   
   ' Reproducción e interacción
   usecase "Reproducir canciones" as UC10
@@ -67,6 +69,8 @@ User --> UC14
 User --> UC15
 User --> UC16
 User --> UC17
+User --> UC27
+User --> UC28
 
 ' Relaciones del Artista
 Artist --> UC2
@@ -92,6 +96,8 @@ UC5 .> UC6 : <<include>>
 UC7 .> UC6 : <<include>>
 UC8 .> UC6 : <<include>>
 UC9 .> UC6 : <<include>>
+UC27 .> UC6 : <<include>>
+UC27 .> UC6 : <<include>>
 UC10 .> UC12 : <<include>>
 UC11 .> UC10 : <<include>>
 UC13 .> UC10 : <<include>>
