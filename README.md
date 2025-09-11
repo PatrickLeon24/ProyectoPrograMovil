@@ -33,30 +33,33 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
     ![comando1](Docs/images/Imagen3.png)
 
 
-## 🗄️ Modelo Relacional (ERD)
+## Modelo Relacional (ERD)
 
 A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la información en torno a usuarios, artistas, canciones, playlists y sus interacciones.  
 
 ![Modelo Relacional](Docs/images/ERD.png)  
 <b>Figura 2: Modelo Relacional de WaveUl</b>  
 
-### 🔹 Entidades Principales  
-- **users** 🧑: Información de los usuarios (perfil, autenticación, verificación, actividad).  
-- **artists** 🎤: Solistas o bandas, con nombre artístico, biografía e imagen.  
-- **albums** 💿: Agrupaciones de canciones publicadas por artistas.  
-- **songs** 🎶: Pistas musicales con duración, archivo y metadatos.  
-- **genres** 🎼: Clasificación de canciones por género.  
-- **playlists** 📂: Listas de reproducción creadas por usuarios, públicas o privadas.  
-- **reviews** ⭐: Opiniones y valoraciones de canciones.  
-- **follows** 👥: Permite seguir tanto a artistas como a otros usuarios.  
+### Entidades Principales  
+- **users** : Información de usuarios (perfil, credenciales, verificación, actividad).  
+- **admins** : Subtipo de usuario con roles de administración (ej. superadmin, moderador).  
+- **artists** : Artistas solistas o bandas con nombre artístico, biografía, imagen y fecha de formación.  
+- **albums** : Colecciones de canciones asociadas a artistas.  
+- **songs** : Pistas musicales con duración, archivo, metadatos y fecha de lanzamiento.  
+- **genres** : Clasificación musical de canciones por género.  
+- **playlists** : Listas de reproducción creadas por usuarios, públicas o privadas.  
+- **reviews** : Opiniones y valoraciones de canciones con calificación y comentarios.  
+- **follows** : Permite seguir tanto a artistas como a otros usuarios.  
+- **reports** : Registros de reportes de contenido inapropiado (canciones, playlists, reseñas). 
 
-### 🔹 Entidades de Relación  
-- **album_song**: Relación entre álbumes y canciones (recopilatorios).  
-- **song_genre**: Relación entre canciones y géneros.  
-- **song_artist**: Relación entre canciones y artistas (colaboraciones).  
-- **user_song**: Registro de interacciones usuario–canción (reproducciones, favoritos).  
+### Entidades de Relación  
+- **album_song**: Relación N:M entre álbumes y canciones (soporta recopilatorios).  
+- **song_genre**: Relación N:M entre canciones y géneros musicales.  
+- **song_artist**: Relación N:M entre canciones y artistas (para colaboraciones y feats).  
+- **user_song**: Registro de interacciones usuario–canción (reproducciones, favoritos, última vez escuchada).  
 - **playlist_song**: Canciones dentro de una playlist, con orden y fecha de adición.  
-- **playlist_user**: Relación de colaboración en playlists compartidas.
+- **playlist_user**: Relación de colaboración en playlists compartidas entre usuarios.  
+- **review_likes**: Relación usuario–reseña que almacena likes en opiniones. 
 
 
 ## Descripción de Casos de Uso - WaveUl
