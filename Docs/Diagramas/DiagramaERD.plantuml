@@ -163,36 +163,35 @@ entity "reports" {
 }
 
 ' Relaciones
-users ||--o{ user_song
-users ||--o{ playlists
-users ||--o{ playlist_user
-users ||--o{ reviews
-users ||--o{ review_likes
-users ||--o{ reports
-users ||--o{ admins
+users "1" -- "*" user_song
+users "1" -- "*" playlists
+users "1" -- "*" playlist_user
+users "1" -- "*" reviews
+users "1" -- "*" review_likes
+users "1" -- "*" reports
+users "1" -- "*" admins
 
-songs ||--o{ user_song
-songs ||--o{ playlist_song
-songs ||--o{ song_genre
-songs ||--o{ reviews
+songs "1" -- "*" user_song
+songs "1" -- "*" playlist_song
+songs "1" -- "*" song_genre
+songs "1" -- "*" reviews
 
-artists ||--o{ albums
-artists ||--o{ song_artist
+artists "1" -- "*" albums
+artists "1" -- "*" song_artist
 
-albums ||--o{ songs
-albums ||--o{ album_song
+albums "1" -- "*" songs
+albums "1" -- "*" album_song
 
-songs ||--o{ song_artist
-songs ||--o{ album_song
+songs "1" -- "*" song_artist
+songs "1" -- "*" album_song
 
-genres ||--o{ song_genre
+genres "1" -- "*" song_genre
 
-playlists ||--o{ playlist_song
-playlists ||--o{ playlist_user
+playlists "1" -- "*" playlist_song
+playlists "1" -- "*" playlist_user
 
-' Relaciones CORREGIDAS para follows
-users ||--o{ follows : "follower"
-users ||--o{ follows : "followed"
+users "1" -- "*" follows : "follower"
+users "1" -- "*" follows : "followed"
 
 ' Notas
 note right of reports
