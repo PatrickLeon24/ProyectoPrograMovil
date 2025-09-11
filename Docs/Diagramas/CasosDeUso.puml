@@ -28,12 +28,15 @@ rectangle "App Móvil WaveUl" {
   usecase "Gestionar playlists" as UC11
   usecase "Dar like/me gusta" as UC12
   usecase "Crear reseñas" as UC13
-  usecase "Seguir artistas/usuarios" as UC14
+  usecase "Ver reseñas" as UC31
+  usecase "Seguir artistas/usuarios" as UC14  
+  usecase "Reportar/Ocultar contenido" as UC29
   
   ' Biblioteca personal
   usecase "Ver historial de reproducción" as UC15
   usecase "Ver canciones favoritas" as UC16
   usecase "Ver playlists creadas" as UC17
+  usecase "Ver nuevas recomendaciones" as UC30
 }
 
 rectangle "Panel Artista" {
@@ -71,6 +74,9 @@ User --> UC16
 User --> UC17
 User --> UC27
 User --> UC28
+User --> UC29
+User --> UC30
+User --> UC31
 
 ' Relaciones del Artista
 Artist --> UC2
@@ -99,8 +105,10 @@ UC9 .> UC6 : <<include>>
 UC27 .> UC6 : <<include>>
 UC27 .> UC6 : <<include>>
 UC10 .> UC12 : <<include>>
+UC10 .> UC31 : <<include>>
 UC11 .> UC10 : <<include>>
 UC13 .> UC10 : <<include>>
+UC13 .> UC31 : <<extend>>
 UC14 .> UC7 : <<include>>
 UC15 .> UC10 : <<include>>
 UC16 .> UC12 : <<include>>
@@ -112,6 +120,12 @@ UC23 .> UC7 : <<include>>
 UC23 .> UC9 : <<include>>
 UC23 .> UC5 : <<include>>
 UC26 .> UC21 : <<include>>
+UC29 .> UC5  : <<extend>> 
+UC29 .> UC7 : <<extend>>
+UC29 .> UC9  : <<extend>>
+UC29 .> UC27  : <<extend>>
+UC29 .> UC28  : <<extend>>
+UC29 .> UC31  : <<extend>>
 
 ' Notas explicativas
 note right of UC10
