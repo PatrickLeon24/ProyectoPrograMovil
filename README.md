@@ -105,9 +105,7 @@ A continuación, se detallan los **requerimientos funcionales** de WaveUl, aline
 ### 5. Panel del Artista  
 - **RF-21**: El sistema debe permitir a los artistas editar su perfil artístico (biografía, imágenes, redes sociales).  
 
-
-
-
+---
 ## Modelo Relacional (ERD)
 
 A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la información en torno a usuarios, artistas, canciones, playlists y sus interacciones.  
@@ -116,26 +114,25 @@ A continuación, se presenta el modelo relacional de **WaveUl**, que organiza la
 <b>Figura 2: Modelo Relacional de WaveUl</b>  
 
 ### Entidades Principales  
-- **users** : Información de usuarios (perfil, credenciales, verificación, actividad).  
-- **admins** : Subtipo de usuario con roles de administración (ej. superadmin, moderador).  
-- **artists** : Artistas solistas o bandas con nombre artístico, biografía, imagen y fecha de formación.  
-- **albums** : Colecciones de canciones asociadas a artistas.  
-- **songs** : Pistas musicales con duración, archivo, metadatos y fecha de lanzamiento.  
-- **genres** : Clasificación musical de canciones por género.  
-- **playlists** : Listas de reproducción creadas por usuarios, públicas o privadas.  
-- **reviews** : Opiniones y valoraciones de canciones con calificación y comentarios.  
-- **follows** : Permite seguir tanto a artistas como a otros usuarios.  
-- **reports** : Registros de reportes de contenido inapropiado (canciones, playlists, reseñas). 
+- **users**: Información detallada del usuario, incluyendo perfil, credenciales, verificación, actividad, y preferencias.  
+- **admins**: Subtipo de usuario con roles específicos para administración, como superadmin y moderador, con permisos para gestionar el contenido y usuarios.  
+- **artists**: Representación de artistas, ya sean solistas o bandas, con su nombre artístico, biografía, imagen y fecha de formación.  
+- **albums**: Colecciones de canciones, con referencias a los artistas que las componen, fecha de lanzamiento, y género.  
+- **songs**: Canciones individuales con su nombre, duración, archivo, metadatos (como nombre del álbum y género), y fecha de lanzamiento.  
+- **genres**: Clasificación de las canciones según el género musical (rock, pop, hip hop, etc.).  
+- **playlists**: Listas de reproducción creadas por usuarios, que pueden ser públicas o privadas, con canciones agregadas por los usuarios.  
+- **reviews**: Opiniones y valoraciones de canciones, con calificación numérica y comentarios escritos por los usuarios.  
+- **follows**: Relación que permite a los usuarios seguir tanto a artistas como a otros usuarios para recibir actualizaciones de su actividad.  
+- **reports**: Registros que almacenan reportes de contenido inapropiado, como canciones, listas de reproducción o reseñas.  
 
 ### Entidades de Relación  
-- **album_song**: Relación N:M entre álbumes y canciones (soporta recopilatorios).  
-- **song_genre**: Relación N:M entre canciones y géneros musicales.  
-- **song_artist**: Relación N:M entre canciones y artistas (para colaboraciones y feats).  
-- **user_song**: Registro de interacciones usuario–canción (reproducciones, favoritos, última vez escuchada).  
-- **playlist_song**: Canciones dentro de una playlist, con orden y fecha de adición.  
-- **playlist_user**: Relación de colaboración en playlists compartidas entre usuarios.  
-- **review_likes**: Relación usuario–reseña que almacena likes en opiniones. 
-
+- **album_song**: Relación N:M entre álbumes y canciones, lo que permite que un álbum tenga múltiples canciones y una canción pueda pertenecer a varios álbumes.  
+- **song_genre**: Relación N:M entre canciones y géneros musicales, permitiendo que una canción esté clasificada en varios géneros.  
+- **song_artist**: Relación N:M entre canciones y artistas, para registrar colaboraciones y artistas invitados en canciones.  
+- **user_song**: Registro de las interacciones entre el usuario y las canciones, incluyendo la cantidad de reproducciones, canciones favoritas, y la última vez que una canción fue escuchada.  
+- **playlist_song**: Relación entre playlists y canciones, que también almacena el orden y la fecha en la que una canción fue añadida a una playlist.  
+- **playlist_user**: Relación que permite que varios usuarios colaboren en la creación y modificación de playlists compartidas.  
+- **review_likes**: Relación entre usuarios y reseñas, donde los usuarios pueden dar "me gusta" a una reseña publicada por otro usuario.
 
 ## Casos de Uso - WaveUl
 
