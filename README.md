@@ -35,7 +35,40 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
     Crear proyecto con flutter: 
     flutter create waveul
 
+---
+## Diagrama de despliegue
 
+El diagrama de despliegue de **WaveUI** presenta la arquitectura de la aplicación móvil desarrollada en Flutter, que se conecta a un backend en Sinatra (Ruby) mediante una API REST segura. La aplicación utiliza de los servicios de Google OAuth 2.0  para autenticación y Gmail SMTP para el envío de correos de verificación y recuperación. Los datos se almacenan en una base de datos SQLite3, y el flujo de información entre componentes se detalla a continuación.
+
+![Diagrama de despliegue](Docs/images/Deploy.png)
+<b>Figura 1: Diagrama de despliegue de WaveUl</b> 
+
+### Nodos y Componentes (Despliegue)
+
+A continuación, se presenta la descripción de cada
+nodo y componente de la aplicación móvil WaveUI:
+
+### 1. Nodos
+
+- **Dispositivo Móvil (Usuario)**: El dispositivo móvil que ejecuta la aplicación apk WaveUI desarrollada en Flutter, proporcionando la interfaz de usuario para interactuar con la plataforma musical.
+
+- **Servidor Backend**: El servidor que maneja las solicitudes de la aplicación, donde se ejecuta el backend y la base de datos, gestionando la lógica de negocio y la autenticación de los usuarios
+
+- **Google**: Nodo que representa los servicios de Google utilizados en el sistema. Contiene los servicios de autenticación y correo electrónico.
+
+### 2. Componentes
+
+- **WaveUI_App.apk**: El software que se ejecuta en el dispositivo móvil, desarrollado en Flutter, que permite a los usuarios interactuar con la plataforma musical y consume la API REST.
+
+- **SQLite3 DB**: La base de datos donde se almacenan los datos de la aplicación, como la información de usuarios, canciones, artistas o playlists.
+
+- **API WaveUI (Sinatra/Ruby)**: El componente que maneja las solicitudes REST de la aplicación móvil y se ejecuta dentro del servidor backend. Utiliza Sinatra (Ruby) como framework.
+
+- **Google OAuth 2.0**: Servicio que permite a los usuarios iniciar sesión de forma segura en WaveUI utilizando sus cuentas de Google, simplificando el proceso de autenticación.
+
+- **Gmail SMTP**: Servicio que permite enviar correos electrónicos desde WaveUI, utilizado para la verificación de cuentas y recuperación de contraseñas.
+
+---
 
 ## Requerimientos Funcionales
 
@@ -72,7 +105,8 @@ A continuación, se detallan los **requerimientos funcionales** de WaveUl, aline
 ### 5. Panel del Artista  
 - **RF-21**: El sistema debe permitir a los artistas editar su perfil artístico (biografía, imágenes, redes sociales).  
 
----
+
+
 
 ## Modelo Relacional (ERD)
 
