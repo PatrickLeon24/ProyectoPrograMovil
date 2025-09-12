@@ -40,7 +40,7 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
 
 El diagrama de despliegue de **WaveUI** presenta la arquitectura de la aplicación móvil desarrollada en Flutter, que se conecta a un backend en Sinatra (Ruby) mediante una API REST segura. La aplicación utiliza de los servicios de Google OAuth 2.0  para autenticación y Gmail SMTP para el envío de correos de verificación y recuperación. Los datos se almacenan en una base de datos SQLite3, y el flujo de información entre componentes se detalla a continuación.
 
-![Diagrama de despliegue](Docs/images/Deploy.png)
+![Diagrama de despliegue](Docs/images/Deploy.PNG)
 <b>Figura 1: Diagrama de despliegue de WaveUl</b> 
 
 ### Nodos y Componentes (Despliegue)
@@ -142,8 +142,14 @@ El sistema WaveUl se organiza en torno a tres tipos de actores principales:
 - **Artista** : creador de contenido musical, con acceso a herramientas para gestionar su perfil artístico, canciones y estadísticas.  
 - **Administrador** : encargado de la moderación, gestión de usuarios y control del catálogo musical.  
 
-![Casos de Uso](Docs/images/UseCases.png)  
-**Figura 3: Diagrama de Casos de Uso de WaveUl**
+![Casos de Uso](Docs/images/UseCase1.png)  
+**Figura 3.1: Diagrama de Casos de Uso de WaveUl**
+![Casos de Uso](Docs/images/UseCase2.png)  
+**Figura 3.2: Diagrama de Casos de Uso de WaveUl**
+![Casos de Uso](Docs/images/UseCase3.png)  
+**Figura 3.3: Diagrama de Casos de Uso de WaveUl**
+![Casos de Uso](Docs/images/UseCase4.png)  
+**Figura 3.4: Diagrama de Casos de Uso de WaveUl**
 
 ---
 
@@ -284,10 +290,5 @@ Para mayor detalle en vistas extra, acceder al siguiente link:
 - **RNF13**: Los mensajes de error deben ser claros, indicando la acción a seguir (ejemplo: *“Correo no registrado, intente nuevamente”*).  
 
 ---
-
-
-REportes: especificar bien como seria la relacion polimorfica
-SUPERADMIN: usuarios comunes y artistas
-Moderador : solo actividad de los usuarios 
 
 
