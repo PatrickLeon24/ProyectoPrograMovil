@@ -77,7 +77,7 @@ A continuación, se detallan los **requerimientos funcionales** de WaveUl, aline
 ### 1. Autenticación y Perfil  
 - **RF-01**: El sistema debe permitir registrar una cuenta con email o autenticación mediante Google OAuth.  
 - **RF-02**: El sistema debe permitir la recuperación de contraseña mediante token enviado por correo (Gmail SMTP).  
-- **RF-03**: El sistema debe permitir editar datos de perfil (nombre, foto, descripción, privacidad).  
+- **RF-03**: El sistema debe permitir editar datos de perfil (nombre, foto, etc).  
 
 ### 2. Exploración y Descubrimiento  
 - **RF-04**: El sistema debe mostrar un catálogo general de canciones, álbumes, playlists, artistas y géneros.  
