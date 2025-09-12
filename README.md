@@ -247,6 +247,11 @@ A continuación, se presentan los mockups iniciales de la aplicación WaveUl, di
 
 - **Creación de nueva contraseña (3/3)**: aquí se crea la nueva contraseña
 
+### Vistas adicionales
+
+Para mayor detalle en vistas extra, acceder al siguiente link:
+
+-<a>https://www.figma.com/design/g5AAIH8nBNXmfhp1wN5ehA/Spotify-App-UI---Free-UI-Kit--Recreated---Community-?node-id=0-1&t=8MAG2YSyVRt2UZZ4-1</a>
 
 
 # Requerimientos No Funcionales - WaveUl
