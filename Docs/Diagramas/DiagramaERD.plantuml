@@ -112,8 +112,8 @@ entity "playlists" {
 entity "playlist_user"{
   *id: integer
   --
-  * playlist_id
-  * user_id  
+  * playlist_id: integer
+  * user_id: integer  
 }
 
 entity "playlist_song" {
@@ -144,15 +144,6 @@ entity "review_likes" {
   * created_at: datetime
 }
 
-entity "follows" {
-  * id: integer
-  --
-  * follower_id: integer
-  * followed_id: integer
-  * followed_type: varchar(20)
-  * created_at: datetime
-}
-
 entity "reports" {
   * id: integer
   --
@@ -163,7 +154,58 @@ entity "reports" {
   * created_at: datetime
 }
 
-' Relaciones
+' ------------------
+' NUEVAS ENTIDADES
+' ------------------
+
+entity "user_follow_user" {
+  * id: integer
+  --
+  * follower_id: integer
+  * followed_user_id: integer
+  * created_at: datetime
+}
+
+entity "user_follow_artist" {
+  * id: integer
+  --
+  * user_id: integer
+  * artist_id: integer
+  * created_at: datetime
+}
+
+entity "playlist_likes" {
+  * id: integer
+  --
+  * user_id: integer
+  * playlist_id: integer
+  * created_at: datetime
+}
+
+entity "playlist_reviews" {
+  * id: integer
+  --
+  * user_id: integer
+  * playlist_id: integer
+  * rating: integer
+  * comment: text
+  * likes: integer
+  * created_at: datetime
+}
+
+entity "user_pins" {
+  * id: integer
+  --
+  * user_id: integer
+  * content_type: varchar(20)  ' song, playlist, artist
+  * content_id: integer
+  * pinned_at: datetime
+}
+
+' ------------------
+' RELACIONES
+' ------------------
+
 users "1" -- "*" user_song
 users "1" -- "*" playlists
 users "1" -- "*" playlist_user
@@ -191,10 +233,24 @@ genres "1" -- "*" song_genre
 playlists "1" -- "*" playlist_song
 playlists "1" -- "*" playlist_user
 
-users "1" -- "*" follows : "follower"
-users "1" -- "*" follows : "followed"
+' Nuevas relaciones
+users "1" -- "*" user_follow_user : "follower"
+users "1" -- "*" user_follow_user : "followed"
+users "1" -- "*" user_follow_artist
+artists "1" -- "*" user_follow_artist
 
-' Notas
+users "1" -- "*" playlist_likes
+playlists "1" -- "*" playlist_likes
+
+users "1" -- "*" playlist_reviews
+playlists "1" -- "*" playlist_reviews
+
+users "1" -- "*" user_pins
+
+' ------------------
+' NOTAS
+' ------------------
+
 note right of reports
   content_type indica qué se reporta:
   - song
@@ -217,8 +273,7 @@ end note
 note right of playlists
   Cada usuario puede tener varias playlists.
   - is_public: true para playlists públicas
-  false para playlists privadas  
-  - save_in: el numero de playlists guardadas
+  - save_in: el número de playlists guardadas
 end note
 
 note right of user_song
@@ -227,19 +282,33 @@ note right of user_song
 end note
 
 note right of album_song
-  La misma cancion puede estar en multiples albumes
-  Como albumes recopilatorios, mejores canciones, etc
+  La misma canción puede estar en múltiples álbumes,
+  como recopilatorios o "mejores hits".
 end note
 
-
-note right of follows
-  followed_type: 'artist' o 'user'
-  Permite seguir tanto artistas como otros usuarios
+note right of user_follow_user
+  Tabla específica para seguir a otros usuarios.
+  follower_id -> quien sigue
+  followed_user_id -> a quien siguen
 end note
 
-note right of review_likes
-  Se registra quién dio like a qué reseña.
-  Evita duplicados y da trazabilidad.
+note right of user_follow_artist
+  Tabla específica para seguir artistas.
+end note
+
+note right of playlist_likes
+  Permite dar "me gusta" a playlists.
+end note
+
+note right of playlist_reviews
+  Permite dejar reseñas a playlists
+  igual que con canciones.
+end note
+
+note right of user_pins
+  Sistema genérico de "pines".
+  - content_type: song, playlist, artist
+  - content_id: ID del contenido pineado
 end note
 
 @enduml
