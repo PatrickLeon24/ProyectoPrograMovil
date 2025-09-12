@@ -1,0 +1,28 @@
+@startuml
+!theme plain
+left to right direction
+
+actor "Administrador" as Admin
+
+rectangle "Panel Administración" {
+  usecase "Gestionar usuarios"
+  usecase "Gestionar contenido"
+  usecase "Moderar reseñas"
+  usecase "Gestionar géneros"
+  usecase "Ver reportes"
+}
+
+' Relaciones del Administrador
+Admin --> "Gestionar usuarios"
+Admin --> "Gestionar contenido"
+Admin --> "Moderar reseñas"
+Admin --> "Gestionar géneros"
+Admin --> "Ver reportes"
+
+' Relaciones de inclusión/extensión
+"Gestionar contenido" .> "Explorar artistas" : <<include>>
+"Gestionar contenido" .> "Explorar álbumes" : <<include>>
+"Gestionar contenido" .> "Explorar canciones" : <<include>>
+"Ver reportes" .> "Ver estadísticas" : <<include>>
+
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+!theme plain
+left to right direction
+
+actor "Usuario" as User
+
+rectangle "App Móvil WaveUl" {
+  ' Interacciones
+  usecase "Dar like/me gusta"
+  usecase "Crear reseñas"
+  usecase "Ver reseñas"
+  usecase "Seguir artistas/usuarios"
+  usecase "Reportar/Ocultar contenido"
+  
+  ' Biblioteca personal
+  usecase "Ver historial de reproducción"
+  usecase "Ver canciones favoritas"
+  usecase "Ver playlists creadas"
+  usecase "Ver nuevas recomendaciones"
+}
+
+' Relaciones del Usuario
+User --> "Dar like/me gusta"
+User --> "Crear reseñas"
+User --> "Ver reseñas"
+User --> "Seguir artistas/usuarios"
+User --> "Reportar/Ocultar contenido"
+User --> "Ver historial de reproducción"
+User --> "Ver canciones favoritas"
+User --> "Ver playlists creadas"
+User --> "Ver nuevas recomendaciones"
+
+' Relaciones de inclusión/extensión
+"Crear reseñas" .> "Ver reseñas" : <<extend>>
+"Ver canciones favoritas" .> "Dar like/me gusta" : <<include>>
+"Ver playlists creadas" .> "Gestionar playlists" : <<include>>
+"Reportar/Ocultar contenido" .> "Explorar canciones" : <<extend>>
+"Reportar/Ocultar contenido" .> "Explorar artistas" : <<extend>>
+"Reportar/Ocultar contenido" .> "Explorar álbumes" : <<extend>>
+"Reportar/Ocultar contenido" .> "Explorar playlists" : <<extend>>
+"Reportar/Ocultar contenido" .> "Explorar perfiles" : <<extend>>
+"Reportar/Ocultar contenido" .> "Ver reseñas" : <<extend>>
+
+@enduml

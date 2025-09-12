@@ -1,0 +1,54 @@
+@startuml
+!theme plain
+left to right direction
+
+actor "Usuario" as User
+
+rectangle "App Móvil WaveUl" {
+  ' Autenticación y perfil
+  usecase "Registrar cuenta"
+  usecase "Iniciar sesión"
+  usecase "Recuperar contraseña"
+  usecase "Gestionar perfil"
+  
+  ' Exploración y descubrimiento
+  usecase "Explorar canciones"
+  usecase "Buscar música"
+  usecase "Explorar artistas"
+  usecase "Explorar géneros"
+  usecase "Explorar álbumes"
+  usecase "Explorar playlists"
+  usecase "Explorar perfiles"
+  
+  ' Reproducción
+  usecase "Reproducir canciones"
+  usecase "Gestionar playlists"
+}
+
+' Relaciones del Usuario
+User --> "Registrar cuenta"
+User --> "Iniciar sesión"
+User --> "Recuperar contraseña"
+User --> "Gestionar perfil"
+User --> "Explorar canciones"
+User --> "Buscar música"
+User --> "Explorar artistas"
+User --> "Explorar géneros"
+User --> "Explorar álbumes"
+User --> "Explorar playlists"
+User --> "Explorar perfiles"
+User --> "Reproducir canciones"
+User --> "Gestionar playlists"
+
+' Relaciones de inclusión/extensión
+"Registrar cuenta" .> "Iniciar sesión" : <<include>>
+"Recuperar contraseña" .> "Iniciar sesión" : <<extend>>
+"Gestionar perfil" .> "Iniciar sesión" : <<include>>
+"Explorar canciones" .> "Buscar música" : <<include>>
+"Explorar artistas" .> "Buscar música" : <<include>>
+"Explorar géneros" .> "Buscar música" : <<include>>
+"Explorar álbumes" .> "Buscar música" : <<include>>
+"Explorar playlists" .> "Buscar música" : <<include>>
+"Gestionar playlists" .> "Reproducir canciones" : <<include>>
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+!theme plain
+left to right direction
+
+actor "Artista" as Artist
+
+rectangle "-" {
+  usecase "Gestionar perfil artístico"
+  usecase "Subir canciones"
+  usecase "Gestionar álbumes"
+  usecase "Ver estadísticas"
+}
+
+' Relaciones del Artista
+Artist --> "Gestionar perfil artístico"
+Artist --> "Subir canciones"
+Artist --> "Gestionar álbumes"
+Artist --> "Ver estadísticas"
+
+' Relaciones de inclusión/extensión
+"Gestionar perfil artístico" .> "Gestionar perfil" : <<include>>
+"Subir canciones" .> "Gestionar álbumes" : <<include>>
+
+@enduml
