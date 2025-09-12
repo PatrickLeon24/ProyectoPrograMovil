@@ -212,7 +212,7 @@ users "1" -- "*" playlist_user
 users "1" -- "*" reviews
 users "1" -- "*" review_likes
 users "1" -- "*" reports
-users "1" -- "*" admins
+users "1" -- "1" admins
 
 songs "1" -- "*" user_song
 songs "1" -- "*" playlist_song
