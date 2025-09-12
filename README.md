@@ -182,49 +182,40 @@ El sistema WaveUl se organiza en torno a tres tipos de actores principales:
 
 ---
 
-
-
 # Requerimientos No Funcionales - WaveUl
-
 ## Rendimiento y Escalabilidad
 - **RNF1**: El sistema debe responder a las solicitudes API en un tiempo menor a **2 segundos** en condiciones normales de carga.  
-- **RNF2**: La plataforma debe soportar al menos **500 usuarios concurrentes** en su versión inicial, con posibilidad de escalar horizontalmente.  
-- **RNF3**: El backend debe ser capaz de manejar al menos **10.000 reproducciones diarias** sin degradación significativa del rendimiento.  
+- **RNF2**: La plataforma debe soportar al menos **500 usuarios concurrentes** en su versión inicial, con posibilidad de escalar horizontalmente. (Generalmente los APIs de Backend soportan 500 usuarios)
 
 ---
 
 ## Seguridad
-- **RNF4**: Todo intercambio de datos entre cliente y servidor debe realizarse mediante **HTTPS**.  
-- **RNF5**: El sistema debe manejar la autenticación usando **OAuth 2.0 (Google Sign-In)** y **tokens JWT** con expiración configurable.  
-- **RNF6**: Los datos sensibles (contraseñas, correos, tokens) deben almacenarse usando técnicas de **hashing y encriptación**.  
-- **RNF7**: Los reportes y logs deben registrar actividad de **moderadores y administradores** para trazabilidad.  
-
+- **RNF3**: Todo intercambio de datos entre cliente y servidor debe realizarse mediante **HTTP**.  
+- **RNF4**: El sistema debe manejar la autenticación usando **OAuth 2.0 (Google Sign-In)**(para inicio de sesión) y **tokens JWT**(para recuperar contraseña) con expiración configurable.  
+- **RNF5**: Los datos sensibles (contraseñas, correos, tokens) deben almacenarse usando técnicas de **hashing y encriptación**.    
 ---
 
 ## Disponibilidad y Fiabilidad
-- **RNF8**: El servicio de envío de correos (SMTP) debe tener una tasa de entrega mayor al **95%** para correos de verificación y recuperación.  
-- **RNF9**: El backend debe garantizar al menos un **99% de disponibilidad mensual**.  
-- **RNF10**: En caso de error en la base de datos, las operaciones críticas (registro, login, recuperación) deben reintentarse al menos **3 veces** antes de fallar.  
-
+- **RNF6**: El servicio de envío de correos (SMTP) debe tener una tasa de entrega mayor al **95%** para correos de verificación y recuperación.    
+- **RNF7**: En caso de error en la base de datos, las operaciones críticas (registro, login, recuperación) deben reintentarse como máximo **3 veces** antes de fallar.   
 ---
 
 ## Mantenibilidad y Escalabilidad Técnica
-- **RNF11**: El backend debe estar **desacoplado (API REST)** para permitir integración futura con versiones web o de escritorio.  
-- **RNF12**: El código debe seguir un estilo estándar (ej. **Rubocop para Ruby**) y estar documentado.  
-- **RNF13**: El sistema debe permitir migrar de **SQLite3 a PostgreSQL/MySQL** sin cambios drásticos en la lógica.  
+- **RNF8**: El backend debe estar **desacoplado (API REST)** para permitir integración futura con versiones web o de escritorio.  
+- **RNF10**: El sistema debe permitir migrar de **SQLite3 a PostgreSQL/MySQL** sin cambios drásticos en la lógica.  
 
 ---
 
 ## Usabilidad
-- **RNF14**: La app debe cargar la **pantalla inicial en menos de 3 segundos**.  
-- **RNF15**: El flujo de autenticación debe requerir como máximo **3 pasos** (login, verificación, acceso).  
-- **RNF16**: Los mensajes de error deben ser claros, indicando la acción a seguir (ejemplo: *“Correo no registrado, intente nuevamente”*).  
+- **RNF11**: La app debe cargar la **pantalla inicial en menos de 3 segundos**.  
+- **RNF12**: El flujo de autenticación debe requerir como máximo **3 pasos** (login, verificación, acceso).  
+- **RNF13**: Los mensajes de error deben ser claros, indicando la acción a seguir (ejemplo: *“Correo no registrado, intente nuevamente”*).  
 
 ---
 
-## Monitoreo y Logs
-- **RNF17**: El sistema debe registrar **logs de errores, accesos y reproducciones**, con retención mínima de **90 días**.  
-- **RNF18**: Los administradores deben poder consultar **reportes de actividad en tiempo real** (usuarios activos, canciones más reproducidas, reportes pendientes).
+
 REportes: especificar bien como seria la relacion polimorfica
 SUPERADMIN: usuarios comunes y artistas
 Moderador : solo actividad de los usuarios 
+
+
