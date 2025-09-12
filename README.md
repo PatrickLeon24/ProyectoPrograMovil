@@ -35,6 +35,36 @@ El backend, construido con Ruby y el framework Sinatra, junto con una base de da
     Crear proyecto con flutter: 
     flutter create waveul
 
+3. Instalación de Android Studio (para emulación y compilación en Android)
+
+    Descargar Android Studio desde el sitio oficial: 
+    👉 [https://developer.android.com/studio](https://developer.android.com/studio)
+
+
+    ![android](Docs/images/android.png)
+    Ejecutar el instalador y seguir los pasos recomendados.  
+    Asegúrate de seleccionar durante la instalación los siguientes componentes:
+
+    -  Android SDK  
+    - Android Virtual Device (AVD)  
+    - Android SDK Platform Tools  
+    - Android Emulator  
+
+    ![android2](Docs/images/android2.png)
+
+    Configurar un emulador:
+
+    - Abre Android Studio  
+    - Ve a: `Tools > Device Manager`  
+    - Haz clic en **Create Device**  
+    - Selecciona un modelo (ej. **Pixel 5**)  
+    - Elige una imagen del sistema (recomendado: **API 30** o superior)  
+    - Inicia el emulador haciendo clic en el botón ▶️  
+
+    Verificar que Flutter reconoce Android Studio y el emulador ejecutando:
+
+    ```bash
+    flutter doctor
 ---
 ## Diagrama de despliegue
 
