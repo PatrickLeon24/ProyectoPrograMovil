@@ -43,45 +43,34 @@ A continuación, se detallan los **requerimientos funcionales** de WaveUl, aline
 
 ### 1. Autenticación y Perfil  
 - **RF-01**: El sistema debe permitir registrar una cuenta con email o autenticación mediante Google OAuth.  
-- **RF-02**: El sistema debe validar credenciales y emitir un token JWT para la sesión.  
-- **RF-03**: El sistema debe permitir la recuperación de contraseña mediante token enviado por correo (Gmail SMTP).  
-- **RF-04**: El sistema debe permitir editar datos de perfil (nombre, foto, descripción, privacidad).  
+- **RF-02**: El sistema debe permitir la recuperación de contraseña mediante token enviado por correo (Gmail SMTP).  
+- **RF-03**: El sistema debe permitir editar datos de perfil (nombre, foto, descripción, privacidad).  
 
 ### 2. Exploración y Descubrimiento  
-- **RF-05**: El sistema debe mostrar un catálogo general de canciones, álbumes, playlists, artistas y géneros.  
-- **RF-06**: El sistema debe permitir búsquedas avanzadas por nombre, artista, álbum o género.  
-- **RF-07**: El sistema debe mostrar la discografía de un artista en su perfil.  
-- **RF-08**: El sistema debe clasificar las canciones según género.  
-- **RF-09**: El sistema debe mostrar playlists destacadas y públicas.  
-- **RF-10**: El sistema debe permitir visitar perfiles de otros usuarios.  
+- **RF-04**: El sistema debe mostrar un catálogo general de canciones, álbumes, playlists, artistas y géneros.  
+- **RF-05**: El sistema debe permitir búsquedas avanzadas por nombre, artista, álbum o género.  
+- **RF-06**: El sistema debe mostrar la discografía de un artista en su perfil.  
+- **RF-07**: El sistema debe clasificar las canciones según género.  
+- **RF-08**: El sistema debe mostrar playlists destacadas y públicas.  
+- **RF-9**: El sistema debe permitir visitar perfiles de otros usuarios.  
 
 ### 3. Reproducción e Interacción  
-- **RF-11**: El sistema debe permitir reproducir canciones con controles de play/pause, skip, repeat y volumen.  
-- **RF-12**: El sistema debe permitir gestionar playlists (crear, editar, eliminar, compartir).  
-- **RF-13**: El sistema debe permitir dar “me gusta” a canciones y reseñas.  
-- **RF-14**: El sistema debe permitir a los usuarios crear reseñas con calificación y comentarios.  
-- **RF-15**: El sistema debe mostrar las reseñas de cada canción.  
-- **RF-16**: El sistema debe permitir seguir a artistas y usuarios.  
-- **RF-17**: El sistema debe permitir reportar canciones, usuarios, playlists o reseñas.  
+- **RF-10**: El sistema debe permitir reproducir canciones con controles de play/pause, skip, repeat y volumen.  
+- **RF-11**: El sistema debe permitir gestionar playlists (crear, editar, eliminar, compartir).  
+- **RF-12**: El sistema debe permitir dar “me gusta” a canciones y reseñas.  
+- **RF-13**: El sistema debe permitir a los usuarios crear reseñas con calificación y comentarios.  
+- **RF-14**: El sistema debe mostrar las reseñas de cada canción.  
+- **RF-15**: El sistema debe permitir seguir a artistas y usuarios.  
+- **RF-16**: El sistema debe permitir reportar canciones, usuarios, playlists o reseñas.  
 
 ### 4. Biblioteca Personal  
-- **RF-18**: El sistema debe registrar y mostrar el historial de canciones reproducidas.  
-- **RF-19**: El sistema debe mostrar las canciones marcadas como favoritas.  
-- **RF-20**: El sistema debe mostrar y permitir gestionar playlists creadas por el usuario.  
-- **RF-21**: El sistema debe generar recomendaciones basadas en hábitos de escucha.  
+- **RF-17**: El sistema debe registrar y mostrar el historial de canciones reproducidas.  
+- **RF-18**: El sistema debe mostrar las canciones marcadas como favoritas.  
+- **RF-19**: El sistema debe mostrar y permitir gestionar playlists creadas por el usuario.  
+- **RF-20**: El sistema debe generar recomendaciones basadas en hábitos de escucha.  
 
 ### 5. Panel del Artista  
-- **RF-22**: El sistema debe permitir a los artistas editar su perfil artístico (biografía, imágenes, redes sociales).  
-- **RF-23**: El sistema debe permitir a los artistas subir nuevas canciones.  
-- **RF-24**: El sistema debe permitir gestionar álbumes (crear, editar, eliminar).  
-- **RF-25**: El sistema debe mostrar estadísticas de reproducciones, seguidores y demografía.  
-
-### 6. Panel de Administración  
-- **RF-26**: El sistema debe permitir a administradores gestionar usuarios (suspender, activar, eliminar).  
-- **RF-27**: El sistema debe permitir gestionar el catálogo musical (canciones, álbumes, artistas).  
-- **RF-28**: El sistema debe permitir moderar reseñas.  
-- **RF-29**: El sistema debe permitir gestionar géneros musicales.  
-- **RF-30**: El sistema debe mostrar un listado de reportes para revisión.  
+- **RF-21**: El sistema debe permitir a los artistas editar su perfil artístico (biografía, imágenes, redes sociales).  
 
 ---
 
@@ -187,12 +176,13 @@ El sistema WaveUl se organiza en torno a tres tipos de actores principales:
 
 A continuación, se presentan los mockups iniciales de la aplicación WaveUl, diseñados para ilustrar el flujo de autenticación y registro de usuarios. 
 
-Estos prototipos permiten visualizar cómo los requerimientos funcionales de autenticación (RF-01 a RF-04) se trasladan a la interfaz de usuario.
 
-### Flujo de Autenticación y Registro
+### Flujo de autenticación como usuario
 
 ![Inicio de sesión y registro](Docs/images/InicioSesion.png)
 #### Figura 4: Mockups de las pantallas de Iniciar Sesión y Registro en WaveUl
+
+#### Nota: Las siguientes interfaces corresponden a los RF-01 y RF-03
 
 - **Pantalla de Inicio de Sesión**: permite ingresar con credenciales o mediante Google OAuth. Incluye opción de recuperación de contraseña.
 
@@ -200,7 +190,31 @@ Estos prototipos permiten visualizar cómo los requerimientos funcionales de aut
 
 - **Pantalla de Registro (2/2)**: permite subir foto de perfil e ingresar nombre de usuario, finalizando el registro.
 
+### Flujo de autenticación como artista
 
+![Creación de cuenta de artista](Docs/images/InicioSesionArtista.png)
+#### Figura 5: Creación de cuenta de artista
+
+#### Nota: Las siguientes interfaces corresponden a los RF-01, RF-03 y RF-22
+
+- **Pantalla de registro (1/3)**: permite ingresar con credenciales como nombre de artista, correo y contraseña.
+
+- **Pantalla de Registro (2/3)**: solicita datos si se trata de artista o banda, fecha de inicio y biografía.
+
+- **Pantalla de Registro (3/3)**: permite subir foto de perfil y foto de portada.
+
+### Recuperación de cuenta
+
+![Creación de cuenta de artista](Docs/images/RecuperarCuenta.png)
+#### Figura 6: Recuperación de cuenta
+
+#### Nota: Las siguientes interfaces corresponden a los RF-02
+
+- **Solicitud(1/3)**: Aquí se solicita el correo con el que se creó la cuenta
+
+- **Emisión de código de validación (2/3)**: se envía código de validación al usuario a su correo
+
+- **Creación de nueva contraseña (3/3)**: aquí se crea la nueva contraseña
 
 
 
