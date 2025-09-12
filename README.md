@@ -182,6 +182,28 @@ El sistema WaveUl se organiza en torno a tres tipos de actores principales:
 
 ---
 
+
+## Diseño de Interfaz (Mockups)
+
+A continuación, se presentan los mockups iniciales de la aplicación WaveUl, diseñados para ilustrar el flujo de autenticación y registro de usuarios. 
+
+Estos prototipos permiten visualizar cómo los requerimientos funcionales de autenticación (RF-01 a RF-04) se trasladan a la interfaz de usuario.
+
+### Flujo de Autenticación y Registro
+
+![Inicio de sesión y registro](Docs/images/InicioSesion.png)
+#### Figura 4: Mockups de las pantallas de Iniciar Sesión y Registro en WaveUl
+
+- **Pantalla de Inicio de Sesión**: permite ingresar con credenciales o mediante Google OAuth. Incluye opción de recuperación de contraseña.
+
+- **Pantalla de Registro (1/2)**: solicita nombres, apellidos, correo electrónico, contraseña, fecha de nacimiento y teléfono.
+
+- **Pantalla de Registro (2/2)**: permite subir foto de perfil e ingresar nombre de usuario, finalizando el registro.
+
+
+
+
+
 # Requerimientos No Funcionales - WaveUl
 ## Rendimiento y Escalabilidad
 - **RNF1**: El sistema debe responder a las solicitudes API en un tiempo menor a **2 segundos** en condiciones normales de carga.  
