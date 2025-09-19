@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegistroPage extends StatelessWidget {
+class RegistroUsuarioPage extends StatelessWidget {
   // 🔹 Header con logo y título
   Widget _header(BuildContext context) {
     return Column(
