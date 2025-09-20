@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WelcomePage extends StatelessWidget {
+class BienvenidaPage extends StatelessWidget {
   // El encabezado con el logo
   Widget _header(BuildContext context) {
     return Column(

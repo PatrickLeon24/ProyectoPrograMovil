@@ -83,10 +83,13 @@ class RegistroUsuario2Page extends StatelessWidget {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey.shade300,
-                    child: const Icon(
-                      Icons.camera_alt,
-                      size: 40,
-                      color: Colors.black54,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/CameraIcon.png',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
