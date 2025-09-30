@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:waveul/pages/iniciar_sesion/iniciar_sesion_controller.dart';
 class IniciarSesionPage extends StatelessWidget {
-  
+  final IniciarSesionController control = Get.put(IniciarSesionController());
 
   // Aquí se presenta el logo y título
   Widget _header(BuildContext context) {
@@ -63,38 +63,46 @@ class IniciarSesionPage extends StatelessWidget {
 
         // Usuario
         TextFormField(
+          controller: control.username,
           decoration: InputDecoration(
             hintText: "Ingrese Nombre De Usuario O Correo",
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            prefixIcon: const Icon(Icons.person),
           ),
         ),
         const SizedBox(height: 20),
-
         // Contraseña
         TextFormField(
+          controller: control.password,
           obscureText: true,
           decoration: InputDecoration(
             hintText: "Contraseña",
-            suffixIcon: const Icon(Icons.visibility_off),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            prefixIcon: const Icon(Icons.lock),
           ),
         ),
         const SizedBox(height: 10),
-
+        Obx(() => Text(
+          control.message.value,
+          style: TextStyle(
+            color: control.success.value
+                ? Colors.green
+                : Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+        )),
         // Recuperar contraseña
         Align(
           alignment: Alignment.centerRight,
           child: GestureDetector(
             onTap: () {
-              // acción click
+              control.goToResetPassword(context);
             },
             child: Text(
               "Recuperar Contraseña",
@@ -112,7 +120,9 @@ class IniciarSesionPage extends StatelessWidget {
         SizedBox(
           height: 80,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              control.login(context);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
               shape: RoundedRectangleBorder(
@@ -167,7 +177,7 @@ class IniciarSesionPage extends StatelessWidget {
         const Text("¿Aún No Eres Miembro? "),
         GestureDetector(
           onTap: () {
-            // acción click
+            control.goToSignUp(context);
           },
           child: Text(
             "Regístrate Ahora",

@@ -1,113 +1,127 @@
 import 'package:flutter/material.dart';
 
 class RecuperarCuenta1Page extends StatelessWidget {
-  const RecuperarCuenta1Page({super.key});
+  RecuperarCuenta1Page({super.key});
+
+  final TextEditingController emailController = TextEditingController();
+
+  // 🔹 Header con logo y título
+  Widget _header(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 40),
+        Image.asset(
+          'assets/images/text1.png',
+          height: 40,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 30),
+        const Text(
+          "¿Olvidaste Tu Contraseña?",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          "Ingresa Tu Correo Electrónico Para Reestablecerla",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 14, color: Colors.black54),
+        ),
+        const SizedBox(height: 40),
+      ],
+    );
+  }
+
+  // 🔹 Formulario con campo correo y botón
+  Widget _form(BuildContext context) {
+    return Column(
+      children: [
+        TextFormField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: "Ingrese Correo Electrónico",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+          ),
+        ),
+        const SizedBox(height: 40),
+        SizedBox(
+          width: double.infinity,
+          height: 80,
+          child: ElevatedButton(
+            onPressed: () {
+              // Acción: enviar código al correo
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+  
+              
+            ),
+            child: const Text(
+              "Enviar código",
+              style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.normal),
+            ),
+          ),
+        ),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+
+  // 🔹 Cuerpo principal con Stack (para botón de retroceso flotante)
+  Widget _buildBody(BuildContext context) {
+    return SafeArea(
+      child: Stack(
+        children: [
+          // Contenido principal
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  _header(context),
+                  _form(context),
+                ],
+              ),
+            ),
+          ),
+
+          // Botón circular de retroceso
+          Positioned(
+            top: 10,
+            left: 10,
+            child: Material(
+              color: Colors.transparent,
+              shape: const CircleBorder(),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black87),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-
-              // 🔹 Botón de retroceso
-              Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              // 🔹 Logo
-              Image.asset(
-                'assets/images/text1.png', // Logo WaveUL
-                height: 80,
-                fit: BoxFit.contain,
-              ),
-
-              const SizedBox(height: 30),
-
-              // 🔹 Título
-              const Text(
-                "¿Olvidaste Tu Contraseña?",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              // 🔹 Subtítulo
-              const Text(
-                "Ingresa Tu Correo Electrónico Para Reestablecerla",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54,
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // 🔹 Campo correo
-              TextFormField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: "Ingrese Correo Electrónico",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 15,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // 🔹 Botón enviar código
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Acción: enviar código al correo
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 5,
-                    shadowColor: Colors.grey.shade400,
-                  ),
-                  child: const Text(
-                    "Enviar código",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-            ],
-          ),
-        ),
-      ),
+      body: _buildBody(context),
     );
   }
 }

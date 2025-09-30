@@ -57,7 +57,7 @@ class BienvenidaPage extends StatelessWidget {
           Navigator.pushNamed(context, '/registro_usuario1');
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.teal,
+          backgroundColor: Color(0xFF41AE98),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -98,7 +98,7 @@ class BienvenidaPage extends StatelessWidget {
           const Text("¿Eres Artista? "),
           GestureDetector(
             onTap: () {
-              // Acción para artistas
+              Navigator.pushNamed(context, '/registro_artista1');
             },
             child: const Text(
               "Regístrate Aquí",
