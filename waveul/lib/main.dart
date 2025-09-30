@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+//Importación de colores personalizado
+import 'configs/theme.dart';
 // Importa todas tus páginas aquí
 import 'pages/bienvenida/bienvenida_page.dart';
 import 'pages/iniciar_sesion/iniciar_sesion_page.dart';
@@ -24,12 +25,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MaterialTheme materialTheme = MaterialTheme(const TextTheme());
     return MaterialApp(
       title: 'WaveUL',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-      ),
+      // Para tema claro y oscuro
+      theme: materialTheme.light(),
+      darkTheme: materialTheme.dark(),
 
       // 🔹 Aquí defines la ruta inicial
       initialRoute: '/bienvenida',
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
 
         '/registro_usuario1': (context) => RegistroUsuarioPage(),
         '/registro_usuario2': (context) => RegistroUsuario2Page(),
-        
+
         '/registro_artista1': (context) => RegistroArtistaPage(),
         '/registro_artista2': (context) => RegistroArtista2Page(),
         '/registro_artista3': (context) => RegistroArtista3Page(),

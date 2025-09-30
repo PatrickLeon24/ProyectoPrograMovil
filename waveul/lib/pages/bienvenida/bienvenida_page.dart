@@ -20,73 +20,77 @@ class BienvenidaPage extends StatelessWidget {
   // Este es el eslogan
   Widget _textSection(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         Text(
           "Sumérgete En La Música",
           style: TextStyle(
             fontSize: 25,
-            
+            color: Theme.of(context).colorScheme.secondary,
           ),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 10),
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(
-              "WaveUL conecta artistas y oyentes en una experiencia musical social",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-              ),
-              textAlign: TextAlign.center,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text(
+            "WaveUL conecta artistas y oyentes en una experiencia musical social",
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.primary,
             ),
+            textAlign: TextAlign.center,
           ),
+        ),
         SizedBox(height: 30),
       ],
     );
   }
 
   // Estos son para los Botones
- Widget _buttons(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      // Botón registrarse
-      ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/registro_usuario1');
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF41AE98),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+  Widget _buttons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Botón registrarse
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/registro_usuario1');
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+          child: Text(
+            "Registrarse",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
-        child: const Text(
-          "Registrarse",
-          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.normal,),
-        ),
-      ),
-      const SizedBox(width: 20),
+        const SizedBox(width: 20),
 
-      // Botón iniciar sesión
-      TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/iniciar_sesion');
-        },
-        child: const Text(
-          "Iniciar sesión",
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black87,
-            fontWeight: FontWeight.normal
+        // Botón iniciar sesión
+        TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/iniciar_sesion');
+          },
+          child: Text(
+            "Iniciar sesión",
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).colorScheme.shadow,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   // Aquí es el Footer
   Widget _footer(BuildContext context) {
@@ -95,15 +99,18 @@ class BienvenidaPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("¿Eres Artista? "),
+          Text(
+            "¿Eres Artista? ",
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, '/registro_artista1');
             },
-            child: const Text(
+            child: Text(
               "Regístrate Aquí",
               style: TextStyle(
-                color: Colors.blue,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -131,10 +138,7 @@ class BienvenidaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: _buildBody(context),
-      ),
+      home: Scaffold(backgroundColor: Colors.white, body: _buildBody(context)),
     );
   }
 }
