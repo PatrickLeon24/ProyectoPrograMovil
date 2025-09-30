@@ -57,7 +57,7 @@ class RecuperarCuenta1Page extends StatelessWidget {
           height: 80,
           child: ElevatedButton(
             onPressed: () {
-              // Acción: enviar código al correo
+              Navigator.pushNamed(context, '/recuperar_cuenta_2');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
