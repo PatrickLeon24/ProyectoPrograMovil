@@ -8,7 +8,7 @@ class RegistroUsuarioPage extends StatelessWidget {
       children: [
         Image.asset(
           'assets/images/text1.png',
-          height: 80,
+          height: 40,
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 20),
@@ -16,8 +16,8 @@ class RegistroUsuarioPage extends StatelessWidget {
         const Text(
           "Registrarse",
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+            fontSize: 30,
+            
           ),
         ),
         const SizedBox(height: 10),
@@ -169,9 +169,10 @@ class RegistroUsuarioPage extends StatelessWidget {
 
         // Botón siguiente
         SizedBox(
-          height: 50,
+          height: 80,
           child: ElevatedButton(
-            onPressed: () {},
+            
+            onPressed: () {Navigator.pushNamed(context, '/registro_usuario2');},
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
               shape: RoundedRectangleBorder(
@@ -180,7 +181,7 @@ class RegistroUsuarioPage extends StatelessWidget {
             ),
             child: const Text(
               "Siguiente",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
         ),
@@ -212,29 +213,51 @@ class RegistroUsuarioPage extends StatelessWidget {
 
   // 🔹 Cuerpo
   Widget _buildBody(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              _header(context),
-              _form(context),
-              const SizedBox(height: 30),
-              _footer(context),
-              const SizedBox(height: 20),
-            ],
+  return SafeArea(
+    child: Stack(
+      children: [
+        // Contenido principal
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                _header(context),
+                _form(context),
+                const SizedBox(height: 30),
+                _footer(context),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+
+        // Botón circular de retroceso
+        Positioned(
+          top: 10, // distancia desde arriba
+          left: 10, // distancia desde la izquierda
+          child: Material(
+            color: Colors.transparent, // fondo transparente
+            shape: const CircleBorder(),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black87),
+              onPressed: () {
+                Navigator.pop(context); // vuelve a la pantalla anterior
+              },
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: _buildBody(context),
       ),
     );

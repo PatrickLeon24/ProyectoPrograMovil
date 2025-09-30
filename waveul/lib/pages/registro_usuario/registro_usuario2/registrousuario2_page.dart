@@ -4,7 +4,7 @@ class RegistroUsuario2Page extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
 
   RegistroUsuario2Page({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,16 +35,17 @@ class RegistroUsuario2Page extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/text1.png', // Tu logo
-                    height: 80,
+                    height: 40,
                     fit: BoxFit.contain,
                   ),
                   const SizedBox(height: 8),
                   const Text(
                     "Registrarse",
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 30,
+                     
                       color: Colors.black87,
+                      
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -129,7 +130,7 @@ class RegistroUsuario2Page extends StatelessWidget {
               // 🔹 Botón Finalizar
               SizedBox(
                 width: double.infinity,
-                height: 55,
+                height: 80,
                 child: ElevatedButton(
                   onPressed: () {
                     // Acción para finalizar registro
@@ -156,4 +157,5 @@ class RegistroUsuario2Page extends StatelessWidget {
       ),
     );
   }
+  
 }

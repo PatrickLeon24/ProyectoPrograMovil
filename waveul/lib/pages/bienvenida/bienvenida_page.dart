@@ -6,10 +6,10 @@ class BienvenidaPage extends StatelessWidget {
   Widget _header(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 40),
+        const SizedBox(height: 80),
         Image.asset(
           "assets/images/LogoConNombre.png", // tu logo con nombre
-          height: 120,
+          height: 200,
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 30),
@@ -24,65 +24,69 @@ class BienvenidaPage extends StatelessWidget {
         Text(
           "Sumérgete En La Música",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            
           ),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 10),
-        Text(
-          "WaveUL conecta artistas y oyentes en una experiencia musical social",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black54,
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              "WaveUL conecta artistas y oyentes en una experiencia musical social",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
-          textAlign: TextAlign.center,
-        ),
         SizedBox(height: 30),
       ],
     );
   }
 
   // Estos son para los Botones
-  Widget _buttons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Botón registrarse
-        ElevatedButton(
-          onPressed: () {
-            // Navegar a SignUp
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+ Widget _buttons(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      // Botón registrarse
+      ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/registro_usuario1');
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.teal,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
           ),
-          child: const Text(
-            "Registrarse",
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         ),
-        const SizedBox(width: 20),
+        child: const Text(
+          "Registrarse",
+          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.normal,),
+        ),
+      ),
+      const SizedBox(width: 20),
 
-        // Botón iniciar sesión
-        TextButton(
-          onPressed: () {
-            // Navegar a Login
-          },
-          child: const Text(
-            "Iniciar sesión",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-            ),
+      // Botón iniciar sesión
+      TextButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/iniciar_sesion');
+        },
+        child: const Text(
+          "Iniciar sesión",
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black87,
+            fontWeight: FontWeight.normal
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
   // Aquí es el Footer
   Widget _footer(BuildContext context) {
@@ -128,6 +132,7 @@ class BienvenidaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: _buildBody(context),
       ),
     );

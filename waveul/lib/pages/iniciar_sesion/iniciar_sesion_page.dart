@@ -7,10 +7,12 @@ class IniciarSesionPage extends StatelessWidget {
   // Aquí se presenta el logo y título
   Widget _header(BuildContext context) {
     return Column(
+      
       children: [
+        const SizedBox(height: 40),
         Image.asset(
           'assets/images/text1.png',
-          height: 80,
+          height: 40,
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 20),
@@ -19,8 +21,8 @@ class IniciarSesionPage extends StatelessWidget {
         const Text(
           "Iniciar Sesión",
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+            fontSize: 30,
+            
           ),
         ),
         const SizedBox(height: 10),
@@ -31,7 +33,7 @@ class IniciarSesionPage extends StatelessWidget {
           children: [
             const Text(
               "Si Necesitas Ayuda Haz ",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
             GestureDetector(
               onTap: () {
@@ -40,7 +42,7 @@ class IniciarSesionPage extends StatelessWidget {
               child: Text(
                 "Click Aquí",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 12,
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                 ),
@@ -67,7 +69,7 @@ class IniciarSesionPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
           ),
         ),
         const SizedBox(height: 20),
@@ -82,7 +84,7 @@ class IniciarSesionPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
           ),
         ),
         const SizedBox(height: 10),
@@ -108,7 +110,7 @@ class IniciarSesionPage extends StatelessWidget {
 
         // Botón iniciar sesión
         SizedBox(
-          height: 50,
+          height: 80,
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
@@ -119,7 +121,7 @@ class IniciarSesionPage extends StatelessWidget {
             ),
             child: const Text(
               "Iniciar sesión",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.normal),
             ),
           ),
         ),
@@ -181,35 +183,57 @@ class IniciarSesionPage extends StatelessWidget {
 
   // Cuerpo principal
   Widget _buildBody(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              _header(context),
-              _form(context),
-              const SizedBox(height: 20),
-              _divider(),
-              const SizedBox(height: 20),
-              _googleButton(),
-              const SizedBox(height: 40),
-              _footer(context),
-              const SizedBox(height: 20),
-            ],
+  return SafeArea(
+    child: Stack(
+      children: [
+        // Contenido principal
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                _header(context),
+                _form(context),
+                const SizedBox(height: 20),
+                _divider(),
+                const SizedBox(height: 20),
+                _googleButton(),
+                const SizedBox(height: 40),
+                _footer(context),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+
+        // Botón circular de retroceso
+        Positioned(
+          top: 10, // distancia desde arriba
+          left: 10, // distancia desde la izquierda
+          child: Material(
+            color: Colors.transparent, // fondo transparente
+            shape: const CircleBorder(),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black87),
+              onPressed: () {
+                Navigator.pop(context); // vuelve a la pantalla anterior
+              },
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white, // <--- esto hace que sea blanco
         body: _buildBody(context),
       ),
     );
-  }
+}
 }
