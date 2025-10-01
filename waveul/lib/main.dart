@@ -16,6 +16,8 @@ import 'pages/recuperar_cuenta/recuperar_cuenta_1/recuperar_cuenta1_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_2/recuperar_cuenta2_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_3/recuperar_cuenta3_page.dart';
 
+import 'pages/explorar_genero/explorar_genero_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: materialTheme.light(),
       darkTheme: materialTheme.dark(),
 
-      // 🔹 Aquí defines la ruta inicial
+      // 🔹 Aquí defines la ruta inicial (poner a /bienvenida cuando) haga commit
       initialRoute: '/bienvenida',
 
       // 🔹 Aquí registras todas tus rutas
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
         '/recuperar_cuenta_1': (context) => RecuperarCuenta1Page(),
         '/recuperar_cuenta_2': (context) => RecuperarCuenta2Page(),
         '/recuperar_cuenta_3': (context) => RecuperarCuenta3Page(),
+
+        '/explorar_genero': (context) => ExplorarGeneroPage(),
       },
     );
   }
