@@ -44,6 +44,10 @@ class RecuperarCuenta2Page extends StatelessWidget {
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             hintText: "Ingresar Código",
+            hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              // usa el color de onSurface pero más clarito
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
             ),
@@ -86,10 +90,10 @@ class RecuperarCuenta2Page extends StatelessWidget {
               height: 80,
               child: ElevatedButton(
                 onPressed: () {
-                  // Acción: confirmar código
+                  Navigator.pushNamed(context, '/recuperar_cuenta_3');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

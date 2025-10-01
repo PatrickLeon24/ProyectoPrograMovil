@@ -124,7 +124,7 @@ class IniciarSesionPage extends StatelessWidget {
               control.login(context);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal,
+              backgroundColor:Theme.of(context).colorScheme.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

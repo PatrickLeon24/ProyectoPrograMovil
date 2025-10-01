@@ -175,7 +175,7 @@ class _RegistroArtistaPageState extends State<RegistroArtistaPage> {
                   width: double.infinity,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {Navigator.pushNamed(context, '/registro_artista2');},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.teal,
                       shape: RoundedRectangleBorder(

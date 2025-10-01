@@ -174,14 +174,14 @@ class RegistroUsuarioPage extends StatelessWidget {
             
             onPressed: () {Navigator.pushNamed(context, '/registro_usuario2');},
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
             child: const Text(
               "Siguiente",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.normal),
             ),
           ),
         ),

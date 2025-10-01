@@ -19,8 +19,8 @@ class RecuperarCuenta1Page extends StatelessWidget {
         const Text(
           "¿Olvidaste Tu Contraseña?",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 27,
+            
             color: Colors.black87,
           ),
         ),
@@ -47,6 +47,10 @@ class RecuperarCuenta1Page extends StatelessWidget {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
             ),
+            hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              // usa el color de onSurface pero más clarito
+            ),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
           ),
@@ -60,7 +64,7 @@ class RecuperarCuenta1Page extends StatelessWidget {
               Navigator.pushNamed(context, '/recuperar_cuenta_2');
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

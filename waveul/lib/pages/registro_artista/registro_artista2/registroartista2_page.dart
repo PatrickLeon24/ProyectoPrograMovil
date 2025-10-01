@@ -244,9 +244,7 @@ class _RegistroArtista2PageState extends State<RegistroArtista2Page> {
                   width: double.infinity,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // acción al siguiente paso
-                    },
+                    onPressed: () {Navigator.pushNamed(context, '/registro_artista3');},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.teal,
                       shape: RoundedRectangleBorder(
