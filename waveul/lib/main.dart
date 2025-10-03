@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/pages/home/home_page.dart';
 //Importación de colores personalizado
 import 'configs/theme.dart';
 // Importa todas tus páginas aquí
@@ -35,11 +36,12 @@ class MyApp extends StatelessWidget {
       darkTheme: materialTheme.dark(),
 
       // 🔹 Aquí defines la ruta inicial (poner a /bienvenida cuando) haga commit
-      initialRoute: '/bienvenida',
+      initialRoute: '/home',
 
       // 🔹 Aquí registras todas tus rutas
       routes: {
         '/bienvenida': (context) => BienvenidaPage(),
+        '/home': (context) => HomePage(),
         '/iniciar_sesion': (context) => IniciarSesionPage(),
 
         '/registro_usuario1': (context) => RegistroUsuarioPage(),
