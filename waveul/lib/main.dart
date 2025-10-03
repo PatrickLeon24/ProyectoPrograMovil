@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:waveul/pages/home/home_page.dart';
 //Importación de colores personalizado
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+// Importación de colores personalizado
 import 'configs/theme.dart';
 // Importa todas tus páginas aquí
 import 'pages/bienvenida/bienvenida_page.dart';
 import 'pages/iniciar_sesion/iniciar_sesion_page.dart';
-
+import 'pages/home/home_page.dart';
 import 'pages/registro_usuario/registro_usuario1/registrousuario_page.dart';
 import 'pages/registro_usuario/registro_usuario2/registrousuario2_page.dart';
 
@@ -36,14 +38,26 @@ class MyApp extends StatelessWidget {
       darkTheme: materialTheme.dark(),
 
       // 🔹 Aquí defines la ruta inicial (poner a /bienvenida cuando) haga commit
-      initialRoute: '/home',
+      // ✅ Localizaciones necesarias para el calendario
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es', 'ES'), // Español
+        Locale('en', 'US'), // Inglés
+      ],
+
+      // 🔹 Ruta inicial
+      initialRoute: '/bienvenida',
 
       // 🔹 Aquí registras todas tus rutas
+      // 🔹 Registro de rutas
       routes: {
         '/bienvenida': (context) => BienvenidaPage(),
-        '/home': (context) => HomePage(),
         '/iniciar_sesion': (context) => IniciarSesionPage(),
-
+        '/home': (context) => HomePage(),
         '/registro_usuario1': (context) => RegistroUsuarioPage(),
         '/registro_usuario2': (context) => RegistroUsuario2Page(),
 
