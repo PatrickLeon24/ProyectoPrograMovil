@@ -65,15 +65,7 @@ class RegistroArtista3Page extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Container(
-                        width: 10,
-                        height: 10,
-                        decoration: const BoxDecoration(
-                          color: Colors.cyan,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
+                      
                     ],
                   ),
                 ],
