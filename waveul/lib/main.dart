@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       darkTheme: materialTheme.dark(),
 
       // 🔹 Aquí defines la ruta inicial (poner a /bienvenida cuando) haga commit
-      initialRoute: '/bienvenida',
+      initialRoute: '/explorar_genero',
 
       // 🔹 Aquí registras todas tus rutas
       routes: {
