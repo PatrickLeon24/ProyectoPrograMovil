@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'explorar_genero_controller.dart';
 //Necesitamos importar cada genero de una lista
-import 'package:waveul/pages/item_genero/item_genero_page.dart';
+import 'package:waveul/components/item_genero_page.dart';
 
 class ExplorarGeneroPage extends StatelessWidget {
   ExplorarGeneroController control = Get.put(ExplorarGeneroController());

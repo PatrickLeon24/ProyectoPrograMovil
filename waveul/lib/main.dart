@@ -20,6 +20,7 @@ import 'pages/recuperar_cuenta/recuperar_cuenta_2/recuperar_cuenta2_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_3/recuperar_cuenta3_page.dart';
 
 import 'pages/explorar_genero/explorar_genero_page.dart';
+import 'pages/explorar_musica/explorar_musica_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
 
       // 🔹 Ruta inicial
-      initialRoute: '/bienvenida',
+      initialRoute: '/explorar_musica',
 
       // 🔹 Aquí registras todas tus rutas
       // 🔹 Registro de rutas
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
         '/recuperar_cuenta_3': (context) => RecuperarCuenta3Page(),
 
         '/explorar_genero': (context) => ExplorarGeneroPage(),
+        '/explorar_musica': (context) => ExplorarMusicaPage(),
       },
     );
   }
