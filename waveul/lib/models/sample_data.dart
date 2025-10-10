@@ -87,7 +87,7 @@ class SampleData {
     Genre(
       id: 1,
       name: "Reggaetón",
-      gradientColors: const [Color(0xFFE8C765), Color(0xFF826F38)], // Dorado actualizado con tus colores
+      gradientColors: [Color(0xFFE8C765), Color(0xFF826F38)], // Dorado actualizado con tus colores
       localImage: "assets/images/kanye.png", // Usamos imagen existente
       description: "Ritmos urbanos latinos",
       songCount: 120,
@@ -95,7 +95,7 @@ class SampleData {
     Genre(
       id: 2,
       name: "Rock",
-      gradientColors: const [Color(0xFFE86565), Color(0xFF823838)], // Rojo actualizado con tus colores
+      gradientColors: [Color(0xFFE86565), Color(0xFF823838)], // Rojo actualizado con tus colores
       localImage: "assets/images/Bad_Habits.png", // Usamos imagen existente
       description: "Rock clásico y alternativo",
       songCount: 95,
@@ -103,7 +103,7 @@ class SampleData {
     Genre(
       id: 3,
       name: "Pop",
-      gradientColors: const [Color(0xFFE865E1), Color(0xFF82387E)], // Rosado actualizado con tus colores
+      gradientColors: [Color(0xFFE865E1), Color(0xFF82387E)], // Rosado actualizado con tus colores
       localImage: "assets/images/billie.png", // Usamos imagen existente
       description: "Éxitos populares actuales",
       songCount: 150,
@@ -111,7 +111,7 @@ class SampleData {
     Genre(
       id: 4,
       name: "Electrónica",
-      gradientColors: const [Color(0xFF6CB255), Color(0xFF2E4C24)], // Verde actualizado con tus colores
+      gradientColors: [Color(0xFF6CB255), Color(0xFF2E4C24)], // Verde actualizado con tus colores
       localImage: "assets/images/industry_baby.png", // Usamos imagen existente
       description: "Música electrónica y EDM",
       songCount: 80,

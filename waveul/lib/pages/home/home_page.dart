@@ -8,7 +8,7 @@ import 'package:waveul/components/playlist_item_card.dart';
 import 'package:waveul/components/genre_card.dart';
 import 'package:waveul/models/sample_data.dart';
 import 'package:waveul/models/song.dart';
-
+import 'package:waveul/pages/music_player/player_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -190,13 +190,18 @@ class _HomePageState extends State<HomePage> {
               song: song,
               onTap: () {
                 print('Tocado: ${song.title} - ${song.artist}');
+                setState(() {
+                  currentSong = song;
+                });
+                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
               },
               onPlay: () {
                 setState(() {
                   currentSong = song;
                 });
-                print('Reproduciendo: ${song.title} - ${song.artist}');
+                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
               },
+
               onFavorite: () {
                 print('Favorito toggled: ${song.title}');
                 // Aquí puedes agregar la lógica para manejar favoritos
@@ -212,26 +217,34 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPlaylistsForYou() {
     return _buildSection(
       title: 'Playlists Para Ti',
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: SampleData.samplePlaylists.map((playlist) {
-            return PlaylistItemCard(
-              playlist: playlist,
-              onTap: () {
-                print('Tocado playlist: ${playlist.name}');
-              },
-              onPlay: () {
-                print('Reproduciendo playlist: ${playlist.name}');
-                // Aquí puedes agregar lógica para reproducir la primera canción
-              },
-              onAdd: () {
-                print('Playlist agregada: ${playlist.name}');
-                // Aquí puedes agregar lógica para guardar/agregar playlist
-              },
-              isAdded: false,
+      child: SizedBox(
+        height: 140, // Altura fija para el carrusel (120 + 20 de margen)
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: SampleData.samplePlaylists.length,
+          itemBuilder: (context, index) {
+            final playlist = SampleData.samplePlaylists[index];
+            return Container(
+              width: 350, // Ancho fijo para cada playlist card
+              margin: const EdgeInsets.only(right: 16),
+              child: PlaylistItemCard(
+                playlist: playlist,
+                onTap: () {
+                  print('Tocado playlist: ${playlist.name}');
+                },
+                onPlay: () {
+                  print('Reproduciendo playlist: ${playlist.name}');
+                  // Aquí puedes agregar lógica para reproducir la primera canción
+                },
+                onAdd: () {
+                  print('Playlist agregada: ${playlist.name}');
+                  // Aquí puedes agregar lógica para guardar/agregar playlist
+                },
+                isAdded: false,
+              ),
             );
-          }).toList(),
+          },
         ),
       ),
     );

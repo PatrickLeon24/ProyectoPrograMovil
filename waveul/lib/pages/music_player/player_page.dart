@@ -12,160 +12,210 @@ class PlayerPage extends StatelessWidget {
     control.setSong(song);
   }
 
-  // 🔹 Header con back y menú
-  Widget _header(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.keyboard_arrow_down, size: 30),
-          onPressed: () => Navigator.pop(context),
+  // Barra turquesa superior
+  Widget _topBar(BuildContext context) {
+    const turquoise = Color(0xFF0EA79A); // puedes ajustar el tono
+    return Container(
+      decoration: const BoxDecoration(
+        color: turquoise,
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: 56,
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                onPressed: () => Get.back(),
+              ),
+              const Spacer(),
+              // Título centrado visualmente
+              Text(
+                song.artist,
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const Spacer(),
+              IconButton(
+                icon: const Icon(Icons.more_vert, color: Colors.white),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
-        IconButton(
-          icon: const Icon(Icons.more_vert),
-          onPressed: () {},
-        ),
-      ],
+      ),
     );
   }
 
-  // 🔹 Portada
+  // Portada centrada
   Widget _cover() {
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           child: song.localImage != null
               ? Image.asset(
                   song.localImage!,
-                  width: 300,
-                  height: 300,
+                  width: 260,
+                  height: 260,
                   fit: BoxFit.cover,
                 )
               : Container(
-                  width: 300,
-                  height: 300,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.music_note, size: 100),
+                  width: 260,
+                  height: 260,
+                  color: Colors.grey[800],
+                  child: const Icon(Icons.music_note, color: Colors.white54, size: 100),
                 ),
         ),
       ),
     );
   }
 
-  // 🔹 Info de canción
+  // Información (título + artista)
   Widget _songInfo() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          Text(
-            song.title,
-            style: GoogleFonts.roboto(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+    return Column(
+      children: [
+        Text(
+          song.title,
+          style: GoogleFonts.poppins(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-          const SizedBox(height: 5),
-          Text(
-            song.artist,
-            style: GoogleFonts.roboto(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 6),
+        Text(
+          song.artist,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            color: Colors.white70,
           ),
-        ],
-      ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 12),
+      ],
+      
     );
   }
 
-  // 🔹 Barra de progreso
-  Widget _progressBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Obx(() => Column(
-            children: [
-              Slider(
-                value: control.progress.value,
-                onChanged: (value) => control.seek(value),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("1:25", style: TextStyle(fontSize: 12)),
-                  Text("3:45", style: TextStyle(fontSize: 12)),
-                ],
-              )
-            ],
-          )),
-    );
-  }
+ 
 
-  // 🔹 Controles de música
+  // Nueva barra de reproducción tipo ondas suaves (como la imagen)
+Widget _progress() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    child: GestureDetector(
+      onHorizontalDragUpdate: (details) {
+        final delta = details.primaryDelta ?? 0;
+        double newProgress = control.progress.value + (delta / 300);
+        newProgress = newProgress.clamp(0.0, 1.0);
+        control.seek(newProgress);
+      },
+      child: Obx(() {
+        final progress = control.progress.value.clamp(0.0, 1.0);
+        final totalBars = 40;
+        final activeBars = (progress * totalBars).floor();
+
+        return Column(
+          children: [
+            // --- Ondas visuales ---
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(totalBars, (i) {
+                // Patrón suave de alturas (onda simétrica)
+                double heightFactor = [
+                  0.25, 0.4, 0.55, 0.75, 0.95, 1.1, 0.9, 0.7, 0.5, 0.35,
+                ][i % 10];
+
+                final color = i < activeBars
+                    ? Colors.white.withOpacity(0.95 - (i % 8) * 0.05)
+                    : Colors.white24;
+
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  width: 5,
+                  height: 36 * heightFactor,
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(height: 8),
+            // --- Tiempos ---
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text("0:12",
+                    style: TextStyle(color: Colors.white60, fontSize: 12)),
+                Text("4:26",
+                    style: TextStyle(color: Colors.white60, fontSize: 12)),
+              ],
+            )
+          ],
+        );
+      }),
+    ),
+  );
+}
+
+
+  // Controles principales
   Widget _controls() {
     return Obx(() => Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: const Icon(Icons.skip_previous, size: 40),
+              icon: const Icon(Icons.shuffle, size: 26, color: Colors.white70),
               onPressed: () {},
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 10),
+            IconButton(
+              icon: const Icon(Icons.skip_previous_rounded, size: 36, color: Colors.white),
+              onPressed: () {},
+            ),
+            const SizedBox(width: 12),
             IconButton(
               icon: Icon(
-                control.isPlaying.value
-                    ? Icons.pause_circle
-                    : Icons.play_circle,
-                size: 60,
-                color: Colors.teal,
+                control.isPlaying.value ? Icons.pause_circle_filled : Icons.play_circle_fill,
+                size: 78,
+                color: Colors.white,
               ),
               onPressed: () => control.togglePlayPause(),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 12),
             IconButton(
-              icon: const Icon(Icons.skip_next, size: 40),
+              icon: const Icon(Icons.skip_next_rounded, size: 36, color: Colors.white),
+              onPressed: () {},
+            ),
+            const SizedBox(width: 10),
+            IconButton(
+              icon: const Icon(Icons.repeat, size: 26, color: Colors.white70),
               onPressed: () {},
             ),
           ],
         ));
   }
 
-  // 🔹 Botones extra
-  Widget _extraButtons() {
+  // Row inferior con acciones
+  Widget _bottomRow() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
-          Icon(Icons.favorite_border, size: 28),
-          Icon(Icons.download_for_offline, size: 28),
-          Icon(Icons.share, size: 28),
-        ],
-      ),
-    );
-  }
-
-  // 🔹 Cuerpo principal
-  Widget _buildBody(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          _header(context),
-          const SizedBox(height: 20),
-          _cover(),
-          const SizedBox(height: 20),
-          _songInfo(),
-          const SizedBox(height: 30),
-          _progressBar(),
-          const SizedBox(height: 20),
-          _controls(),
-          const SizedBox(height: 20),
-          _extraButtons(),
-          const SizedBox(height: 30),
+          Icon(Icons.favorite_border, color: Colors.white, size: 26),
+          Icon(Icons.queue_music, color: Colors.white, size: 26),
+          Icon(Icons.share_outlined, color: Colors.white, size: 26),
         ],
       ),
     );
@@ -173,10 +223,33 @@ class PlayerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: _buildBody(context),
+    return Scaffold(
+      // fondo oscuro general
+      backgroundColor: const Color(0xFF0F0F0F),
+      body: Column(
+        children: [
+          // Barra turquesa superior
+          _topBar(context),
+          // Contenido principal en fondo oscuro
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  const SizedBox(height: 6),
+                  _cover(),
+                  const SizedBox(height: 6),
+                  _songInfo(),
+                  
+                  _progress(),
+                  _controls(),
+                  const SizedBox(height: 10),
+                  _bottomRow(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

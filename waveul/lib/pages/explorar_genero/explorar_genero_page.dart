@@ -5,7 +5,7 @@ import 'explorar_genero_controller.dart';
 import 'package:waveul/components/item_genero_page.dart';
 
 class ExplorarGeneroPage extends StatelessWidget {
-  ExplorarGeneroController control = Get.put(ExplorarGeneroController());
+  final ExplorarGeneroController control = Get.put(ExplorarGeneroController());
 
   Widget _header(BuildContext context) {
     return Column(

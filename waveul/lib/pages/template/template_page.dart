@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'template_controller.dart';
 
 class TemplatePage extends StatelessWidget {
-  TemplateController control = Get.put(TemplateController());
+  final TemplateController control = Get.put(TemplateController());
 
   Widget _buildBody(BuildContext context) {
     return SafeArea(child: Text('Template Page'));

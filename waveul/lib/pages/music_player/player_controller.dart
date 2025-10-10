@@ -2,12 +2,14 @@ import 'package:get/get.dart';
 import 'package:waveul/models/song.dart';
 
 class PlayerController extends GetxController {
-  var isPlaying = true.obs;
-  var progress = 0.3.obs; // Progreso simulado
-  late Song currentSong;
+  RxBool isPlaying = false.obs;
+  RxDouble progress = 0.0.obs;
+  Song? currentSong;
 
   void setSong(Song song) {
     currentSong = song;
+    progress.value = 0.0;
+    isPlaying.value = false;
   }
 
   void togglePlayPause() {
