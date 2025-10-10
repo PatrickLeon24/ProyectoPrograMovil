@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
 
       // 🔹 Ruta inicial
-      initialRoute: '/explorar_musica',
+      initialRoute: '/bienvenida',
 
       // 🔹 Aquí registras todas tus rutas
       // 🔹 Registro de rutas
