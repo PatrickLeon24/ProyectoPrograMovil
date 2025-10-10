@@ -8,7 +8,7 @@ import 'package:waveul/components/playlist_item_card.dart';
 import 'package:waveul/components/genre_card.dart';
 import 'package:waveul/models/sample_data.dart';
 import 'package:waveul/models/song.dart';
-
+import 'package:waveul/pages/music_player/player_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -190,13 +190,18 @@ class _HomePageState extends State<HomePage> {
               song: song,
               onTap: () {
                 print('Tocado: ${song.title} - ${song.artist}');
+                setState(() {
+                  currentSong = song;
+                });
+                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
               },
               onPlay: () {
                 setState(() {
                   currentSong = song;
                 });
-                print('Reproduciendo: ${song.title} - ${song.artist}');
+                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
               },
+
               onFavorite: () {
                 print('Favorito toggled: ${song.title}');
                 // Aquí puedes agregar la lógica para manejar favoritos

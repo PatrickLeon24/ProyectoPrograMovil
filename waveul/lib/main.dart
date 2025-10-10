@@ -18,7 +18,7 @@ import 'pages/registro_artista/registro_artista3/registroartista3_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_1/recuperar_cuenta1_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_2/recuperar_cuenta2_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_3/recuperar_cuenta3_page.dart';
-
+import 'package:get/get.dart';
 import 'pages/explorar_genero/explorar_genero_page.dart';
 
 void main() {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MaterialTheme materialTheme = MaterialTheme(const TextTheme());
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'WaveUL',
       // Para tema claro y oscuro
       theme: materialTheme.light(),

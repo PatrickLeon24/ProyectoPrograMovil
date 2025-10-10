@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'explorar_genero_controller.dart';
+import 'package:waveul/pages/item_genero/item_genero_page.dart';
+
 
 class ExplorarGeneroPage extends StatelessWidget {
   final ExplorarGeneroController control = Get.put(ExplorarGeneroController());
