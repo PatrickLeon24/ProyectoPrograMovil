@@ -94,8 +94,8 @@ class _PlaylistItemCardState extends State<PlaylistItemCard> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            vinylColor.withOpacity(0.8),
-            vinylColor.withOpacity(0.6),
+            vinylColor.withValues(alpha: 0.8),
+            vinylColor.withValues(alpha: 0.6),
           ],
         ),
         borderRadius: BorderRadius.circular(8),
@@ -115,8 +115,8 @@ class _PlaylistItemCardState extends State<PlaylistItemCard> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        height: 120,
+        margin: const EdgeInsets.only(bottom: 8),
+        height: 120, // Altura adecuada para evitar overflow
         child: Stack(
           children: [
             // Caja cyan con información - PRIMERO (fondo)
@@ -146,8 +146,8 @@ class _PlaylistItemCardState extends State<PlaylistItemCard> {
                           Text(
                             widget.playlist.name,
                             style: GoogleFonts.roboto(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600, // Semibold
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900, // Semibold
                               color: Colors.black,
                             ),
                             maxLines: 1,
@@ -194,7 +194,7 @@ class _PlaylistItemCardState extends State<PlaylistItemCard> {
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
@@ -250,7 +250,7 @@ class _PlaylistItemCardState extends State<PlaylistItemCard> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(2, 2),
                       ),

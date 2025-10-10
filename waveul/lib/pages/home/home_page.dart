@@ -212,26 +212,34 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPlaylistsForYou() {
     return _buildSection(
       title: 'Playlists Para Ti',
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: SampleData.samplePlaylists.map((playlist) {
-            return PlaylistItemCard(
-              playlist: playlist,
-              onTap: () {
-                print('Tocado playlist: ${playlist.name}');
-              },
-              onPlay: () {
-                print('Reproduciendo playlist: ${playlist.name}');
-                // Aquí puedes agregar lógica para reproducir la primera canción
-              },
-              onAdd: () {
-                print('Playlist agregada: ${playlist.name}');
-                // Aquí puedes agregar lógica para guardar/agregar playlist
-              },
-              isAdded: false,
+      child: SizedBox(
+        height: 140, // Altura fija para el carrusel (120 + 20 de margen)
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          itemCount: SampleData.samplePlaylists.length,
+          itemBuilder: (context, index) {
+            final playlist = SampleData.samplePlaylists[index];
+            return Container(
+              width: 350, // Ancho fijo para cada playlist card
+              margin: const EdgeInsets.only(right: 16),
+              child: PlaylistItemCard(
+                playlist: playlist,
+                onTap: () {
+                  print('Tocado playlist: ${playlist.name}');
+                },
+                onPlay: () {
+                  print('Reproduciendo playlist: ${playlist.name}');
+                  // Aquí puedes agregar lógica para reproducir la primera canción
+                },
+                onAdd: () {
+                  print('Playlist agregada: ${playlist.name}');
+                  // Aquí puedes agregar lógica para guardar/agregar playlist
+                },
+                isAdded: false,
+              ),
             );
-          }).toList(),
+          },
         ),
       ),
     );

@@ -9,7 +9,7 @@ class Genre {
   final List<Color> gradientColors; // Colores del degradado
   final int songCount; // Número de canciones del género (calculado)
   
-  const Genre({
+  Genre({ // Removido 'const' porque List<Color> no puede ser const
     required this.id,
     required this.name,
     required this.gradientColors,

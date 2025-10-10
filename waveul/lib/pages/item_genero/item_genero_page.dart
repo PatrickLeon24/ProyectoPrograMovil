@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'item_genero_controller.dart';
 
 class ItemGeneroPage extends StatelessWidget {
-  ItemGeneroController control = Get.put(ItemGeneroController());
+  final ItemGeneroController control = Get.put(ItemGeneroController());
 
   Widget _buildBody(BuildContext context) {
     return SafeArea(child: Text('ItemGenero Page'));
