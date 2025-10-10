@@ -49,20 +49,20 @@ class ExplorarGeneroPage extends StatelessWidget {
   }
 
   Widget _content(BuildContext context) {
-    //Provisional porque lo pienso componetizar por item ojo
-    /*
-    final List<Map<String, String>> generos = [
-      {'nombre': 'Pop'},
-      {'nombre': 'Rock'},
-      {'nombre': 'Hip Hop'},
-      {'nombre': 'Electrónica'},
-      {'nombre': 'Jazz'},
-      {'nombre': 'Clásico'},
-      {'nombre': 'Reggaeton'},
-      {'nombre': 'Alternativo'},
-      {'nombre': 'Trap'},
-      {'nombre': 'Punk'},
-    ];*/
+    //Provisional porque lo pienso poner a json
+
+    final List<Map<String, dynamic>> generos = [
+      {'nombre': 'Pop', 'color': '0xFF00B4D8'},
+      {'nombre': 'Rock', 'color': '0xFF212121'},
+      {'nombre': 'Hip Hop', 'color': '0xFFFF9800'},
+      {'nombre': 'Electrónica', 'color': '0xFF9C27B0'},
+      {'nombre': 'Jazz', 'color': '0xFF1A237E'},
+      {'nombre': 'Clásico', 'color': '0xFF2C3E50'},
+      {'nombre': 'Reggaeton', 'color': '0xFFF44336'},
+      {'nombre': 'Alternativo', 'color': '0xFF4CAF50'},
+      {'nombre': 'Trap', 'color': '0xFF1A237E'},
+      {'nombre': 'Punk', 'color': '0xFFD81B60'},
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,31 +71,26 @@ class ExplorarGeneroPage extends StatelessWidget {
           "Generos",
           style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
+
         //aca es donde quiero importar cada genero como item
-        /*
-        Flexible(
-          child: ListView.builder(
-            itemCount: generos.length, // Cuantos géneros hay
-            itemBuilder: (context, index) {
-              final genero = generos[index]; // Obtener el género por su índice
-              return Card(
-                margin: const EdgeInsets.all(8.0),
-                color: Theme.of(context).colorScheme.onSurface,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 15),
-                      Text(genero['nombre']!, style: TextStyle(fontSize: 18)),
-                    ],
-                  ),
-                ),
-              );
-            },
+        GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 15.0,
+            mainAxisSpacing: 15.0,
           ),
+          itemCount: generos.length,
+          itemBuilder: (context, index) {
+            final genero = generos[index];
+            return ItemGeneroPage(
+              nombre: genero['nombre'],
+              color: genero['color'],
+            );
+          },
         ),
-        */
       ],
     );
   }

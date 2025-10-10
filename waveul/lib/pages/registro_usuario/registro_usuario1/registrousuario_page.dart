@@ -19,9 +19,7 @@ class RegistroUsuarioPage extends StatelessWidget {
             
           ),
         ),
-        const SizedBox(height: 10),
-
-        // Los dos puntitos de progreso
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,7 +27,7 @@ class RegistroUsuarioPage extends StatelessWidget {
               width: 10,
               height: 10,
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: Colors.cyan,
                 shape: BoxShape.circle,
               ),
             ),
@@ -38,10 +36,11 @@ class RegistroUsuarioPage extends StatelessWidget {
               width: 10,
               height: 10,
               decoration: const BoxDecoration(
-                color: Colors.grey,
+                color: Colors.black,
                 shape: BoxShape.circle,
               ),
             ),
+           
           ],
         ),
       ],

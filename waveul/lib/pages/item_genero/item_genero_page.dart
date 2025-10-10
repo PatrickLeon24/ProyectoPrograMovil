@@ -1,22 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'item_genero_controller.dart';
 
 class ItemGeneroPage extends StatelessWidget {
-  final ItemGeneroController control = Get.put(ItemGeneroController());
+  final String nombre;
+  final String color;
+
+  ItemGeneroPage({required this.nombre, required this.color, super.key});
+
+  int convertirHexAColor(String cadena) {
+    cadena = cadena.substring(2, cadena.length);
+    print(int.parse(cadena, radix: 16));
+    return int.parse(cadena, radix: 16);
+  }
 
   Widget _buildBody(BuildContext context) {
-    return SafeArea(child: Text('ItemGenero Page'));
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(convertirHexAColor(color)),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //Ahora imagen
+              Text(
+                nombre,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: null,
-        body: _buildBody(context),
-      ),
-    );
+    return _buildBody(context);
   }
 }
