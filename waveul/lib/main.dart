@@ -19,8 +19,10 @@ import 'pages/recuperar_cuenta/recuperar_cuenta_1/recuperar_cuenta1_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_2/recuperar_cuenta2_page.dart';
 import 'pages/recuperar_cuenta/recuperar_cuenta_3/recuperar_cuenta3_page.dart';
 import 'package:get/get.dart';
+
 import 'pages/explorar_genero/explorar_genero_page.dart';
 import 'pages/explorar_musica/explorar_musica_page.dart';
+import 'pages/ver_artista/ver_artista_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -72,6 +74,7 @@ class MyApp extends StatelessWidget {
 
         '/explorar_genero': (context) => ExplorarGeneroPage(),
         '/explorar_musica': (context) => ExplorarMusicaPage(),
+        '/ver_artista': (context) => VerArtistaPage(),
       },
     );
   }
