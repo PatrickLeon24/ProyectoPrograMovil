@@ -1,41 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'ver_artista_controller.dart';
-
-class Song {
-  final String title;
-  final String subtitle; // "Canción · Coldplay"
-  final String coverAsset; // assets/images/...
-  bool liked;
-  Song({
-    required this.title,
-    required this.subtitle,
-    required this.coverAsset,
-    this.liked = false,
-  });
-}
+//Importamos los componentes: SongsList y AlbumsList
+import 'package:waveul/components/albums_list.dart';
+import 'package:waveul/components/songs_list.dart';
 
 class VerArtistaPage extends StatelessWidget {
   final VerArtistaController control = Get.put(VerArtistaController());
-
-  final List<Song> songs = [
-    Song(
-      title: 'The Scientist',
-      subtitle: 'Canción · Coldplay',
-      coverAsset: 'assets/images/scientist.jpg',
-      liked: true,
-    ),
-    Song(
-      title: 'A Sky Full Of Stars',
-      subtitle: 'Canción · Coldplay',
-      coverAsset: 'assets/images/sky.jpg',
-    ),
-    Song(
-      title: 'A Sky Full Of Stars',
-      subtitle: 'Canción · Coldplay',
-      coverAsset: 'assets/images/sky.jpg',
-    ),
-  ];
 
   Widget _header(BuildContext context) {
     return Column(
@@ -99,7 +70,8 @@ class VerArtistaPage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 25),
-        Center(
+        TextButton(
+          onPressed: () {},
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             decoration: BoxDecoration(
@@ -111,6 +83,7 @@ class VerArtistaPage extends StatelessWidget {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 24,
+                fontWeight: FontWeight.normal,
               ),
             ),
           ),
@@ -123,9 +96,21 @@ class VerArtistaPage extends StatelessWidget {
               "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
               textAlign: TextAlign.justify,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.shadow,
                 fontSize: 18,
               ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            "Mostrar Más",
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -134,72 +119,58 @@ class VerArtistaPage extends StatelessWidget {
   }
 
   //Revisar
-  Widget _contentBody(BuildContext context) {
+  Widget _contentBodySongs(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 24),
+        const SizedBox(height: 5),
         Text(
           "Canciones",
           style: TextStyle(
-            fontSize: 24,
-            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 30,
+            color: Theme.of(context).colorScheme.shadow,
           ),
         ),
         const SizedBox(height: 12),
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: songs.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
-          itemBuilder: (_, i) {
-            final s = songs[i];
-            return ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              leading: CircleAvatar(
-                radius: 24,
-                backgroundImage: AssetImage(s.coverAsset),
-              ),
-              title: Text(
-                s.title,
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(s.subtitle),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.favorite,
-                      color: s.liked ? Colors.teal : Colors.grey.shade400,
-                    ),
-                    onPressed: () {
-                      /* setState(() => s.liked = !s.liked); */
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.play_arrow),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              onTap: () {},
-            );
-          },
-        ),
-
+        SongsList(),
         const SizedBox(height: 12),
         TextButton(
           onPressed: () {},
           child: Text(
             "Escuchar Todo",
             style: TextStyle(
-              fontSize: 16,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
-              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+      ],
+    );
+  }
+
+  Widget _contentBodyAlbums(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        Text(
+          "Albumes",
+          style: TextStyle(
+            fontSize: 30,
+            color: Theme.of(context).colorScheme.shadow,
+          ),
+        ),
+        const SizedBox(height: 12),
+        AlbumsList(),
+        const SizedBox(height: 12),
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            "Escuchar Todo",
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -219,7 +190,8 @@ class VerArtistaPage extends StatelessWidget {
               _header(context),
               _cover(context),
               _overview(context),
-              _contentBody(context),
+              _contentBodySongs(context),
+              _contentBodyAlbums(context),
             ],
           ),
         ),

@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       ],
 
       // 🔹 Ruta inicial
-      initialRoute: '/bienvenida',
+      initialRoute: '/ver_artista',
 
       // 🔹 Aquí registras todas tus rutas
       // 🔹 Registro de rutas
