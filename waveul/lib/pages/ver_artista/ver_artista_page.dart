@@ -31,7 +31,10 @@ class VerArtistaPage extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/artista_cover.jpg', fit: BoxFit.cover),
+          Image.asset(
+            'assets/images/Artist_background_cover.jpg',
+            fit: BoxFit.cover,
+          ),
           Align(
             alignment: Alignment.topLeft,
             child: SafeArea(
@@ -201,8 +204,6 @@ class VerArtistaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(backgroundColor: Colors.white, body: _buildBody(context)),
-    );
+    return Scaffold(backgroundColor: Colors.white, body: _buildBody(context));
   }
 }

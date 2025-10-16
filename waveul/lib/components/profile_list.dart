@@ -1,14 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
-class Album {
+class Profile {
   final String title;
   final String subtitle; // "Canción · Coldplay"
   final String coverAsset; // assets/images/...
   bool liked;
-
-  Album({
+  Profile({
     required this.title,
     required this.subtitle,
     required this.coverAsset,
@@ -16,30 +13,29 @@ class Album {
   });
 }
 
-class AlbumsList extends StatefulWidget {
-  AlbumsList({super.key});
+class ProfilesList extends StatefulWidget {
+  ProfilesList({super.key});
 
   @override
-  State<AlbumsList> createState() => _AlbumsListState();
+  State<ProfilesList> createState() => _ProfilesListState();
 }
 
-class _AlbumsListState extends State<AlbumsList> {
-  final List<Album> Albums = [
-    Album(
-      title: 'Album1',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Album_icon.png',
-      liked: true,
+class _ProfilesListState extends State<ProfilesList> {
+  final List<Profile> Profiles = [
+    Profile(
+      title: 'Perfil anonimo 1',
+      subtitle: 'Profile',
+      coverAsset: 'assets/images/Profile_icon.jpg',
     ),
-    Album(
-      title: 'Album2',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Album_icon.png',
+    Profile(
+      title: 'Perfil anonimo 2',
+      subtitle: 'Profile',
+      coverAsset: 'assets/images/Profile_icon.jpg',
     ),
-    Album(
-      title: 'Album3',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Album_icon.png',
+    Profile(
+      title: 'Perfil anonimo 3',
+      subtitle: 'Profile',
+      coverAsset: 'assets/images/Profile_icon.jpg',
     ),
   ];
   bool _isSelected = false;
@@ -48,10 +44,10 @@ class _AlbumsListState extends State<AlbumsList> {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Albums.length,
+      itemCount: Profiles.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (_, i) {
-        final s = Albums[i];
+        final s = Profiles[i];
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
@@ -93,7 +89,7 @@ class _AlbumsListState extends State<AlbumsList> {
                             ),
                   ),
                   child: Text(
-                    _isSelected ? "Guardado" : "Guardar",
+                    _isSelected ? "Siguiendo" : "Seguir",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,

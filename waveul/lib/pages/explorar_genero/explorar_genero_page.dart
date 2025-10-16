@@ -113,8 +113,6 @@ class ExplorarGeneroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(backgroundColor: Colors.white, body: _buildBody(context)),
-    );
+    return Scaffold(backgroundColor: Colors.white, body: _buildBody(context));
   }
 }

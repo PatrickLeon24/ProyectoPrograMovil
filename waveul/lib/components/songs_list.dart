@@ -25,18 +25,18 @@ class _SongsListState extends State<SongsList> {
     Song(
       title: 'CancionGenerica1',
       subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/song_icon.jpg',
+      coverAsset: 'assets/images/Song_icon.jpg',
       liked: true,
     ),
     Song(
       title: 'CancionGenerica2',
       subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/song_icon.jpg',
+      coverAsset: 'assets/images/Song_icon.jpg',
     ),
     Song(
       title: 'CancionGenerica3',
       subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/song_icon.jpg',
+      coverAsset: 'assets/images/Song_icon.jpg',
     ),
   ];
   int _selected = 0;

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CarrouselItemFilter extends StatefulWidget {
-  CarrouselItemFilter({super.key});
+  final Function(int index)? onItemSelected;
+
+  CarrouselItemFilter({super.key, this.onItemSelected});
 
   @override
   State<CarrouselItemFilter> createState() => _CarrouselItemFilterState();
@@ -29,7 +31,12 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
         itemBuilder: (context, i) {
           final isSelected = i == _selected;
           return GestureDetector(
-            onTap: () => setState(() => _selected = i),
+            onTap:
+                () => {
+                  setState(() => _selected = i),
+                  widget.onItemSelected?.call(i),
+                },
+
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               alignment: Alignment.center,
@@ -43,7 +50,7 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
                     isSelected
                         ? null
                         : Border.all(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.shadow,
                         ),
               ),
               child: Text(
@@ -53,7 +60,7 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
                   color:
                       isSelected
                           ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.primary,
+                          : Theme.of(context).colorScheme.shadow,
                 ),
               ),
             ),
