@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:waveul/pages/explorar_musica/explorar_musica_page.dart';
 import 'explorar_genero_controller.dart';
 //Necesitamos importar cada genero de una lista
 import 'package:waveul/components/item_genero_page.dart';
@@ -27,11 +28,24 @@ class ExplorarGeneroPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Buscar",
-          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 30),
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+              onPressed: () => Navigator.pushNamed(context, '/home'),
+            ),
+            Text(
+              "Buscar",
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 30,
+              ),
+            ),
+          ],
         ),
-
         const SizedBox(height: 10),
         TextFormField(
           decoration: InputDecoration(
@@ -41,7 +55,14 @@ class ExplorarGeneroPage extends StatelessWidget {
               horizontal: 50,
               vertical: 15,
             ),
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: IconButton(
+              onPressed:
+                  () => {Navigator.pushNamed(context, '/explorar_musica')},
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).colorScheme.surface,
+              ),
+            ),
           ),
         ),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ItemGeneroPage extends StatelessWidget {
   final String nombre;
@@ -13,25 +14,29 @@ class ItemGeneroPage extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(convertirHexAColor(color)),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //Ahora imagen
-              Text(
-                nombre,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 24,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/explorar_musica');
+      },
+      child: Card(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(convertirHexAColor(color)),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  nombre,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: 24,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -4,12 +4,12 @@ class Profile {
   final String title;
   final String subtitle; // "Canción · Coldplay"
   final String coverAsset; // assets/images/...
-  bool liked;
+  bool follow;
   Profile({
     required this.title,
     required this.subtitle,
     required this.coverAsset,
-    this.liked = false,
+    this.follow = false,
   });
 }
 
@@ -26,19 +26,21 @@ class _ProfilesListState extends State<ProfilesList> {
       title: 'Perfil anonimo 1',
       subtitle: 'Profile',
       coverAsset: 'assets/images/Profile_icon.jpg',
+      follow: false,
     ),
     Profile(
       title: 'Perfil anonimo 2',
       subtitle: 'Profile',
       coverAsset: 'assets/images/Profile_icon.jpg',
+      follow: false,
     ),
     Profile(
       title: 'Perfil anonimo 3',
       subtitle: 'Profile',
       coverAsset: 'assets/images/Profile_icon.jpg',
+      follow: false,
     ),
   ];
-  bool _isSelected = false;
 
   Widget _buildBody(BuildContext context) {
     return ListView.separated(
@@ -72,24 +74,24 @@ class _ProfilesListState extends State<ProfilesList> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () => setState(() => _isSelected = true),
+                onPressed: () => setState(() => s.follow = !s.follow),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     color:
-                        _isSelected
+                        s.follow
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        _isSelected
+                        s.follow
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    _isSelected ? "Siguiendo" : "Seguir",
+                    s.follow ? "Siguiendo" : "Seguir",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,

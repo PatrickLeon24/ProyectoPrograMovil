@@ -13,12 +13,12 @@ import 'package:waveul/components/profile_list.dart';
 
 class ExplorarMusicaPage extends StatefulWidget {
   const ExplorarMusicaPage({super.key});
-
   @override
   State<ExplorarMusicaPage> createState() => _ExplorarMusicaPageState();
 }
 
 class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
+  final ExplorarMusicaController control = Get.put(ExplorarMusicaController());
   int selectedIndex = 0;
 
   Widget _header(BuildContext context) {
@@ -75,29 +75,12 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
   Widget _filter(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.circle,
-              size: 10,
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            const SizedBox(width: 5),
-            Icon(
-              Icons.circle,
-              size: 10,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
         CarrouselItemFilter(
           onItemSelected: (index) {
             setState(() => selectedIndex = index);
           },
         ),
+
         const SizedBox(height: 20),
       ],
     );
@@ -105,11 +88,6 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
 
   Widget _content(BuildContext context) {
     switch (selectedIndex) {
-      //json de 3 a 5 datos aplicado a todas las vistas
-      //Empezar con los services
-      //Correcion de colores en las vistas + imagenes
-      //La parte arrastable del carrusel que se integre con los filtros
-      //Y nada mas :D
       case 0:
         return AllList();
       case 1:

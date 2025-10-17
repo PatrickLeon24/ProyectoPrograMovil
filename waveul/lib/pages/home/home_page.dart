@@ -9,6 +9,7 @@ import 'package:waveul/components/genre_card.dart';
 import 'package:waveul/models/sample_data.dart';
 import 'package:waveul/models/song.dart';
 import 'package:waveul/pages/music_player/player_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -40,7 +41,9 @@ class _HomePageState extends State<HomePage> {
           // Contenido principal scrolleable
           SingleChildScrollView(
             controller: _scrollController,
-            padding: const EdgeInsets.only(bottom: 80), // Espacio para el player
+            padding: const EdgeInsets.only(
+              bottom: 80,
+            ), // Espacio para el player
             child: Column(
               children: [
                 _buildHeader(),
@@ -55,12 +58,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // Player fijo en la parte inferior
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: _buildBottomPlayer(),
-          ),
+          Positioned(bottom: 0, left: 0, right: 0, child: _buildBottomPlayer()),
         ],
       ),
     );
@@ -74,19 +72,22 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 2),
           // Barra de búsqueda
           IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, '/explorar_genero'),
             icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
           ),
           const Spacer(),
           Image.asset(
-          'assets/images/text1.png',
-          height: 30,
-          fit: BoxFit.contain,
+            'assets/images/text1.png',
+            height: 30,
+            fit: BoxFit.contain,
           ),
           const SizedBox(width: 10),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.access_time_rounded, color: Theme.of(context).primaryColor),
+            icon: Icon(
+              Icons.access_time_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           // Botón de configuración
           IconButton(
@@ -100,7 +101,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildFeaturedSection() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 16, 16, 32), // Más margen abajo para la imagen
+      margin: const EdgeInsets.fromLTRB(
+        16,
+        16,
+        16,
+        32,
+      ), // Más margen abajo para la imagen
       child: Stack(
         clipBehavior: Clip.none, // Permite que la imagen sobresalga
         children: [
@@ -109,7 +115,10 @@ class _HomePageState extends State<HomePage> {
             height: 150,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF4ECDC4), Theme.of(context).colorScheme.surface],
+                colors: [
+                  Color(0xFF4ECDC4),
+                  Theme.of(context).colorScheme.surface,
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -126,10 +135,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         const Text(
                           'Nuevo Álbum',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         ),
                         const SizedBox(height: 2),
                         const Text(
@@ -143,10 +149,7 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(height: 2),
                         const Text(
                           'Billie Eilish',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 14),
                         ),
                       ],
                     ),
@@ -164,10 +167,7 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               width: 170,
               height: 170,
-              child: Image.asset(
-                'assets/images/billie.png',
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset('assets/images/billie.png', fit: BoxFit.cover),
             ),
           ),
         ],
@@ -193,13 +193,19 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   currentSong = song;
                 });
-                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
+                Get.to(
+                  () => PlayerPage(song: song),
+                  transition: Transition.downToUp,
+                );
               },
               onPlay: () {
                 setState(() {
                   currentSong = song;
                 });
-                Get.to(() => PlayerPage(song: song), transition: Transition.downToUp);
+                Get.to(
+                  () => PlayerPage(song: song),
+                  transition: Transition.downToUp,
+                );
               },
 
               onFavorite: () {
@@ -262,7 +268,8 @@ class _HomePageState extends State<HomePage> {
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 160 / 135, // Proporción exacta: 160 ancho / 135 alto ≈ 1.18
+            childAspectRatio:
+                160 / 135, // Proporción exacta: 160 ancho / 135 alto ≈ 1.18
           ),
           itemCount: SampleData.exploreGenres.length,
           itemBuilder: (context, index) {
@@ -329,10 +336,10 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     title,
                     style: GoogleFonts.poppins(
-                      fontSize: 22,                    // Más grande
-                      fontWeight: FontWeight.w700,     // Más bold
-                      color: Colors.black87,           // Color más suave
-                      letterSpacing: 0.5,              // Espaciado entre letras
+                      fontSize: 22, // Más grande
+                      fontWeight: FontWeight.w700, // Más bold
+                      color: Colors.black87, // Color más suave
+                      letterSpacing: 0.5, // Espaciado entre letras
                       shadows: [
                         Shadow(
                           offset: Offset(1.0, 1.0),
@@ -358,7 +365,9 @@ class _HomePageState extends State<HomePage> {
                     width: 80, // ← Control del ancho del subrayado
                     decoration: BoxDecoration(
                       color: Colors.green,
-                      borderRadius: BorderRadius.circular(2), // Bordes redondeados
+                      borderRadius: BorderRadius.circular(
+                        2,
+                      ), // Bordes redondeados
                     ),
                   ),
                 ],
@@ -371,12 +380,6 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
-
-
-
-
-
 
   Widget _buildAlbumCard() {
     return Container(
@@ -459,17 +462,18 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: currentSong?.localImage != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        currentSong!.localImage!,
-                        width: 56,
-                        height: 56,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : const Icon(Icons.music_note),
+              child:
+                  currentSong?.localImage != null
+                      ? ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          currentSong!.localImage!,
+                          width: 56,
+                          height: 56,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                      : const Icon(Icons.music_note),
             ),
             const SizedBox(width: 12),
             // Información de la canción
@@ -501,18 +505,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             // Controles
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.skip_previous),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.play_arrow),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.skip_next),
-            ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.skip_previous)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.play_arrow)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.skip_next)),
           ],
         ),
       ),

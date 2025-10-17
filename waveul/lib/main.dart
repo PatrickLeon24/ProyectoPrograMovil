@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
 
       // 🔹 Ruta inicial
       //Recordar poner a /bienvenida siempre
-      initialRoute: '/ver_artista',
+      initialRoute: '/bienvenida',
 
       // 🔹 Aquí registras todas tus rutas
       // 🔹 Registro de rutas

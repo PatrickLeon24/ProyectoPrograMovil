@@ -4,12 +4,12 @@ class Playlist {
   final String title;
   final String subtitle; // "Canción · Coldplay"
   final String coverAsset; // assets/images/...
-  bool liked;
+  bool saved;
   Playlist({
     required this.title,
     required this.subtitle,
     required this.coverAsset,
-    this.liked = false,
+    this.saved = false,
   });
 }
 
@@ -26,19 +26,21 @@ class _PlaylistsListState extends State<PlaylistsList> {
       title: 'Mi playlist',
       subtitle: 'Playlist',
       coverAsset: 'assets/images/workout_playlist.png',
+      saved: false,
     ),
     Playlist(
       title: 'Playlist Chill',
       subtitle: 'Playlist',
       coverAsset: 'assets/images/workout_playlist.png',
+      saved: false,
     ),
     Playlist(
       title: 'Entrenamiento 😎',
       subtitle: 'Playlist',
       coverAsset: 'assets/images/workout_playlist.png',
+      saved: false,
     ),
   ];
-  bool _isSelected = false;
 
   Widget _buildBody(BuildContext context) {
     return ListView.separated(
@@ -72,24 +74,24 @@ class _PlaylistsListState extends State<PlaylistsList> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () => setState(() => _isSelected = true),
+                onPressed: () => setState(() => s.saved = !s.saved),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     color:
-                        _isSelected
+                        s.saved
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        _isSelected
+                        s.saved
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    _isSelected ? "Guardado" : "Guardar",
+                    s.saved ? "Guardado" : "Guardar",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,

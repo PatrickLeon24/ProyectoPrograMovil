@@ -4,12 +4,12 @@ class Artist {
   final String title;
   final String subtitle; // "Canción · Coldplay"
   final String coverAsset; // assets/images/...
-  bool liked;
+  bool saved;
   Artist({
     required this.title,
     required this.subtitle,
     required this.coverAsset,
-    this.liked = false,
+    this.saved = false,
   });
 }
 
@@ -26,19 +26,21 @@ class _ArtistsListState extends State<ArtistsList> {
       title: 'Artista1',
       subtitle: 'Artista',
       coverAsset: 'assets/images/Artist_icon.jpg',
+      saved: false,
     ),
     Artist(
       title: 'Artista2',
       subtitle: 'Artista',
       coverAsset: 'assets/images/Artist_icon.jpg',
+      saved: false,
     ),
     Artist(
       title: 'Artista3',
       subtitle: 'Artista',
       coverAsset: 'assets/images/Artist_icon.jpg',
+      saved: false,
     ),
   ];
-  bool _isSelected = false;
 
   Widget _buildBody(BuildContext context) {
     return ListView.separated(
@@ -78,24 +80,24 @@ class _ArtistsListState extends State<ArtistsList> {
               ),
 
               TextButton(
-                onPressed: () => setState(() => _isSelected = true),
+                onPressed: () => setState(() => s.saved = !s.saved),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     color:
-                        _isSelected
+                        s.saved
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        _isSelected
+                        s.saved
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    _isSelected ? "Siguiendo" : "Seguir",
+                    s.saved ? "Siguiendo" : "Seguir",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,
@@ -113,7 +115,7 @@ class _ArtistsListState extends State<ArtistsList> {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () => {Navigator.pushNamed(context, '/ver_artista')},
         );
       },
     );

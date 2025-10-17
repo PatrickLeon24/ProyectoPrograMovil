@@ -14,7 +14,7 @@ class Song {
 }
 
 class SongsList extends StatefulWidget {
-  SongsList({super.key});
+  const SongsList({super.key});
 
   @override
   State<SongsList> createState() => _SongsListState();
@@ -26,20 +26,21 @@ class _SongsListState extends State<SongsList> {
       title: 'CancionGenerica1',
       subtitle: 'Canción · Artista',
       coverAsset: 'assets/images/Song_icon.jpg',
-      liked: true,
+      liked: false,
     ),
     Song(
       title: 'CancionGenerica2',
       subtitle: 'Canción · Artista',
       coverAsset: 'assets/images/Song_icon.jpg',
+      liked: false,
     ),
     Song(
       title: 'CancionGenerica3',
       subtitle: 'Canción · Artista',
       coverAsset: 'assets/images/Song_icon.jpg',
+      liked: false,
     ),
   ];
-  int _selected = 0;
 
   Widget _buildBody(BuildContext context) {
     return ListView.separated(
@@ -82,7 +83,7 @@ class _SongsListState extends State<SongsList> {
                   size: 26,
                 ),
                 onPressed: () {
-                  /* setState(() => s.liked = !s.liked); */
+                  setState(() => s.liked = !s.liked);
                 },
               ),
               IconButton(

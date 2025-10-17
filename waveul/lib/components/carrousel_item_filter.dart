@@ -20,6 +20,37 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
   ];
   int _selected = 0;
 
+  Widget _points(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.circle,
+              size: 10,
+              color:
+                  _selected >= 0 && _selected <= 2
+                      ? Theme.of(context).colorScheme.surface
+                      : Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(width: 5),
+            Icon(
+              Icons.circle,
+              size: 10,
+              color:
+                  _selected > 2
+                      ? Theme.of(context).colorScheme.surface
+                      : Theme.of(context).colorScheme.primary,
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
   Widget _buildBody(BuildContext context) {
     return SizedBox(
       height: 40,
@@ -35,6 +66,7 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
                 () => {
                   setState(() => _selected = i),
                   widget.onItemSelected?.call(i),
+                  print(_selected),
                 },
 
             child: Container(
@@ -72,6 +104,6 @@ class _CarrouselItemFilterState extends State<CarrouselItemFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody(context);
+    return Column(children: [_points(context), _buildBody(context)]);
   }
 }
