@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:waveul/services/users_service.dart';
 import 'package:waveul/configs/generic_response.dart';
 
-
-
 class IniciarSesionController extends GetxController {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -17,7 +15,7 @@ class IniciarSesionController extends GetxController {
     String user = username.text;
     String pass = password.text;
     GenericResponse response = userService.signIn(user, pass);
-    
+
     message.value = response.message;
     success.value = response.success;
 
@@ -32,5 +30,20 @@ class IniciarSesionController extends GetxController {
 
   void goToResetPassword(BuildContext context) {
     Navigator.pushNamed(context, '/recuperar_cuenta_1');
+  }
+
+  void logout(BuildContext context) {
+    // Limpiar controladores
+    username.clear();
+    password.clear();
+    message.value = '';
+    success.value = false;
+
+    // Redirigir al login
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/bienvenida',
+      (route) => false, // eliminar historial para que no pueda volver atrás
+    );
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/pages/iniciar_sesion/iniciar_sesion_controller.dart';
+import 'package:get/get.dart';
 
 class EditarPerfilPage extends StatelessWidget {
-  final TextEditingController nicknameController =
-      TextEditingController(text: "SkibidyMaster89");
+  final TextEditingController nicknameController = TextEditingController(
+    text: "SkibidyMaster89",
+  );
 
   EditarPerfilPage({super.key});
 
@@ -32,8 +35,10 @@ class EditarPerfilPage extends StatelessWidget {
                   children: [
                     // Botón atrás
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new,
-                          color: Colors.black),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.black,
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -117,6 +122,30 @@ class EditarPerfilPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+
+              const SizedBox(height: 60),
+
+              ElevatedButton.icon(
+                onPressed: () {
+                  final controller = Get.find<IniciarSesionController>();
+                  controller.logout(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red[600],
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                icon: const Icon(Icons.logout, color: Colors.white),
+                label: const Text(
+                  "Cerrar Sesión",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             ],
