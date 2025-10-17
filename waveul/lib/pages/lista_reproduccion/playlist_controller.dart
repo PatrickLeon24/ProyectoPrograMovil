@@ -32,7 +32,5 @@ class PlaylistController extends GetxController {
   }
 
   /// Alternar favorito (solo local por ahora)
-  void toggleFavorite(Song song) {
-    
-  }
+  void toggleFavorite(Song song) {}
 }
