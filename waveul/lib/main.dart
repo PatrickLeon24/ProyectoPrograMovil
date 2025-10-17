@@ -23,7 +23,7 @@ import 'package:get/get.dart';
 import 'pages/explorar_genero/explorar_genero_page.dart';
 import 'pages/explorar_musica/explorar_musica_page.dart';
 import 'pages/ver_artista/ver_artista_page.dart';
-
+import 'pages/lista_reproduccion/playlist_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
         '/explorar_genero': (context) => ExplorarGeneroPage(),
         '/explorar_musica': (context) => ExplorarMusicaPage(),
         '/ver_artista': (context) => VerArtistaPage(),
+        
       },
     );
   }

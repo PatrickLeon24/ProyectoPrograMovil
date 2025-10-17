@@ -9,7 +9,7 @@ import 'package:waveul/components/genre_card.dart';
 import 'package:waveul/models/sample_data.dart';
 import 'package:waveul/models/song.dart';
 import 'package:waveul/pages/music_player/player_page.dart';
-
+import "package:waveul/pages/lista_reproduccion/playlist_page.dart";
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -221,40 +221,47 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPlaylistsForYou() {
-    return _buildSection(
-      title: 'Playlists Para Ti',
-      child: SizedBox(
-        height: 140, // Altura fija para el carrusel (120 + 20 de margen)
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          itemCount: SampleData.samplePlaylists.length,
-          itemBuilder: (context, index) {
-            final playlist = SampleData.samplePlaylists[index];
-            return Container(
-              width: 350, // Ancho fijo para cada playlist card
-              margin: const EdgeInsets.only(right: 16),
-              child: PlaylistItemCard(
-                playlist: playlist,
-                onTap: () {
-                  print('Tocado playlist: ${playlist.name}');
-                },
-                onPlay: () {
-                  print('Reproduciendo playlist: ${playlist.name}');
-                  // Aquí puedes agregar lógica para reproducir la primera canción
-                },
-                onAdd: () {
-                  print('Playlist agregada: ${playlist.name}');
-                  // Aquí puedes agregar lógica para guardar/agregar playlist
-                },
-                isAdded: false,
-              ),
-            );
-          },
-        ),
+  return _buildSection(
+    title: 'Playlists Para Ti',
+    child: SizedBox(
+      height: 140,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: SampleData.samplePlaylists.length,
+        itemBuilder: (context, index) {
+          final playlist = SampleData.samplePlaylists[index];
+
+          return Container(
+            width: 350,
+            margin: const EdgeInsets.only(right: 16),
+            child: PlaylistItemCard(
+              playlist: playlist,
+              onTap: () {
+                // ✅ Ahora usamos las canciones de SampleData.popularSongs
+               Get.to(() => PlaylistPage(
+                  playlistName: "Popular Songs",
+                  playlistImage: "assets/images/chill_playlist.jpg",
+                  songs: SampleData.popularSongs,
+                ));
+
+              },
+              onPlay: () {
+                print('Reproduciendo playlist: ${playlist.name}');
+                // Aquí puedes agregar lógica para reproducir la primera canción
+              },
+              onAdd: () {
+                print('Playlist agregada: ${playlist.name}');
+                // Aquí puedes agregar lógica para guardar/agregar playlist
+              },
+              isAdded: false,
+            ),
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildGenresToExplore() {
     return _buildSection(
