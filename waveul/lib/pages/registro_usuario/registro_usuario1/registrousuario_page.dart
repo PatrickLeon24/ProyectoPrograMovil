@@ -195,7 +195,7 @@ class RegistroUsuarioPage extends StatelessWidget {
         const Text("¿Ya Tienes Una Cuenta? "),
         GestureDetector(
           onTap: () {
-            // Navegar a login
+            Navigator.pushNamed(context, '/iniciar_sesion');
           },
           child: Text(
             "Inicia Sesión",

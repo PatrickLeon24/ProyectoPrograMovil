@@ -255,7 +255,7 @@ class _RegistroArtistaPageState extends State<RegistroArtistaPage> {
                         const Text("¿Ya Tienes Una Cuenta? "),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.pushNamed(context, '/iniciar_sesion');
                           },
                           child: Text(
                             "Inicia Sesión",

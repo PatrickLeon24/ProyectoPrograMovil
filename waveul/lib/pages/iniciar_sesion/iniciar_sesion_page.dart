@@ -177,7 +177,7 @@ class IniciarSesionPage extends StatelessWidget {
         const Text("¿Aún No Eres Miembro? "),
         GestureDetector(
           onTap: () {
-            control.goToSignUp(context);
+            Navigator.pushNamed(context, '/registro_usuario1');
           },
           child: Text(
             "Regístrate Ahora",
