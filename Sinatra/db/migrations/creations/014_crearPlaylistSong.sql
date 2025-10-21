@@ -1,0 +1,11 @@
+-- 14. RELACIÓN PLAYLIST - CANCIÓN
+CREATE TABLE playlist_song (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    playlist_id INTEGER NOT NULL,
+    song_id INTEGER NOT NULL,
+    added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "order" INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (playlist_id) REFERENCES playlists(id) ON DELETE CASCADE,
+    FOREIGN KEY (song_id) REFERENCES songs(id) ON DELETE CASCADE,
+    UNIQUE(playlist_id, song_id, "order")
+);

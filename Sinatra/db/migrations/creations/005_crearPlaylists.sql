@@ -1,0 +1,12 @@
+-- 5. PLAYLISTS (depende de users)
+CREATE TABLE playlists (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    cover_image VARCHAR(255),
+    is_public BOOLEAN NOT NULL DEFAULT 1,
+    save_in INTEGER NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
