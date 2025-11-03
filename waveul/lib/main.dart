@@ -26,8 +26,15 @@ import 'pages/ver_artista/ver_artista_page.dart';
 import 'pages/lista_reproduccion/playlist_page.dart';
 import 'pages/editar_perfil/editarperfil_main.dart';
 
-void main() {
-  runApp(const MyApp());
+
+
+
+import 'package:waveul/services/session_service.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SessionService().init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
