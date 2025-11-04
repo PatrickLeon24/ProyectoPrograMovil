@@ -1,24 +1,27 @@
+# user.rb
 require_relative 'base_model'
 
 class User < BaseModel
-  # La tabla se creará automáticamente cuando sea necesaria
-  # o se puede crear con migraciones de Sequel
-  
-  # Validaciones de ejemplo
+  set_dataset :users
+
+  # Ejemplo de relaciones (añade solo si existen esas tablas y relaciones)
+  # one_to_many :posts
+  # many_to_many :roles, join_table: :roles_users
+
+  # Validaciones opcionales
   def validate
     super
-    errors.add(:name, 'cannot be empty') if !name || name.empty?
-    errors.add(:email, 'cannot be empty') if !email || email.empty?
-    errors.add(:email, 'format is invalid') if email && !email.match?(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
+    errors.add(:name, 'no puede estar vacío') if name.nil? || name.strip.empty?
+    errors.add(:username, 'no puede estar vacío') if username.nil? || username.strip.empty?
+    errors.add(:email, 'no puede estar vacío') if email.nil? || email.strip.empty?
   end
-  
-  # Métodos de instancia de ejemplo
-  def full_info
-    "#{name} (#{email})"
+
+  # Métodos de ayuda
+  def full_name
+    "#{name} #{last_name}"
   end
-  
-  # Métodos de clase de ejemplo
-  def self.by_email(email)
-    where(email: email).first
+
+  def verified?
+    is_verified == 1
   end
 end

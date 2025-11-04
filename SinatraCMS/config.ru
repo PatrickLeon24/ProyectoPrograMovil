@@ -1,5 +1,7 @@
 require_relative 'controllers/application_controller'
 require_relative 'controllers/book_controller'
-
+require_relative 'controllers/user_controller'
 use BookController
+use UserController
+
 run ApplicationController
