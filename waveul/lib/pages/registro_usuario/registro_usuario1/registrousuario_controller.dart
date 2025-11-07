@@ -5,6 +5,7 @@ import 'package:waveul/services/users_service.dart';
 class RegistroUsuarioController extends GetxController {
   final UsersService _usersService = UsersService();
 
+  // Variables reactivas si querés mostrar carga o mensajes
   var isLoading = false.obs;
 
   Future<void> registrarUsuario({
@@ -20,38 +21,23 @@ class RegistroUsuarioController extends GetxController {
       isLoading.value = true;
 
       GenericResponse response = await _usersService.signUp(
-        name: nombres,
-        lastName: apellidos,
         username: username,
-        password: password,
+        nombres: nombres,
+        apellidos: apellidos,
         email: email,
-        phone: telefono,
-        birthDate: fechaNacimiento,
+        password: password,
+        fechaNacimiento: fechaNacimiento,
+        telefono: telefono,
       );
 
       if (response.success == true) {
-        Get.snackbar(
-          '✅ Éxito',
-          'Usuario registrado correctamente 🎉',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-        );
+        Get.snackbar('Éxito', 'Usuario registrado correctamente 🎉');
         Get.offAllNamed('/iniciar_sesion');
       } else {
-        Get.snackbar(
-          '⚠️ Error',
-          response.message ?? 'Error en el registro',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 3),
-        );
+        Get.snackbar('Error', response.message ?? 'Error en el registro');
       }
     } catch (e) {
-      Get.snackbar(
-        '❌ Error',
-        'No se pudo registrar el usuario: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-      );
+      Get.snackbar('Error', 'No se pudo registrar: $e');
     } finally {
       isLoading.value = false;
     }
