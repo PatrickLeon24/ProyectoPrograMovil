@@ -32,7 +32,7 @@ class IniciarSesionController extends GetxController {
   }
 
   try {
-    GenericResponse<dynamic> response = await userService.signInLocal(user, pass);
+    GenericResponse<dynamic> response = await userService.signIn(user, pass);
 
     print('📦 Respuesta del servidor: ${response.toJson()}');
 
