@@ -92,4 +92,64 @@ class UsersService {
       );
     }
   }
+
+  Future<GenericResponse> signUp({
+  required String username,
+  required String nombres,
+  required String apellidos,
+  required String email,
+  required String password,
+  required String fechaNacimiento,
+  required String telefono,
+}) async {
+  try {
+    if (username.isEmpty ||
+        nombres.isEmpty ||
+        apellidos.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        fechaNacimiento.isEmpty ||
+        telefono.isEmpty) {
+      return GenericResponse(
+        success: false,
+        data: null,
+        message: "Debe completar todos los campos",
+        error: "ERROR!",
+      );
+    }
+    print(username);
+    final httpResponse = await http.post(
+      Uri.parse('${BASE_URL}api/v2/sign-up'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode({
+        'username': username,
+        'nombres': nombres,
+        'apellidos': apellidos,
+        'email': email,
+        'password': password,
+        'fecha_nacimiento': fechaNacimiento,
+        'telefono': telefono,
+      }),
+    );
+    print(httpResponse.body);
+    Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+    final response = GenericResponse<AuthResponse>.fromJson(
+      jsonMap,
+      fromJsonT: (data) => AuthResponse.fromJson(data as Map<String, dynamic>),
+    );
+
+    return response;
+    } catch (e) {
+      return GenericResponse(
+        success: false,
+        data: null,
+        message: "Ocurrió un error al registrar el usuario",
+        error: e.toString(),
+      );
+    }
+  }
 }

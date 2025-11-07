@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:waveul/pages/registro_usuario/registro_usuario1/registrousuario_controller.dart';
 
 class RegistroUsuario2Page extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
+  final RegistroUsuarioController controller = Get.put(RegistroUsuarioController());
 
   RegistroUsuario2Page({super.key});
 
@@ -10,7 +13,7 @@ class RegistroUsuario2Page extends StatelessWidget {
       children: [
         const SizedBox(height: 40),
         Image.asset(
-          'assets/images/text1.png', // Tu logo
+          'assets/images/text1.png',
           height: 40,
           fit: BoxFit.contain,
         ),
@@ -24,7 +27,7 @@ class RegistroUsuario2Page extends StatelessWidget {
         ),
         const SizedBox(height: 10),
 
-        // 🔹 Puntitos de progreso
+        // 🔹 Puntos de progreso
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -87,7 +90,7 @@ class RegistroUsuario2Page extends StatelessWidget {
         TextFormField(
           controller: usernameController,
           decoration: InputDecoration(
-            hintText: "Ingresa Un Nombre De Usuario",
+            hintText: "Ingresa un nombre de usuario",
             hintStyle: TextStyle(
               color: Theme.of(context).colorScheme.onSurface,
             ),
@@ -104,31 +107,46 @@ class RegistroUsuario2Page extends StatelessWidget {
         const SizedBox(height: 40),
 
         // 🔹 Botón Finalizar
-        SizedBox(
-          width: double.infinity,
-          height: 80,
-          child: ElevatedButton(
-            onPressed: () {
-              // Acción para finalizar registro
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+        Obx(() {
+          return SizedBox(
+            width: double.infinity,
+            height: 80,
+            child: ElevatedButton(
+              onPressed: controller.isLoading.value
+                  ? null
+                  : () async {
+                      // Aquí luego pasarás los datos reales del paso 1
+                      await controller.registrarUsuario(
+                        username: usernameController.text,
+                        nombres: 'Nombres',
+                        apellidos: 'Apellidos',
+                        email: 'correo@ejemplo.com',
+                        password: '123456',
+                        fechaNacimiento: '2000-01-01',
+                        telefono: '999999999',
+                      );
+                    },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 5,
+                shadowColor: Colors.grey.shade400,
               ),
-              elevation: 5,
-              shadowColor: Colors.grey.shade400,
+              child: controller.isLoading.value
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text(
+                      "Finalizar Registro",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
             ),
-            child: const Text(
-              "Finalizar Registro",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ),
-        ),
+          );
+        }),
 
         const SizedBox(height: 30),
       ],
@@ -139,7 +157,6 @@ class RegistroUsuario2Page extends StatelessWidget {
     return SafeArea(
       child: Stack(
         children: [
-          // Contenido principal
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: SingleChildScrollView(
@@ -152,7 +169,7 @@ class RegistroUsuario2Page extends StatelessWidget {
             ),
           ),
 
-          // 🔹 Botón circular de retroceso (como en RecuperarCuenta3Page)
+          // 🔙 Botón de retroceso
           Positioned(
             top: 10,
             left: 10,
