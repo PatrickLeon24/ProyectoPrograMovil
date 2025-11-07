@@ -8,3 +8,4 @@ gem 'puma', '~> 6.0'
 group :development do
   gem 'rerun'
 end
+gem "jwt", "~> 3.1"
