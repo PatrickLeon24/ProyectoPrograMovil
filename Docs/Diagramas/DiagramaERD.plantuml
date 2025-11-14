@@ -222,7 +222,6 @@ songs "1" -- "*" reviews
 artists "1" -- "*" albums
 artists "1" -- "*" song_artist
 
-albums "1" -- "*" songs
 albums "1" -- "*" album_song
 
 songs "1" -- "*" song_artist

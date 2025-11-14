@@ -1,6 +1,8 @@
 require_relative 'base_model'
 
 class Artist < BaseModel
+  set_dataset :artists 
+
   one_to_many :albums, key: :artist_id
   many_to_many :songs, join_table: :song_artist, left_key: :artist_id, right_key: :song_id
 

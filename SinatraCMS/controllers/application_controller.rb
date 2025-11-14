@@ -33,7 +33,11 @@ class ApplicationController < Sinatra::Base
   # 🚫 RUTAS EXCLUIDAS DE AUTH
   # ===============================
   BEFORE_FILTER_EXCLUDED_ROUTES = [
-    '/api/v2/sign-in','/api/v1/users','/api/v2/sign-up', '/api/v2/genres',
+    '/api/v2/sign-in','/api/v1/users','/api/v2/sign-up',
+    '/api/genres' , '/api/genres/1', '/api/genres/11',
+    '/api/artists/search',
+    '/api/songs' , '/api/songs/1',
+    '/api/songs/search',
   ].freeze
 
   # ===============================

@@ -4,10 +4,18 @@ require_relative 'controllers/user_controller'
 require_relative 'controllers/session_controller'
 require_relative 'controllers/registro_controller'
 require_relative 'controllers/genre_controller'
+require_relative 'controllers/artist_controller'
+require_relative 'controllers/song_controller'
+require_relative 'controllers/album_controller'
+require_relative 'controllers/playlist_controller'
 
 use BookController
 use UserController
 use SessionController
 use RegistrationController
 use GenreController
+use ArtistController
+use SongController
+use AlbumController
+use PlaylistController
 run ApplicationController
