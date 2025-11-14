@@ -15,11 +15,11 @@ class EditUserController < ApplicationController
   #     "username": "NuevoNickname123"
   #   }
   #
-  put '/api/v2/users/:id/username' do
+  put '/api/v2/users/username' do
     content_type :json
 
     begin
-      user_id = params[:id]
+      user_id = @current_user['user_id']
 
       # Leer y parsear el body
       request_body = JSON.parse(request.body.read) rescue nil

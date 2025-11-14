@@ -49,6 +49,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "edit_user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwNjA0Mn0.JchZxEJkROuudji9vsZQs4hdR9HlHuDjzwASqOaUnxk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"PatrickNuevaCuenta\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/v2/users/username",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"username"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
