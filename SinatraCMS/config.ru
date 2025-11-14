@@ -3,9 +3,11 @@ require_relative 'controllers/book_controller'
 require_relative 'controllers/user_controller'
 require_relative 'controllers/session_controller'
 require_relative 'controllers/registro_controller'
+require_relative 'controllers/genre_controller'
+
 use BookController
 use UserController
 use SessionController
 use RegistrationController
-
+use GenreController
 run ApplicationController
