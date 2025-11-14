@@ -10,6 +10,16 @@ require_relative 'controllers/album_controller'
 require_relative 'controllers/playlist_controller'
 require_relative 'controllers/editarusuario_controller'
 
+# Recuperación de contraseña (los 3 endpoints)
+require_relative 'controllers/forgot_controller'
+require_relative 'controllers/verify-code_controller'
+require_relative 'controllers/reset_controller'
+
+# Registrar los nuevos controllers
+use PasswordRecoveryRequestController
+use PasswordRecoveryVerifyController
+use PasswordRecoveryResetController
+
 use BookController
 use UserController
 use SessionController

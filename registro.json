@@ -1,0 +1,29 @@
+http://127.0.0.1:9292/api/v2/sign-up
+{
+  "name": "Patrick",
+  "last_name": "León",
+  "username": "123",
+  "password": "123456",
+  "email": "20211454@aloe.ulima.edu.pe",
+  "phone": "+51987654321",
+  "birth_date": "2001-11-12",
+  "profile_image": "https://cdn.waveul.com/avatars/patrick.png"
+}
+
+http://127.0.0.1:9292/api/v2/password/forgot
+{
+  "email": "20211454@aloe.ulima.edu.pe"
+}
+
+http://127.0.0.1:9292/api/v2/password/verify
+
+
+{
+  "email": "20211454@aloe.ulima.edu.pe",
+  "code": "296617"
+}
+http://127.0.0.1:9292/api/v2/password/reset
+{
+  "email": "20211454@aloe.ulima.edu.pe",
+  "new_password": "250783"
+}
