@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "2f80dbe4-d000-459d-a427-41f5e4f98fa7",
+		"name": "Coleccion_PostMan_WaveUL",
+		"description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50069091",
+		"_collection_link": "https://ramirezmauricio39-3361204.postman.co/workspace/WaveUL's-Workspace~db22781a-5985-4ae8-8d4d-d42e8fac401e/collection/50069091-2f80dbe4-d000-459d-a427-41f5e4f98fa7?action=share&source=collection_link&creator=50069091"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"Patri\",\r\n  \"password\": \"hash123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/v2/sign-in",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"v2",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Get all artists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"Patri\",\r\n  \"password_hash\": \"123\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one artist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search an artist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists/search?q=al",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "al"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow an artist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwNjA0Mn0.JchZxEJkROuudji9vsZQs4hdR9HlHuDjzwASqOaUnxk",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists/6/follow",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists",
+								"6",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow an artist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists/1/unfollow",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"unfollow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "Get all genres",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/genres",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one genre",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/genres/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"genres",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Songs",
+			"item": [
+				{
+					"name": "Get all songs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/songs",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"songs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one song",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/songs/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"songs",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search a song",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/songs/search?q=City",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"songs",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "City"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Get all albums",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/albums",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one album",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/albums/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"albums",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search an album",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/albums/search?q=al",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"albums",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "al"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlists",
+			"item": [
+				{
+					"name": "Get all playlists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"Patri\",\r\n  \"password_hash\": \"123\"\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/playlists",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"playlists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one playlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/playlists/7",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"playlists",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search a playlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/artists/search?q=R",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"artists",
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "R"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save a playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwNjA0Mn0.JchZxEJkROuudji9vsZQs4hdR9HlHuDjzwASqOaUnxk",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/playlists/6/save",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"playlists",
+								"6",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6IlBhdHJpIiwidHlwZSI6IndhdmV1bCIsImV4cCI6MTc2MzIwMzAyN30.B7P_g-GgLH7F7c2RdJqCA8kxwzR4CIQAmiTxcoWgaBc",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9292/api/playlists/6/save",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9292",
+							"path": [
+								"api",
+								"playlists",
+								"6",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
