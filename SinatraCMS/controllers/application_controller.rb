@@ -33,11 +33,7 @@ class ApplicationController < Sinatra::Base
   # 🚫 RUTAS EXCLUIDAS DE AUTH
   # ===============================
   BEFORE_FILTER_EXCLUDED_ROUTES = [
-    '/api/v2/sign-in','/api/v1/users','/api/v2/sign-up',
-    '/api/genres' , '/api/genres/1', '/api/genres/11',
-    '/api/artists/search',
-    '/api/songs' , '/api/songs/1',
-    '/api/songs/search',
+    '/api/v2/sign-in','/api/v1/users','/api/v2/sign-up', 
   ].freeze
 
   # ===============================
@@ -69,6 +65,7 @@ class ApplicationController < Sinatra::Base
       end
 
       @current_user = decoded[0]
+      puts "DEBUG: chequeo=#{decoded[0].inspect}"
     end
   end
 

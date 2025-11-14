@@ -61,36 +61,17 @@ INSERT INTO users (
   profile_image, birth_date, phone, created_at, is_verified,
   last_login, verification_token, reset_token, reset_token_expires
 ) VALUES
-(1, 'user', 'prueba', 'user', 'hash_pw_1', 'user@example.com',
- 'user.jpg', '1998-01-15', '+51 900000001', '2025-01-10 14:30:00', 1,
- '2025-11-01 09:10:00', NULL, NULL, NULL),
-(2, 'Carla', 'Torres', 'carla_music', 'hash_pw_2', 'carla@example.com',
- 'user.jpg', '2000-05-22', '+51 900000002', '2025-02-05 10:00:00', 1,
- '2025-10-30 19:20:00', NULL, NULL, NULL),
-(3, 'Jorge', 'Paredes', 'jorge_lofi', 'hash_pw_3', 'jorge@example.com',
- 'user.jpg', '1995-09-09', '+51 900000003', '2025-03-12 16:45:00', 0,
- NULL, 'verif_tok_3', NULL, NULL),
-(4, 'Lucía', 'Ramos', 'lucia_pop', 'hash_pw_4', 'lucia@example.com',
- 'user.jpg', '2001-11-30', '+51 900000004', '2025-04-01 08:15:00', 1,
- '2025-10-20 22:00:00', NULL, NULL, NULL),
-(5, 'Diego', 'Fernández', 'diego_rock', 'hash_pw_5', 'diego@example.com',
- 'user.jpg', '1997-07-07', '+51 900000005', '2025-04-18 12:00:00', 0,
- NULL, 'verif_tok_5', 'reset_tok_5', '2025-11-15 23:59:59'),
-(6, 'María', 'Gómez', 'maria_rnb', 'hash_pw_6', 'maria@example.com',
- 'user.jpg', '1999-02-10', '+51 900000006', '2025-05-02 13:20:00', 1,
- '2025-11-05 17:30:00', NULL, NULL, NULL),
-(7, 'Sergio', 'López', 'sergio_indie', 'hash_pw_7', 'sergio@example.com',
- 'user.jpg', '1996-03-03', '+51 900000007', '2025-06-09 09:40:00', 1,
- '2025-10-28 11:00:00', NULL, NULL, NULL),
-(8, 'Ana', 'Huamán', 'ana_kpop', 'hash_pw_8', 'ana@example.com',
- 'user.jpg', '2002-12-01', '+51 900000008', '2025-07-15 18:25:00', 1,
- '2025-11-08 21:10:00', NULL, NULL, NULL),
-(9, 'Pedro', 'Rivas', 'pedro_salsa', 'hash_pw_9', 'pedro@example.com',
- 'user.jpg', '1994-04-19', '+51 900000009', '2025-08-03 20:00:00', 0,
- NULL, 'verif_tok_9', NULL, NULL),
-(10,'Elena', 'Castro', 'elena_mix', 'hash_pw_10', 'elena@example.com',
- 'user.jpg', '1993-06-25', '+51 900000010', '2025-09-10 07:55:00', 1,
- '2025-11-09 10:05:00', NULL, NULL, NULL);
+VALUES 
+(1,'Patrick', 'Leon', 'Patri', 'hash123', 'correo1@email.com', 'profile1.jpg', '1990-05-15', '+1233256789', 1),
+(2,'Andres', 'Churampi', 'Lord_Ennard', 'hash456', 'correo2@email.com', 'profile2.jpg', '2004-01-31', '+982254321', 1),
+(3,'Mauricio', 'Ramirez', 'MauriRamirez', 'hash789', 'correo3@email.com', 'profile3.jpg', '2002-12-10', '+554455555', 0),
+(4,'Dylann', 'Rojas', 'Doge', 'hash323', 'correo4@email.com', 'profile4.jpg', '2004-05-15', '+17756789', 1),
+(5,'Jose', 'Misagel', 'JoseMisagel', 'hash453', 'correo5@email.com', 'profile5.jpg', '1994-05-15', '+123459789', 1);
+(6, 'María', 'Gómez', 'maria_rnb', 'hash_pw_6', 'maria@example.com', 'user.jpg', '1999-02-10', '+51 900000006', '2025-05-02 13:20:00', 1,),
+(7, 'Sergio', 'López', 'sergio_indie', 'hash_pw_7', 'sergio@example.com', 'user.jpg', '1996-03-03', '+51 900000007', '2025-06-09 09:40:00', 1),
+(8, 'Ana', 'Huamán', 'ana_kpop', 'hash_pw_8', 'ana@example.com', 'user.jpg', '2002-12-01', '+51 900000008', '2025-07-15 18:25:00', 1),
+(9, 'Pedro', 'Rivas', 'pedro_salsa', 'hash_pw_9', 'pedro@example.com', 'user.jpg', '1994-04-19', '+51 900000009', '2025-08-03 20:00:00', 0 ),
+(10,'Elena', 'Castro', 'elena_mix', 'hash_pw_10', 'elena@example.com', 'user.jpg', '1993-06-25', '+51 900000010', '2025-09-10 07:55:00', 1);
 
 --Insertar playlists
 INSERT INTO playlists (

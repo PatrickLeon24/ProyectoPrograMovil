@@ -93,11 +93,14 @@ class ArtistController < ApplicationController
       end
   end
   # Seguir a un artista
-  post '/api/artists/:id/follow' do
+  post '/api/artists/:id/follow' do    
     content_type :json
-    user_id = params[:user_id]
+    user_id   = @current_user['user_id']
     artist_id = params[:id]
-  
+    
+    puts "[FOLLOW DEBUG] current_user_id=#{user_id.inspect}"
+    puts "[FOLLOW DEBUG] artist_id=#{artist_id.inspect}"
+
     begin   
       rel = UserFollowArtist.where(user_id: user_id, artist_id: artist_id).first
       
@@ -134,9 +137,9 @@ class ArtistController < ApplicationController
 
 
   # Dejar de seguir a un artista
-  delete '/api/artists/:id/follow' do
+  delete '/api/artists/:id/unfollow' do
     content_type :json
-    user_id = params[:user_id]
+    user_id = @current_user['user_id']
     artist_id = params[:id]
   
     begin

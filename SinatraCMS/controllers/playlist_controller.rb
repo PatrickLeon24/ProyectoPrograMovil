@@ -95,7 +95,7 @@ class PlaylistController < ApplicationController
   # Aqui cuando quiera guardar una playlist
   post '/api/playlists/:id/save' do
     content_type :json
-    user_id = params[:user_id]
+    user_id = @current_user['user_id']
     playlist_id = params[:id]
   
     begin
@@ -131,7 +131,7 @@ class PlaylistController < ApplicationController
   #Aqui para quitar
   delete '/api/playlists/:id/save' do
     content_type :json
-    user_id = params[:user_id]
+    user_id = @current_user['user_id']
     playlist_id = params[:id]
   
     begin
