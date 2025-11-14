@@ -8,6 +8,7 @@ require_relative 'controllers/artist_controller'
 require_relative 'controllers/song_controller'
 require_relative 'controllers/album_controller'
 require_relative 'controllers/playlist_controller'
+require_relative 'controllers/editarusuario_controller'
 
 use BookController
 use UserController
@@ -18,4 +19,5 @@ use ArtistController
 use SongController
 use AlbumController
 use PlaylistController
+use EditUserController
 run ApplicationController
