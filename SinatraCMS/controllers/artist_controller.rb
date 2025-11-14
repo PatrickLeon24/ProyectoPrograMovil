@@ -92,4 +92,79 @@ class ArtistController < ApplicationController
           }.to_json
       end
   end
+  # Seguir a un artista
+  post '/api/artists/:id/follow' do
+    content_type :json
+    user_id = params[:user_id]
+    artist_id = params[:id]
+  
+    begin   
+      rel = UserFollowArtist.where(user_id: user_id, artist_id: artist_id).first
+      
+      if rel
+        status 409
+        return {
+          success: false,
+          message: "Ya sigues a este artista",
+          data: { followed: true },
+          error: nil
+        }.to_json
+      end
+  
+      # Crear follow
+      UserFollowArtist.create(
+        user_id: user_id,
+        artist_id: artist_id,
+        created_at: Time.now
+      )
+  
+      {
+        success: true,
+        message: "Ahora sigues a este artista",
+        data: { followed: true },
+        error: nil
+      }.to_json
+  
+    rescue => e
+      status 500
+      { success: false, message: "Error al seguir artista", error: e.message }.to_json
+    end
+  end
+
+
+
+  # Dejar de seguir a un artista
+  delete '/api/artists/:id/follow' do
+    content_type :json
+    user_id = params[:user_id]
+    artist_id = params[:id]
+  
+    begin
+      rel = UserFollowArtist.where(user_id: user_id, artist_id: artist_id).first
+  
+      unless rel
+        status 404
+        return {
+          success: false,
+          message: "No sigues a este artista",
+          data: { followed: false },
+          error: nil
+        }.to_json
+      end
+  
+      rel.delete
+  
+      {
+        success: true,
+        message: "Has dejado de seguir a este artista",
+        data: { followed: false },
+        error: nil
+      }.to_json
+  
+    rescue => e
+      status 500
+      { success: false, message: "Error al dejar de seguir artista", error: e.message }.to_json
+    end
+  end
+
 end
