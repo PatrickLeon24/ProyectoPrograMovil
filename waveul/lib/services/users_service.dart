@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:waveul/configs/generic_response.dart';
 import 'package:waveul/responses/auth_response.dart';
-import 'package:waveul/configs/constants.dart';
-import 'package:http/http.dart' as http;
 
+import 'package:http/http.dart' as http;
+final String BASE_URL ="http://192.168.35.113:9292/";
 class UsersService {
   /// 🔹 Versión que usa el backend real (cuando esté disponible)
   Future<GenericResponse<AuthResponse>> signIn(String username, String password) async {
@@ -93,23 +93,26 @@ class UsersService {
     }
   }
 
-  Future<GenericResponse> signUp({
+Future<GenericResponse> signUp({
+  required String name,
+  required String lastName,
   required String username,
-  required String nombres,
-  required String apellidos,
-  required String email,
   required String password,
-  required String fechaNacimiento,
-  required String telefono,
+  required String email,
+  required String phone,
+  required String birthDate,
+  required String profileImage,
 }) async {
   try {
-    if (username.isEmpty ||
-        nombres.isEmpty ||
-        apellidos.isEmpty ||
-        email.isEmpty ||
+
+    // Validación básica
+    if (name.isEmpty ||
+        lastName.isEmpty ||
+        username.isEmpty ||
         password.isEmpty ||
-        fechaNacimiento.isEmpty ||
-        telefono.isEmpty) {
+        email.isEmpty ||
+        phone.isEmpty ||
+        birthDate.isEmpty) {
       return GenericResponse(
         success: false,
         data: null,
@@ -117,7 +120,19 @@ class UsersService {
         error: "ERROR!",
       );
     }
-    print(username);
+
+    print("📤 Enviando sign-up con:");
+    print({
+      'name': name,
+      'last_name': lastName,
+      'username': username,
+      'password': password,
+      'email': email,
+      'phone': phone,
+      'birth_date': birthDate,
+      'profile_image': profileImage,
+    });
+
     final httpResponse = await http.post(
       Uri.parse('${BASE_URL}api/v2/sign-up'),
       headers: {
@@ -125,17 +140,21 @@ class UsersService {
         'Accept': 'application/json',
       },
       body: json.encode({
+        'name': name,
+        'last_name': lastName,
         'username': username,
-        'nombres': nombres,
-        'apellidos': apellidos,
-        'email': email,
         'password': password,
-        'fecha_nacimiento': fechaNacimiento,
-        'telefono': telefono,
+        'email': email,
+        'phone': phone,
+        'birth_date': birthDate,
+        'profile_image': profileImage,
       }),
     );
+
+    print('📥 Respuesta del backend:');
     print(httpResponse.body);
-    Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+    final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
 
     final response = GenericResponse<AuthResponse>.fromJson(
       jsonMap,
@@ -143,13 +162,15 @@ class UsersService {
     );
 
     return response;
-    } catch (e) {
-      return GenericResponse(
-        success: false,
-        data: null,
-        message: "Ocurrió un error al registrar el usuario",
-        error: e.toString(),
-      );
-    }
+
+  } catch (e) {
+    return GenericResponse(
+      success: false,
+      data: null,
+      message: "Ocurrió un error al registrar el usuario",
+      error: e.toString(),
+    );
   }
+}
+
 }

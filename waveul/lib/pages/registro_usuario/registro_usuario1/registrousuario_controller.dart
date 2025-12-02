@@ -5,29 +5,31 @@ import 'package:waveul/services/users_service.dart';
 class RegistroUsuarioController extends GetxController {
   final UsersService _usersService = UsersService();
 
-  // Variables reactivas si querés mostrar carga o mensajes
   var isLoading = false.obs;
 
   Future<void> registrarUsuario({
+    required String name,
+    required String lastName,
     required String username,
-    required String nombres,
-    required String apellidos,
-    required String email,
     required String password,
-    required String fechaNacimiento,
-    required String telefono,
+    required String email,
+    required String phone,
+    required String birthDate,
+    String profileImage =
+        "https://cdn.waveul.com/avatars/default.png", // opcional
   }) async {
     try {
       isLoading.value = true;
 
       GenericResponse response = await _usersService.signUp(
+        name: name,
+        lastName: lastName,
         username: username,
-        nombres: nombres,
-        apellidos: apellidos,
-        email: email,
         password: password,
-        fechaNacimiento: fechaNacimiento,
-        telefono: telefono,
+        email: email,
+        phone: phone,
+        birthDate: birthDate,
+        profileImage: profileImage,
       );
 
       if (response.success == true) {

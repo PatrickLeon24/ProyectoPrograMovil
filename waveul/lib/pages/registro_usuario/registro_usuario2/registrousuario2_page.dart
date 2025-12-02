@@ -4,50 +4,64 @@ import 'package:waveul/pages/registro_usuario/registro_usuario1/registrousuario_
 
 class RegistroUsuario2Page extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
-  final RegistroUsuarioController controller = Get.put(RegistroUsuarioController());
+  final RegistroUsuarioController controller =
+      Get.put(RegistroUsuarioController());
 
   RegistroUsuario2Page({super.key});
 
-  Widget _header(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    // 🔹 Datos traídos desde la pantalla 1
+    final Map<String, dynamic> data =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _header(),
+                    _form(context, data),
+                  ],
+                ),
+              ),
+            ),
+
+            // 🔙 Botón atrás
+            Positioned(
+              top: 10,
+              left: 10,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _header() {
     return Column(
       children: [
         const SizedBox(height: 40),
-        Image.asset(
-          'assets/images/text1.png',
-          height: 40,
-          fit: BoxFit.contain,
-        ),
+        Image.asset('assets/images/text1.png', height: 40),
         const SizedBox(height: 8),
-        const Text(
-          "Registrarse",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.black87,
-          ),
-        ),
+        const Text("Registrarse", style: TextStyle(fontSize: 30)),
         const SizedBox(height: 10),
 
-        // 🔹 Puntos de progreso
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 10,
-              height: 10,
-              decoration: const BoxDecoration(
-                color: Colors.cyan,
-                shape: BoxShape.circle,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              width: 10,
-              height: 10,
-              decoration: const BoxDecoration(
-                color: Colors.cyan,
-                shape: BoxShape.circle,
-              ),
-            ),
+          children: const [
+            CircleAvatar(radius: 5, backgroundColor: Colors.cyan),
+            SizedBox(width: 8),
+            CircleAvatar(radius: 5, backgroundColor: Colors.cyan),
           ],
         ),
         const SizedBox(height: 30),
@@ -55,58 +69,34 @@ class RegistroUsuario2Page extends StatelessWidget {
     );
   }
 
-  Widget _form(BuildContext context) {
+  Widget _form(BuildContext context, Map<String, dynamic> data) {
     return Column(
       children: [
-        // 🔹 Foto de perfil
         CircleAvatar(
           radius: 50,
           backgroundColor: Colors.grey.shade300,
-          child: ClipOval(
-            child: Image.asset(
-              'assets/images/CameraIcon.png',
-              width: 50,
-              height: 50,
-              fit: BoxFit.contain,
-            ),
-          ),
+          child: Image.asset('assets/images/CameraIcon.png', width: 50),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         TextButton(
           onPressed: () {},
-          child: const Text(
-            "Subir Foto De Perfil",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.cyan,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: const Text("Subir Foto De Perfil",
+              style: TextStyle(color: Colors.cyan)),
         ),
 
         const SizedBox(height: 20),
 
-        // 🔹 Campo de usuario
         TextFormField(
           controller: usernameController,
           decoration: InputDecoration(
             hintText: "Ingresa un nombre de usuario",
-            hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
           ),
         ),
 
         const SizedBox(height: 40),
 
-        // 🔹 Botón Finalizar
         Obx(() {
           return SizedBox(
             width: double.infinity,
@@ -115,85 +105,34 @@ class RegistroUsuario2Page extends StatelessWidget {
               onPressed: controller.isLoading.value
                   ? null
                   : () async {
-                      // Aquí luego pasarás los datos reales del paso 1
                       await controller.registrarUsuario(
+                        name: data['name'],
+                        lastName: data['lastName'],
+                        email: data['email'],
+                        password: data['password'],
+                        birthDate: data['birthDate'],
+                        phone: data['phone'],
                         username: usernameController.text,
-                        nombres: 'Nombres',
-                        apellidos: 'Apellidos',
-                        email: 'correo@ejemplo.com',
-                        password: '123456',
-                        fechaNacimiento: '2000-01-01',
-                        telefono: '999999999',
+                        profileImage:
+                            "https://cdn.waveul.com/avatars/default.png",
                       );
                     },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 5,
-                shadowColor: Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(30)),
               ),
               child: controller.isLoading.value
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
                       "Finalizar Registro",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
             ),
           );
         }),
-
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
       ],
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _header(context),
-                  _form(context),
-                ],
-              ),
-            ),
-          ),
-
-          // 🔙 Botón de retroceso
-          Positioned(
-            top: 10,
-            left: 10,
-            child: Material(
-              color: Colors.transparent,
-              shape: const CircleBorder(),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black87),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _buildBody(context),
     );
   }
 }
