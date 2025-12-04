@@ -1,14 +1,20 @@
 import 'package:get/get.dart';
 import 'package:waveul/configs/generic_response.dart';
-import 'package:waveul/models/genre.dart';
+import 'package:waveul/models/genreFinal.dart';
 import 'package:waveul/services/genre_service.dart';
 
 class ExplorarGeneroController extends GetxController {
   GenreService _genreService = GenreService();
 
-  RxList<Genre> genres = <Genre>[].obs;
+  RxList<GenreFinal> genres = <GenreFinal>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    listGenres();
+  }
 
   Future<void> listGenres() async {
     isLoading.value = true;
