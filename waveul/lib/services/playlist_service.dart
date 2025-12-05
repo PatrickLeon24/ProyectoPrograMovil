@@ -2,25 +2,26 @@ import 'dart:convert';
 
 import 'package:waveul/configs/constants.dart';
 import 'package:waveul/configs/generic_response.dart';
-import 'package:waveul/models/artist.dart';
+import 'package:waveul/models/playlist_final.dart';
 import 'package:waveul/services/application_service.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-class ArtistService extends ApplicationService {
-  List<Artist> _artistListFromJson(dynamic json) {
+class PlaylistService extends ApplicationService {
+  List<PlaylistFinal> _playlistListFromJson(dynamic json) {
     return (json as List)
         .map(
-          (artistJson) => Artist.fromJson(artistJson as Map<String, dynamic>),
+          (playlistJson) =>
+              PlaylistFinal.fromJson(playlistJson as Map<String, dynamic>),
         )
         .toList();
   }
 
-  //Para GET all ${BASE_URL}api/artists
-  Future<GenericResponse<List<Artist>>> fetchAll() async {
+  //Para GET all ${BASE_URL}api/playlists
+  Future<GenericResponse<List<PlaylistFinal>>> fetchAll() async {
     try {
       final httpResponse = await http.get(
-        Uri.parse('${BASE_URL}api/artists'),
+        Uri.parse('${BASE_URL}api/playlists'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -30,14 +31,14 @@ class ArtistService extends ApplicationService {
 
       Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
 
-      GenericResponse<List<Artist>> response =
-          GenericResponse<List<Artist>>.fromJson(
+      GenericResponse<List<PlaylistFinal>> response =
+          GenericResponse<List<PlaylistFinal>>.fromJson(
             jsonMap,
             fromJsonT: (data) {
               if (data is List) {
-                return _artistListFromJson(data);
+                return _playlistListFromJson(data);
               }
-              return <Artist>[];
+              return <PlaylistFinal>[];
             },
           );
 
@@ -45,20 +46,20 @@ class ArtistService extends ApplicationService {
     } catch (e, stackTrace) {
       print('Error: $e');
       print('Stack trace: $stackTrace');
-      return GenericResponse<List<Artist>>(
+      return GenericResponse<List<PlaylistFinal>>(
         success: false,
         data: null,
-        message: "Error no esperado en listar los artistas",
+        message: "Error no esperado en listar los Playlists",
         error: stackTrace.toString(),
       );
     }
   }
 
-  //Para GET by id ${BASE_URL}api/artists
-  Future<GenericResponse<Artist>> fetchById(int id) async {
+  //Para GET by id ${BASE_URL}api/Playlists
+  Future<GenericResponse<PlaylistFinal>> fetchById(int id) async {
     try {
       final httpResponse = await http.get(
-        Uri.parse('${BASE_URL}api/artists/$id'),
+        Uri.parse('${BASE_URL}api/playlists/$id'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -68,32 +69,32 @@ class ArtistService extends ApplicationService {
 
       final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
 
-      final response = GenericResponse<Artist>.fromJson(
+      final response = GenericResponse<PlaylistFinal>.fromJson(
         jsonMap,
         fromJsonT: (data) {
           if (data is Map<String, dynamic>) {
-            return Artist.fromJson(data);
+            return PlaylistFinal.fromJson(data);
           }
-          throw Exception('Formato de artista inválido');
+          throw Exception('Formato de Playlist inválido');
         },
       );
 
       return response;
     } catch (e, stackTrace) {
-      return GenericResponse<Artist>(
+      return GenericResponse<PlaylistFinal>(
         success: false,
         data: null,
-        message: "Error al obtener artista",
+        message: "Error al obtener Playlist",
         error: stackTrace.toString(),
       );
     }
   }
 
-  /// Para POST /api/artists/:id/follow
-  Future<GenericResponse<bool>> followArtist(int artistId) async {
+  /// Para POST /api/playlists/:id/save
+  Future<GenericResponse<bool>> savePlaylist(int playlistId) async {
     try {
       final httpResponse = await http.post(
-        Uri.parse('${BASE_URL}api/artists/$artistId/follow'),
+        Uri.parse('${BASE_URL}api/playlists/$playlistId/save'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -107,7 +108,7 @@ class ArtistService extends ApplicationService {
         jsonMap,
         fromJsonT: (data) {
           if (data is Map<String, dynamic>) {
-            return data['followed'] == true;
+            return data['saved'] == true;
           }
           return false;
         },
@@ -118,17 +119,17 @@ class ArtistService extends ApplicationService {
       return GenericResponse<bool>(
         success: false,
         data: null,
-        message: "Error al seguir artista",
+        message: "Error al guardar Playlist",
         error: stackTrace.toString(),
       );
     }
   }
 
-  /// PARA DELETE /api/artists/:id/unfollow
-  Future<GenericResponse<bool>> unfollowArtist(int artistId) async {
+  /// PARA DELETE /api/Playlists/:id/save
+  Future<GenericResponse<bool>> unsavePlaylist(int playlistId) async {
     try {
       final httpResponse = await http.delete(
-        Uri.parse('${BASE_URL}api/artists/$artistId/unfollow'),
+        Uri.parse('${BASE_URL}api/playlists/$playlistId/save'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -142,7 +143,7 @@ class ArtistService extends ApplicationService {
         jsonMap,
         fromJsonT: (data) {
           if (data is Map<String, dynamic>) {
-            return data['followed'] == false;
+            return data['saved'] == false;
           }
           return false;
         },
@@ -153,7 +154,7 @@ class ArtistService extends ApplicationService {
       return GenericResponse<bool>(
         success: false,
         data: null,
-        message: "Error al dejar de seguir artista",
+        message: "Error al eliminar de guardados la Playlist",
         error: stackTrace.toString(),
       );
     }

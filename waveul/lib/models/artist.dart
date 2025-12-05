@@ -4,7 +4,7 @@ class Artist {
   final String stageName;
   final bool isBand;
   final String biography;
-  final String profileImage; // nombre del archivo, ej: "Artist_icon.jpg"
+  final String profileImage;
   final DateTime? formedDate;
   final DateTime? createdAt;
 

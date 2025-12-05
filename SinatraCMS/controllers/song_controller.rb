@@ -92,4 +92,87 @@ class SongController < ApplicationController
           }.to_json
       end
   end
+  # si el usuario le gusta una cancion
+  post '/api/songs/:id/like' do
+    content_type :json
+    user_id = @current_user['user_id']
+    song_id = params[:id]
+
+    begin
+      # Ver si ya existe el like
+      rel = UserSong.where(user_id: user_id, song_id: song_id).first
+
+      if rel
+        status 409
+        return {
+          success: false,
+          message: "Ya marcaste esta canción como que te gusta",
+          data: { liked: true },
+          error: nil
+        }.to_json
+      end
+
+      # Crear relación user_song
+      UserSong.create(
+        user_id: user_id,
+        song_id: song_id,
+        created_at: Time.now
+      )
+
+      {
+        success: true,
+        message: "Canción agregada a tus Me gusta",
+        data: { liked: true },
+        error: nil
+      }.to_json
+
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al marcar la canción como que te gusta",
+        data: nil,
+        error: e.message
+      }.to_json
+    end
+  end
+
+  # Quitar "me gusta" de una canción
+  delete '/api/songs/:id/like' do
+    content_type :json
+    user_id = @current_user['user_id']
+    song_id = params[:id]
+
+    begin
+      rel = UserSong.where(user_id: user_id, song_id: song_id).first
+
+      unless rel
+        status 404
+        return {
+          success: false,
+          message: "Esta canción no estaba en tus Me gusta",
+          data: { liked: false },
+          error: nil
+        }.to_json
+      end
+
+      rel.delete
+
+      {
+        success: true,
+        message: "Canción eliminada de tus Me gusta",
+        data: { liked: false },
+        error: nil
+      }.to_json
+
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al quitar la canción de tus Me gusta",
+        data: nil,
+        error: e.message
+      }.to_json
+    end
+  end
 end

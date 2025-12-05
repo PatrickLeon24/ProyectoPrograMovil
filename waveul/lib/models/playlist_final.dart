@@ -7,7 +7,7 @@ class PlaylistFinal {
   final String coverImage;
   final bool isPublic;
   final DateTime? createdAt;
-  final User user;
+  final User owner;
 
   PlaylistFinal({
     required this.id,
@@ -15,7 +15,7 @@ class PlaylistFinal {
     required this.description,
     required this.coverImage,
     required this.isPublic,
-    required this.user,
+    required this.owner,
     this.createdAt,
   });
 
@@ -30,7 +30,7 @@ class PlaylistFinal {
           json['created_at'] != null && json['created_at'] != ''
               ? DateTime.parse(json['created_at'])
               : null,
-      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      owner: User.fromJson(json['user'] as Map<String, dynamic>),
     );
   }
   Map<String, dynamic> toJson() {
@@ -41,12 +41,12 @@ class PlaylistFinal {
       'cover_image': coverImage,
       'is_public': isPublic ? 1 : 0,
       'created_at': createdAt?.toIso8601String(),
-      'user': user.toJson(), // envío del usuario embebido
+      'owner': owner.toJson(),
     };
   }
 
   @override
   String toString() {
-    return 'Playlist{id: $id, name: $name, owner: ${user.name}}}';
+    return 'Playlist{id: $id, name: $name, owner: ${owner.name}}}';
   }
 }
