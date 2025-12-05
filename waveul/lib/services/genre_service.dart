@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:waveul/configs/constants.dart';
 import 'package:waveul/configs/generic_response.dart';
-import 'package:waveul/models/genre_final.dart';
+import 'package:waveul/models/genreFinal.dart';
 import 'package:waveul/services/application_service.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;

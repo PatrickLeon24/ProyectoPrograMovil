@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:waveul/configs/generic_response.dart';
-import 'package:waveul/models/genre_final.dart';
+import 'package:waveul/models/genreFinal.dart';
 import 'package:waveul/services/genre_service.dart';
 
 class ExplorarGeneroController extends GetxController {

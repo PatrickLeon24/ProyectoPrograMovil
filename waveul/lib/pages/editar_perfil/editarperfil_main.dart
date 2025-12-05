@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:waveul/pages/iniciar_sesion/iniciar_sesion_controller.dart';
 import 'package:get/get.dart';
+import 'package:waveul/pages/editar_perfil/editarperfil_controller.dart';
+import 'package:waveul/pages/iniciar_sesion/iniciar_sesion_controller.dart';
 
 class EditarPerfilPage extends StatelessWidget {
-  final TextEditingController nicknameController = TextEditingController(
-    text: "SkibidyMaster89",
-  );
-
   EditarPerfilPage({super.key});
+
+  final EditarPerfilController controller =
+      Get.put(EditarPerfilController()); // inyectamos el controller
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class EditarPerfilPage extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.black54, Colors.grey], // fondo gris degradado
+            colors: [Colors.black54, Colors.grey],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -27,13 +27,12 @@ class EditarPerfilPage extends StatelessWidget {
             children: [
               const SizedBox(height: 20),
 
-              // 🔹 Header con botón atrás, logo y configuración
+              // Header
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Botón atrás
                     IconButton(
                       icon: const Icon(
                         Icons.arrow_back_ios_new,
@@ -43,20 +42,14 @@ class EditarPerfilPage extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-
-                    // Logo WaveUL
                     Image.asset(
-                      "assets/images/text1.png", // tu asset del logo
+                      "assets/images/text1.png",
                       height: 50,
                       fit: BoxFit.contain,
                     ),
-
-                    // Botón de configuración
                     IconButton(
                       icon: const Icon(Icons.settings, color: Colors.black),
-                      onPressed: () {
-                        // Acción configuración
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -64,13 +57,13 @@ class EditarPerfilPage extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // 🔹 Foto de perfil (placeholder)
+              // Foto perfil
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
                   const CircleAvatar(
                     radius: 70,
-                    backgroundColor: Colors.grey, // vacío por ahora
+                    backgroundColor: Colors.grey,
                   ),
                   Positioned(
                     bottom: 5,
@@ -89,7 +82,7 @@ class EditarPerfilPage extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              // 🔹 Campo Nickname
+              // Campo Nickname
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
@@ -111,7 +104,7 @@ class EditarPerfilPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: TextFormField(
-                        controller: nicknameController,
+                        controller: controller.nicknameController,
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -125,12 +118,74 @@ class EditarPerfilPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 60),
+              const SizedBox(height: 20),
+
+              // Botón GUARDAR CAMBIOS
+              Obx(() => ElevatedButton(
+                    onPressed: controller.isSaving.value
+                        ? null
+                        : () async {
+                            await controller.saveNickname();
+                          },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 16,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: controller.isSaving.value
+                        ? const CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Cambiar nickname",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                  )),
+
+              const SizedBox(height: 20),
 
               ElevatedButton.icon(
                 onPressed: () {
-                  final controller = Get.find<IniciarSesionController>();
-                  controller.logout(context);
+                  Navigator.pushNamed(context, '/cambiar_contrasena');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[600],
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                icon: const Icon(Icons.lock, color: Colors.white),
+                label: const Text(
+                  "Cambiar contraseña",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+              // Mensaje (opcional)
+              Obx(() => Text(
+                    controller.message.value,
+                    style: const TextStyle(color: Colors.white),
+                  )),
+
+              const SizedBox(height: 20),
+
+              // Botón Cerrar sesión (lo dejas como está)
+              ElevatedButton.icon(
+                onPressed: () {
+                  final loginController = Get.find<IniciarSesionController>();
+                  loginController.logout(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[600],
