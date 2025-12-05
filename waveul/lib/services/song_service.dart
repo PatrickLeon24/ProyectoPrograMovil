@@ -190,4 +190,34 @@ class SongService extends ApplicationService {
       );
     }
   }
+
+  /// GET ${BASE_URL}api/songs/:id/stream  -> obtener URL de streaming de S3
+  Future<GenericResponse<String>> getStreamingUrl(int songId) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/songs/$songId/stream'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<String>.fromJson(
+        jsonMap,
+        fromJsonT: (data) => data?['streaming_url'] as String? ?? '',
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<String>(
+        success: false,
+        data: null,
+        message: "Error al obtener URL de streaming",
+        error: stackTrace.toString(),
+      );
+    }
+  }
 }

@@ -30,7 +30,16 @@ class PlaylistFinal {
           json['created_at'] != null && json['created_at'] != ''
               ? DateTime.parse(json['created_at'])
               : null,
-      owner: User.fromJson(json['user'] as Map<String, dynamic>),
+      owner: User(
+        id: json['user_id'] as int,
+        name: 'Usuario', // Valor por defecto
+        lastName: '', // Valor por defecto
+        username: 'user${json['user_id']}', // Valor por defecto
+        passwordHash: '', // Valor por defecto
+        email: 'user@example.com', // Valor por defecto
+        createdAt: DateTime.now(), // Valor por defecto
+        isVerified: false, // Valor por defecto
+      ),
     );
   }
   Map<String, dynamic> toJson() {

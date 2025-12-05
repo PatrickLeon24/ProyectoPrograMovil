@@ -152,15 +152,15 @@ Widget _progress() {
             ),
             const SizedBox(height: 8),
             // --- Tiempos ---
-            Row(
+            Obx(() => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text("0:12",
-                    style: TextStyle(color: Colors.white60, fontSize: 12)),
-                Text("4:26",
-                    style: TextStyle(color: Colors.white60, fontSize: 12)),
+              children: [
+                Text(control.currentTime.value,
+                    style: const TextStyle(color: Colors.white60, fontSize: 12)),
+                Text(control.totalTime.value,
+                    style: const TextStyle(color: Colors.white60, fontSize: 12)),
               ],
-            )
+            ))
           ],
         );
       }),
@@ -184,14 +184,16 @@ Widget _progress() {
               onPressed: () {},
             ),
             const SizedBox(width: 12),
-            IconButton(
+            Obx(() => IconButton(
               icon: Icon(
-                control.isPlaying.value ? Icons.pause_circle_filled : Icons.play_circle_fill,
+                control.isLoading.value 
+                  ? Icons.hourglass_empty 
+                  : (control.isPlaying.value ? Icons.pause_circle_filled : Icons.play_circle_fill),
                 size: 78,
-                color: Colors.white,
+                color: control.isLoading.value ? Colors.orange : Colors.white,
               ),
-              onPressed: () => control.togglePlayPause(),
-            ),
+              onPressed: control.isLoading.value ? null : () => control.togglePlayPause(),
+            )),
             const SizedBox(width: 12),
             IconButton(
               icon: const Icon(Icons.skip_next_rounded, size: 36, color: Colors.white),
