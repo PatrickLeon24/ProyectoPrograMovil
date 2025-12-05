@@ -5,3 +5,4 @@ class UserFollowUser < BaseModel
 
   many_to_one :user,       key: :user_id, class: :User
   many_to_one :followed,   key: :followed_id, class: :User
+end

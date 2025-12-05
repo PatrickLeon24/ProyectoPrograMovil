@@ -5,3 +5,4 @@ class UserAlbum < BaseModel
 
   many_to_one :user,  key: :user_id,  class: :User
   many_to_one :album, key: :album_id, class: :Album
+end
