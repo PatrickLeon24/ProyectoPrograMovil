@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:waveul/models/song.dart';
 import 'package:waveul/services/song_service.dart';
 
 class PlayerController extends GetxController {
-  late AudioPlayer _audioPlayer;
+  late final ap.AudioPlayer _audioPlayer;
   final SongService _songService = SongService();
   
   RxBool isPlaying = false.obs;
@@ -19,14 +19,14 @@ class PlayerController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _audioPlayer = AudioPlayer();
+    _audioPlayer = ap.AudioPlayer();
     _setupAudioListeners();
   }
   
   void _setupAudioListeners() {
     // Escuchar cambios en el estado del reproductor
-    _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      isPlaying.value = state == PlayerState.playing;
+    _audioPlayer.onPlayerStateChanged.listen((state) {
+      isPlaying.value = state.toString().contains('playing');
     });
     
     // Escuchar progreso de reproducción
