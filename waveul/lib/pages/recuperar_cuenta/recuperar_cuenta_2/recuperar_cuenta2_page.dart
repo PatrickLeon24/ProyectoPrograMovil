@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:waveul/pages/recuperar_cuenta/recuperar_cuenta_2/recuperar_cuenta2_controller.dart';
 
 class RecuperarCuenta2Page extends StatelessWidget {
   RecuperarCuenta2Page({super.key});
 
   final TextEditingController codeController = TextEditingController();
 
-  // 🔹 Header con logo, título y subtítulo
+  @override
   Widget _header(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 40),
-        Image.asset(
-          'assets/images/text1.png', // tu asset del logo
-          height: 40,
-          fit: BoxFit.contain,
-        ),
+        Image.asset('assets/images/text1.png', height: 40, fit: BoxFit.contain),
         const SizedBox(height: 30),
         const Text(
           "Código Enviado",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         const Text(
@@ -35,8 +29,10 @@ class RecuperarCuenta2Page extends StatelessWidget {
     );
   }
 
-  // 🔹 Formulario con campo código y botones
   Widget _form(BuildContext context) {
+    final email = Get.arguments;
+    final controller = Get.put(RecuperarCuenta2Controller());
+
     return Column(
       children: [
         TextFormField(
@@ -44,83 +40,62 @@ class RecuperarCuenta2Page extends StatelessWidget {
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
             hintText: "Ingresar Código",
-            hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              // usa el color de onSurface pero más clarito
-            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
           ),
         ),
         const SizedBox(height: 40),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Botón Reenviar
             SizedBox(
               height: 80,
               child: OutlinedButton(
                 onPressed: () {
-                  // Acción: reenviar correo
+                  controller.verifyCode(email, codeController.text.trim());
                 },
                 style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  side: const BorderSide(color: Colors.black, width: 1),
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
                 ),
-                
-                  
-                child: Text(
-                  "Reenviar Correo",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                  
-                ),
+                child: const Text("Reenviar Correo", style: TextStyle(color: Colors.black)),
               ),
             ),
-
             const SizedBox(width: 20),
-
-            // Botón Confirmar
             SizedBox(
               height: 80,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/recuperar_cuenta_3');
+                  controller.verifyCode(email, codeController.text.trim());
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
                 ),
-                
-                  
-                child: Text(
-                  "Confirmar",
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                ),
-                
+                child: const Text("Confirmar",
+                    style: TextStyle(fontSize: 14, color: Colors.white)),
               ),
             ),
           ],
         ),
+
         const SizedBox(height: 30),
       ],
     );
   }
 
-  // 🔹 Cuerpo principal con Stack (para botón de retroceso flotante)
   Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [
-          // Contenido principal
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: SingleChildScrollView(
@@ -133,20 +108,12 @@ class RecuperarCuenta2Page extends StatelessWidget {
               ),
             ),
           ),
-
-          // Botón circular de retroceso
           Positioned(
             top: 10,
             left: 10,
-            child: Material(
-              color: Colors.transparent,
-              shape: const CircleBorder(),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black87),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black87),
+              onPressed: () => Navigator.pop(context),
             ),
           ),
         ],

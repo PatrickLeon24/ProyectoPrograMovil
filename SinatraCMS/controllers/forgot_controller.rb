@@ -47,7 +47,7 @@ class PasswordRecoveryRequestController < ApplicationController
       )
 
       # Enviar código al flujo de n8n
-      uri = URI("https://patrickleon2401.app.n8n.cloud/webhook-test/password-recovery")
+      uri = URI("https://patrickleon24012401.app.n8n.cloud/webhook-test/password-recovery")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
