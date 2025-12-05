@@ -517,7 +517,7 @@ class _HomePageState extends State<HomePage> {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            album.artist.stageName,
+            album.artist?.stageName ?? 'Artista desconocido',
             style: const TextStyle(fontSize: 10, color: Colors.grey),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

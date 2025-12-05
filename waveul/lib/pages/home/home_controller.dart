@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:waveul/models/Song_final.dart';
+import 'package:waveul/models/song_final.dart';
 import 'package:waveul/models/song.dart';
 import 'package:waveul/models/playlist.dart';
 import 'package:waveul/models/playlist_final.dart';
