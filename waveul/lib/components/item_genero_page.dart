@@ -4,8 +4,13 @@ import 'package:get/get.dart';
 class ItemGeneroPage extends StatelessWidget {
   final String nombre;
   final String color;
-
-  ItemGeneroPage({required this.nombre, required this.color, super.key});
+  final String descripcion;
+  ItemGeneroPage({
+    required this.nombre,
+    required this.color,
+    this.descripcion = '',
+    super.key,
+  });
 
   int convertirHexAColor(String cadena) {
     cadena = cadena.substring(2, cadena.length);
@@ -13,10 +18,32 @@ class ItemGeneroPage extends StatelessWidget {
     return int.parse(cadena, radix: 16);
   }
 
+  void _showGeneroDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(nombre),
+          content: Text(
+            descripcion.isNotEmpty
+                ? descripcion
+                : 'Aún no hay una descripción para este género.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildBody(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/explorar_musica');
+        _showGeneroDialog(context);
       },
       child: Card(
         child: Container(
