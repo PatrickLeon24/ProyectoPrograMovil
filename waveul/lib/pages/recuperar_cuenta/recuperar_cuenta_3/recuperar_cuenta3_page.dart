@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:waveul/pages/recuperar_cuenta/recuperar_cuenta_3/recuperar_cuenta3_controller.dart';
 class RecuperarCuenta3Page extends StatefulWidget {
   const RecuperarCuenta3Page({super.key});
 
@@ -15,79 +16,68 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
   final TextEditingController confirmPasswordController = TextEditingController();
 
   Widget _form(BuildContext context) {
+    final email = Get.arguments;
+    final controller = Get.put(RecuperarCuenta3Controller());
+
     return Column(
       children: [
-        // 🔹 Campo Nueva Contraseña
         TextFormField(
           controller: passwordController,
           obscureText: _obscurePassword,
           decoration: InputDecoration(
             hintText: "Nueva Contraseña",
-            hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
             suffixIcon: IconButton(
               icon: Icon(
-                _obscurePassword ? Icons.visibility_off : Icons.visibility,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility),
               onPressed: () {
-                setState(() {
-                  _obscurePassword = !_obscurePassword;
-                });
+                setState(() => _obscurePassword = !_obscurePassword);
               },
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
             ),
           ),
         ),
 
         const SizedBox(height: 20),
 
-        // 🔹 Campo Confirmar Nueva Contraseña
         TextFormField(
           controller: confirmPasswordController,
           obscureText: _obscureConfirmPassword,
           decoration: InputDecoration(
             hintText: "Confirmar Nueva Contraseña",
-            hintStyle: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
             suffixIcon: IconButton(
-              icon: Icon(
-                _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+              icon: Icon(_obscureConfirmPassword
+                  ? Icons.visibility_off
+                  : Icons.visibility),
               onPressed: () {
-                setState(() {
-                  _obscureConfirmPassword = !_obscureConfirmPassword;
-                });
+                setState(() =>
+                    _obscureConfirmPassword = !_obscureConfirmPassword);
               },
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
             ),
           ),
         ),
 
         const SizedBox(height: 40),
 
-        // 🔹 Botón Reestablecer Contraseña
         SizedBox(
           width: double.infinity,
           height: 80,
           child: ElevatedButton(
             onPressed: () {
-              // Acción: reestablecer contraseña
+              if (passwordController.text.trim() !=
+                  confirmPasswordController.text.trim()) {
+                Get.snackbar("Error", "Las contraseñas no coinciden");
+                return;
+              }
+
+              controller.resetPassword(
+                email,
+                passwordController.text.trim(),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.surface,
@@ -97,12 +87,10 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
             ),
             child: const Text(
               "Reestablecer Contraseña",
-              style: TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.normal),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ),
         ),
-
-        const SizedBox(height: 30),
       ],
     );
   }
@@ -111,19 +99,10 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
     return Column(
       children: [
         const SizedBox(height: 40),
-        Image.asset(
-          'assets/images/text1.png', // tu asset del logo
-          height: 40,
-          fit: BoxFit.contain,
-        ),
+        Image.asset('assets/images/text1.png', height: 40),
         const SizedBox(height: 30),
-        const Text(
-          "Crear Nueva Contraseña",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.black87,
-          ),
-        ),
+        const Text("Crear Nueva Contraseña",
+            style: TextStyle(fontSize: 30, color: Colors.black87)),
         const SizedBox(height: 40),
       ],
     );
@@ -133,7 +112,6 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
     return SafeArea(
       child: Stack(
         children: [
-          // Contenido principal
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: SingleChildScrollView(
@@ -146,20 +124,12 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
               ),
             ),
           ),
-
-          // 🔹 Botón circular de retroceso (igual a RecuperarCuenta2Page)
           Positioned(
             top: 10,
             left: 10,
-            child: Material(
-              color: Colors.transparent,
-              shape: const CircleBorder(),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black87),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black87),
+              onPressed: () => Navigator.pop(context),
             ),
           ),
         ],
@@ -169,9 +139,6 @@ class _RecuperarCuenta3PageState extends State<RecuperarCuenta3Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _buildBody(context),
-    );
+    return Scaffold(backgroundColor: Colors.white, body: _buildBody(context));
   }
 }
