@@ -7,7 +7,10 @@ import 'package:waveul/components/songs_list.dart';
 class VerArtistaPage extends StatelessWidget {
   VerArtistaPage({super.key});
 
-  final VerArtistaController control = Get.put(VerArtistaController());
+  final VerArtistaController control = Get.put(
+    VerArtistaController(),
+    tag: UniqueKey().toString(),
+  );
 
   Widget _header(BuildContext context) {
     return Column(

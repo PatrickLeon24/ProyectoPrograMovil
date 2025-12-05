@@ -20,7 +20,7 @@ class VerArtistaController extends GetxController {
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
-  late final int artistId;
+  late int artistId;
 
   @override
   void onInit() {
@@ -30,8 +30,6 @@ class VerArtistaController extends GetxController {
     final arg = Get.arguments;
     if (arg is int) {
       artistId = arg;
-    } else if (arg is Map) {
-      artistId = arg['artistId'] as int;
     } else {
       errorMessage.value = 'No se recibió el id del artista';
       return;
@@ -41,8 +39,13 @@ class VerArtistaController extends GetxController {
     loadArtistData();
   }
 
+  void load() {
+    loadArtistData();
+  }
+
   /// Cargar artista + canciones + álbumes
   Future<void> loadArtistData() async {
+    print(artistId);
     try {
       isLoading.value = true;
       errorMessage.value = '';
@@ -99,7 +102,6 @@ class VerArtistaController extends GetxController {
         await _artistService.unfollowArtist(current.id);
       }
 
-      // Actualizar el objeto en memoria
       artist.update((a) {
         if (a != null) a.followed = follow;
       });
