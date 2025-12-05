@@ -89,6 +89,40 @@ class ArtistService extends ApplicationService {
     }
   }
 
+  Future<GenericResponse<List<Artist>>> search(String query) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/artists/search?q=$query'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<List<Artist>>.fromJson(
+        jsonMap,
+        fromJsonT: (data) {
+          if (data is List) {
+            return _artistListFromJson(data);
+          }
+          return <Artist>[];
+        },
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<List<Artist>>(
+        success: false,
+        data: null,
+        message: "Error al buscar artistas",
+        error: stackTrace.toString(),
+      );
+    }
+  }
+
   /// Para POST /api/artists/:id/follow
   Future<GenericResponse<bool>> followArtist(int artistId) async {
     try {

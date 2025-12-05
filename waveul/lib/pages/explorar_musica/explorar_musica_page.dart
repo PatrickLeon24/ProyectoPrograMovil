@@ -19,7 +19,6 @@ class ExplorarMusicaPage extends StatefulWidget {
 
 class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
   final ExplorarMusicaController control = Get.put(ExplorarMusicaController());
-  int selectedIndex = 0;
 
   Widget _header(BuildContext context) {
     return Column(
@@ -27,7 +26,7 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
         const SizedBox(height: 20),
         Center(
           child: Image.asset(
-            "assets/images/text1.png", // tu logo con nombre
+            "assets/images/text1.png",
             height: 40,
             fit: BoxFit.contain,
           ),
@@ -53,7 +52,9 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
             const SizedBox(width: 12),
             Expanded(
               child: TextFormField(
+                onChanged: (value) => control.searchAll(value),
                 decoration: InputDecoration(
+                  hintText: "Puedes buscar artistas, canciones, albums, etc",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -77,7 +78,7 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
       children: [
         CarrouselItemFilter(
           onItemSelected: (index) {
-            setState(() => selectedIndex = index);
+            control.changeTab(index);
           },
         ),
 
@@ -87,22 +88,59 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
   }
 
   Widget _content(BuildContext context) {
-    switch (selectedIndex) {
-      case 0:
-        return AllList();
-      case 1:
-        return ArtistsList();
-      case 2:
-        return SongsList();
-      case 3:
-        return AlbumsList();
-      case 4:
-        return PlaylistsList();
-      case 5:
-        return ProfilesList();
-      default:
-        return Text("Error 404: No se encontro la página solicitada");
-    }
+    return Obx(() {
+      if (control.isSearching.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      switch (control.selectedTab.value) {
+        case 0:
+          return AllList(
+            artists: control.artists,
+            songs: control.songs,
+            albums: control.albums,
+            playlists: control.playlists,
+            profiles: control.profiles,
+            onToggleFollowArtist: control.toggleFollowArtist,
+            onToggleLikeSong: control.toggleLikeSong,
+            onToggleSaveAlbum: control.toggleSaveAlbum,
+            onToggleSavePlaylist: control.toggleSavePlaylist,
+            onToggleFollowUser: control.toggleFollowUser,
+          );
+
+        case 1:
+          return ArtistsList(
+            artists: control.artists,
+            onToggleFollow: control.toggleFollowArtist,
+          );
+
+        case 2:
+          return SongsList(
+            songs: control.songs,
+            onToggleLike: control.toggleLikeSong,
+          );
+
+        case 3:
+          return AlbumsList(
+            albums: control.albums,
+            onToggleSave: control.toggleSaveAlbum,
+          );
+
+        case 4:
+          return PlaylistsList(
+            playlists: control.playlists,
+            onToggleSave: control.toggleSavePlaylist,
+          );
+
+        case 5:
+          return ProfilesList(
+            profiles: control.profiles,
+            onToggleFollow: control.toggleFollowUser,
+          );
+        default:
+          return const Text("Error 404: No se encontró la página solicitada");
+      }
+    });
   }
 
   Widget _buildBody(BuildContext context) {

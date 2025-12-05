@@ -9,6 +9,7 @@ class SongFinal {
   final DateTime? releaseDate;
   final DateTime? createdAt;
   final List<Artist> artists;
+  bool liked;
 
   SongFinal({
     required this.id,
@@ -19,6 +20,7 @@ class SongFinal {
     required this.artists,
     this.releaseDate,
     this.createdAt,
+    this.liked = false,
   });
 
   factory SongFinal.fromJson(Map<String, dynamic> json) {

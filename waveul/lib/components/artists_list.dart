@@ -1,70 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/models/artist.dart';
 
-class Artist {
-  final String title;
-  final String subtitle; // "Canción · Coldplay"
-  final String coverAsset; // assets/images/...
-  bool saved;
-  Artist({
-    required this.title,
-    required this.subtitle,
-    required this.coverAsset,
-    this.saved = false,
-  });
-}
+class ArtistsList extends StatelessWidget {
+  final List<Artist> artists;
+  final Function(int artistId, bool follow)? onToggleFollow;
 
-class ArtistsList extends StatefulWidget {
-  ArtistsList({super.key});
+  const ArtistsList({super.key, required this.artists, this.onToggleFollow});
 
   @override
-  State<ArtistsList> createState() => _ArtistsListState();
-}
-
-class _ArtistsListState extends State<ArtistsList> {
-  final List<Artist> Artists = [
-    Artist(
-      title: 'Artista1',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Artist_icon.jpg',
-      saved: false,
-    ),
-    Artist(
-      title: 'Artista2',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Artist_icon.jpg',
-      saved: false,
-    ),
-    Artist(
-      title: 'Artista3',
-      subtitle: 'Artista',
-      coverAsset: 'assets/images/Artist_icon.jpg',
-      saved: false,
-    ),
-  ];
-
-  Widget _buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Artists.length,
+      itemCount: artists.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (_, i) {
-        final s = Artists[i];
+        final a = artists[i];
+
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage(s.coverAsset),
+            backgroundImage: AssetImage('assets/images/Artist_icon.jpg'),
           ),
           title: Text(
-            s.title,
+            a.stageName,
             style: TextStyle(
               fontSize: 15,
               color: Theme.of(context).colorScheme.shadow,
             ),
           ),
           subtitle: Text(
-            s.subtitle,
+            a.isBand ? 'Banda' : 'Artista',
             style: TextStyle(
               fontSize: 12,
               color: Theme.of(context).colorScheme.primary,
@@ -78,26 +45,31 @@ class _ArtistsListState extends State<ArtistsList> {
                 color: Theme.of(context).colorScheme.surface,
                 size: 32,
               ),
-
               TextButton(
-                onPressed: () => setState(() => s.saved = !s.saved),
+                onPressed: () {
+                  final newFollow = !a.followed;
+                  onToggleFollow?.call(a.id, newFollow);
+                },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color:
-                        s.saved
+                        a.followed
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        s.saved
+                        a.followed
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    s.saved ? "Siguiendo" : "Seguir",
+                    a.followed ? "Siguiendo" : "Seguir",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,
@@ -115,14 +87,11 @@ class _ArtistsListState extends State<ArtistsList> {
               ),
             ],
           ),
-          onTap: () => {Navigator.pushNamed(context, '/ver_artista')},
+          onTap: () {
+            Navigator.pushNamed(context, '/ver_artista', arguments: a.id);
+          },
         );
       },
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildBody(context);
   }
 }

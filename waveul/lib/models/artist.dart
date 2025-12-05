@@ -7,6 +7,7 @@ class Artist {
   final String profileImage;
   final DateTime? formedDate;
   final DateTime? createdAt;
+  bool followed;
 
   Artist({
     required this.id,
@@ -16,6 +17,7 @@ class Artist {
     required this.profileImage,
     this.formedDate,
     this.createdAt,
+    this.followed = false,
   });
 
   factory Artist.fromJson(Map<String, dynamic> json) {

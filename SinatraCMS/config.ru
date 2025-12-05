@@ -9,6 +9,7 @@ require_relative 'controllers/song_controller'
 require_relative 'controllers/album_controller'
 require_relative 'controllers/playlist_controller'
 require_relative 'controllers/editarusuario_controller'
+require_relative 'controllers/password_controller'
 
 # Recuperación de contraseña (los 3 endpoints)
 require_relative 'controllers/forgot_controller'
@@ -30,4 +31,6 @@ use SongController
 use AlbumController
 use PlaylistController
 use EditUserController
+use PasswordController
+
 run ApplicationController

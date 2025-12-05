@@ -1,48 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/models/song_final.dart';
 
-class Song {
-  final String title;
-  final String subtitle; // "Canción · Coldplay"
-  final String coverAsset; // assets/images/...
-  bool liked;
-  Song({
-    required this.title,
-    required this.subtitle,
-    required this.coverAsset,
-    this.liked = false,
-  });
-}
+class SongsList extends StatelessWidget {
+  final List<SongFinal> songs;
+  final Function(int songId, bool liked)? onToggleLike;
 
-class SongsList extends StatefulWidget {
-  const SongsList({super.key});
+  const SongsList({super.key, required this.songs, this.onToggleLike});
 
   @override
-  State<SongsList> createState() => _SongsListState();
-}
-
-class _SongsListState extends State<SongsList> {
-  final List<Song> songs = [
-    Song(
-      title: 'CancionGenerica1',
-      subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/Song_icon.jpg',
-      liked: false,
-    ),
-    Song(
-      title: 'CancionGenerica2',
-      subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/Song_icon.jpg',
-      liked: false,
-    ),
-    Song(
-      title: 'CancionGenerica3',
-      subtitle: 'Canción · Artista',
-      coverAsset: 'assets/images/Song_icon.jpg',
-      liked: false,
-    ),
-  ];
-
-  Widget _buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -50,26 +16,33 @@ class _SongsListState extends State<SongsList> {
       separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (_, i) {
         final s = songs[i];
+
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+
           leading: CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage(s.coverAsset),
+            // si en backend guardas imagen:
+            // backgroundImage: NetworkImage(s.coverImage),
+            backgroundImage: AssetImage("assets/images/Song_icon.jpg"),
           ),
+
           title: Text(
-            s.title,
+            s.name,
             style: TextStyle(
               fontSize: 15,
               color: Theme.of(context).colorScheme.shadow,
             ),
           ),
+
           subtitle: Text(
-            s.subtitle,
+            s.artists.isNotEmpty ? s.artists.first.stageName : "Artista",
             style: TextStyle(
               fontSize: 12,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
+
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -83,7 +56,8 @@ class _SongsListState extends State<SongsList> {
                   size: 26,
                 ),
                 onPressed: () {
-                  setState(() => s.liked = !s.liked);
+                  final newLiked = !s.liked;
+                  onToggleLike?.call(s.id, newLiked);
                 },
               ),
               IconButton(
@@ -94,6 +68,7 @@ class _SongsListState extends State<SongsList> {
                 ),
                 onPressed: () {},
               ),
+
               IconButton(
                 icon: Icon(
                   Icons.more_vert,
@@ -103,14 +78,8 @@ class _SongsListState extends State<SongsList> {
               ),
             ],
           ),
-          onTap: () {},
         );
       },
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildBody(context);
   }
 }

@@ -102,7 +102,11 @@ class ExplorarGeneroPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final genre = control.genres[index];
               print(genre);
-              return ItemGeneroPage(nombre: genre.name, color: genre.color);
+              return ItemGeneroPage(
+                nombre: genre.name,
+                color: genre.color,
+                descripcion: genre.description,
+              );
             },
           ),
         ],
