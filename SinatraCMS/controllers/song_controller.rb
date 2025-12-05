@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative '../config/database'
+require_relative '../services/audio_service'
 
 class SongController < ApplicationController  
     #este primer get es para tener todos las canciones con sus atributos
@@ -241,6 +242,169 @@ class SongController < ApplicationController
         success: false,
         message: "Error interno del servidor",
         data: nil,
+        error: e.message
+      }.to_json
+    end
+  end
+
+  # ===============================
+  # 🎵 ENDPOINTS S3 INTEGRATION
+  # ===============================
+  
+  # Subir nueva canción con audio y cover
+  post '/api/songs/upload' do
+    content_type :json
+    user_id = @current_user['user_id']
+    
+    begin
+      # Obtener archivos del request
+      audio_file = params[:audio_file]
+      cover_file = params[:cover_file]  # Opcional
+      
+      # Metadatos de la canción
+      title = params[:title]
+      artist_id = params[:artist_id] 
+      album_id = params[:album_id]    # Opcional
+      duration = params[:duration]    # En segundos
+      
+      # Validaciones básicas
+      halt 400, {error: "Título requerido"}.to_json unless title&.strip&.length&.> 0
+      halt 400, {error: "Audio requerido"}.to_json unless audio_file
+      halt 400, {error: "Artist ID requerido"}.to_json unless artist_id
+      
+      # Subir audio a S3
+      audio_result = AudioService.upload_song(audio_file, SecureRandom.hex(8))
+      if audio_result[:error]
+        halt 400, {error: audio_result[:error]}.to_json
+      end
+      
+      # Subir cover si existe
+      cover_s3_key = nil
+      if cover_file
+        cover_result = AudioService.upload_song_cover(cover_file, SecureRandom.hex(6))
+        if cover_result[:error]
+          # Si falla el cover, eliminar audio ya subido
+          AudioService.delete_file(audio_result[:s3_key])
+          halt 400, {error: cover_result[:error]}.to_json
+        end
+        cover_s3_key = cover_result[:s3_key]
+      end
+      
+      # Crear registro en base de datos usando SQL directo
+      song_data = {
+        name: title,
+        duration: duration || 0,
+        file_url: '',  # Campo obligatorio - vacío por ahora (usamos S3)
+        s3_audio_key: audio_result[:s3_key],
+        s3_cover_key: cover_s3_key,
+        file_size: audio_result[:file_size],
+        audio_format: audio_result[:audio_format],
+        bitrate: params[:bitrate] || 128,
+        release_date: params[:release_date] || Date.today,
+        play_count_global: 0,
+        created_at: Time.now
+      }
+      
+      # Agregar album_id solo si se proporciona
+      song_data[:album_id] = album_id if album_id
+      
+      # Insertar en la base de datos
+      song_id = DB[:songs].insert(song_data)
+      
+      # Crear relación song-artist si no existe
+      unless DB[:song_artist].where(song_id: song_id, artist_id: artist_id).first
+        DB[:song_artist].insert(song_id: song_id, artist_id: artist_id)
+      end
+      
+      status 201
+      {
+        success: true,
+        message: "Canción subida exitosamente",
+        data: {
+          id: song_id,
+          title: title,
+          s3_audio_key: audio_result[:s3_key],
+          s3_cover_key: cover_s3_key,
+          file_size: audio_result[:file_size],
+          audio_format: audio_result[:audio_format],
+          duration: duration || 0
+        }
+      }.to_json
+      
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al procesar upload",
+        error: e.message
+      }.to_json
+    end
+  end
+  
+  # Obtener URL de streaming para una canción
+  get '/api/songs/:id/stream' do
+    content_type :json
+    song_id = params[:id]
+    
+    begin
+      song = Song[song_id]
+      unless song
+        status 404
+        return {
+          success: false,
+          message: "Canción no encontrada",
+          error: "No existe canción con ID: #{song_id}"
+        }.to_json
+      end
+      
+      # Prioridad: S3 -> file_url legacy -> error
+      streaming_url = nil
+      cover_url = nil
+      
+      if song.s3_audio_key.present?
+        streaming_url = AudioService.generate_streaming_url(song.s3_audio_key, 3600)
+      elsif song.file_url.present?
+        # Fallback a sistema legacy
+        streaming_url = song.file_url
+      end
+      
+      # Cover URL
+      if song.s3_cover_key.present?
+        cover_url = AudioService.generate_streaming_url(song.s3_cover_key, 3600)
+      elsif song.album&.cover_image.present?
+        cover_url = song.album.cover_image
+      end
+      
+      unless streaming_url
+        status 500
+        return {
+          success: false,
+          message: "No se pudo generar URL de streaming",
+          error: "Archivo no disponible"
+        }.to_json
+      end
+      
+      status 200
+      {
+        success: true,
+        message: "URL de streaming generada",
+        data: {
+          song_id: song.id,
+          title: song.name,
+          streaming_url: streaming_url,
+          cover_url: cover_url,
+          duration: song.duration,
+          file_size: song.file_size,
+          audio_format: song.audio_format,
+          expires_in: 3600
+        }
+      }.to_json
+      
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error generando streaming URL",
         error: e.message
       }.to_json
     end
