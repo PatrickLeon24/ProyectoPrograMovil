@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:waveul/configs/generic_response.dart';
 import 'package:waveul/responses/auth_response.dart';
+import 'package:waveul/configs/constants.dart';
 
 import 'package:http/http.dart' as http;
 
-final String BASE_URL = "http://10.0.2.2:9292/";
 
 class UsersService {
   /// 🔹 Versión que usa el backend real (cuando esté disponible)

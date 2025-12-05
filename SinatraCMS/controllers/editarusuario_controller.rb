@@ -6,26 +6,15 @@ require_relative '../models/user'
 require_relative 'application_controller'
 
 class EditUserController < ApplicationController
-  # Endpoint para ACTUALIZAR el username de un usuario
-  #
-  # Ejemplo de llamada (Postman):
-  #   PUT /api/v2/users/1/username
-  #   Body (JSON):
-  #   {
-  #     "username": "NuevoNickname123"
-  #   }
-  #
   put '/api/v2/users/username' do
     content_type :json
 
     begin
       user_id = @current_user['user_id']
 
-      # Leer y parsear el body
       request_body = JSON.parse(request.body.read) rescue nil
       new_username = request_body && request_body['username']
 
-      # Validar campo requerido
       if new_username.nil? || new_username.strip.empty?
         status 400
         return {
@@ -36,7 +25,6 @@ class EditUserController < ApplicationController
         }.to_json
       end
 
-      # Buscar el usuario por ID
       user = User[user_id]
 
       unless user
@@ -49,7 +37,6 @@ class EditUserController < ApplicationController
         }.to_json
       end
 
-      # Verificar que el nuevo username no esté ya en uso por OTRO usuario
       existing_user = User.first(username: new_username)
       if existing_user && existing_user.id != user.id
         status 409
@@ -61,10 +48,22 @@ class EditUserController < ApplicationController
         }.to_json
       end
 
-      # Actualizar el username
+      # 🔹 Actualizar el username
       user.update(username: new_username)
 
-      # Respuesta final
+      # 🔹 Generar NUEVOS tokens con el username actualizado
+      waveul_token = generate_token({
+        user_id: user.id,
+        username: user.username,
+        type: 'waveul'
+      })
+
+      files_token = generate_token({
+        user_id: user.id,
+        username: user.username,
+        type: 'files'
+      })
+
       status 200
       {
         success: true,
@@ -75,6 +74,7 @@ class EditUserController < ApplicationController
             name: user.name,
             last_name: user.last_name,
             username: user.username,
+            password_hash: user.password_hash,
             email: user.email,
             phone: user.phone,
             birth_date: user.birth_date,
@@ -85,6 +85,10 @@ class EditUserController < ApplicationController
             verification_token: user.verification_token,
             reset_token: user.reset_token,
             reset_token_expires: user.reset_token_expires
+          },
+          tokens: {
+            waveul: waveul_token,
+            files: files_token
           }
         },
         error: nil
