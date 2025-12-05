@@ -20,32 +20,35 @@ class VerArtistaController extends GetxController {
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
-  int? _artistId; // se actualiza cuando cambias de artista
+  late final int artistId;
 
   @override
   void onInit() {
     super.onInit();
 
-    // Primer artista al entrar por primera vez
-    final args = Get.arguments;
-    if (args is Map<String, dynamic> && args['artistId'] is int) {
-      loadArtistData(args['artistId'] as int);
+    // 1) Leer el argumento que viene de Get.toNamed('/ver_artista', arguments: a.id)
+    final arg = Get.arguments;
+    if (arg is int) {
+      artistId = arg;
+    } else if (arg is Map) {
+      artistId = arg['artistId'] as int;
+    } else {
+      errorMessage.value = 'No se recibió el id del artista';
+      return;
     }
+
+    // 2) Cargar datos
+    loadArtistData();
   }
 
   /// Cargar artista + canciones + álbumes
-  Future<void> loadArtistData(int artistId) async {
-    // Si ya cargaste ese artista, no vuelvas a pegarle al backend
-    if (_artistId == artistId && artist.value != null) return;
-
-    _artistId = artistId;
-
+  Future<void> loadArtistData() async {
     try {
       isLoading.value = true;
       errorMessage.value = '';
 
-      // 1) Detalle del artista
-      GenericResponse<Artist> artistResp = await _artistService.fetchById(
+      // --- Artista ---
+      final GenericResponse<Artist> artistResp = await _artistService.fetchById(
         artistId,
       );
 
@@ -56,8 +59,8 @@ class VerArtistaController extends GetxController {
             artistResp.message ?? 'No se pudo cargar el artista';
       }
 
-      // 2) Canciones del artista
-      GenericResponse<List<SongFinal>> songsResp = await _songService
+      // --- Canciones del artista ---
+      final GenericResponse<List<SongFinal>> songsResp = await _songService
           .fetchByArtist(artistId);
 
       if (songsResp.success && songsResp.data != null) {
@@ -66,8 +69,8 @@ class VerArtistaController extends GetxController {
         songs.clear();
       }
 
-      // 3) Álbumes del artista
-      GenericResponse<List<Album>> albumsResp = await _albumService
+      // --- Álbumes del artista ---
+      final GenericResponse<List<Album>> albumsResp = await _albumService
           .fetchByArtist(artistId);
 
       if (albumsResp.success && albumsResp.data != null) {
@@ -76,9 +79,9 @@ class VerArtistaController extends GetxController {
         albums.clear();
       }
     } catch (e, stack) {
-      errorMessage.value = 'Error al cargar datos del artista';
-      print(e);
+      print('Error en loadArtistData: $e');
       print(stack);
+      errorMessage.value = 'Error al cargar datos del artista';
     } finally {
       isLoading.value = false;
     }
@@ -96,6 +99,7 @@ class VerArtistaController extends GetxController {
         await _artistService.unfollowArtist(current.id);
       }
 
+      // Actualizar el objeto en memoria
       artist.update((a) {
         if (a != null) a.followed = follow;
       });
@@ -105,7 +109,7 @@ class VerArtistaController extends GetxController {
     }
   }
 
-  /// Like / Unlike canción
+  /// Like / unlike canción
   Future<void> toggleLikeSong(int songId, bool like) async {
     try {
       if (like) {

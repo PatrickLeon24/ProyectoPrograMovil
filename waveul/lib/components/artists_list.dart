@@ -19,7 +19,7 @@ class ArtistsList extends StatelessWidget {
 
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             radius: 24,
             backgroundImage: AssetImage('assets/images/Artist_icon.jpg'),
           ),
@@ -88,11 +88,7 @@ class ArtistsList extends StatelessWidget {
             ],
           ),
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              '/ver_artista',
-              arguments: {'artistId': a.id},
-            );
+            Navigator.pushNamed(context, '/ver_artista', arguments: a.id);
           },
         );
       },

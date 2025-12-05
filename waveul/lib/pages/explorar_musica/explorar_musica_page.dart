@@ -95,24 +95,48 @@ class _ExplorarMusicaPageState extends State<ExplorarMusicaPage> {
 
       switch (control.selectedTab.value) {
         case 0:
-          // 🔹 Tienes que ajustar AllList para que reciba estas listas
           return AllList(
             artists: control.artists,
             songs: control.songs,
             albums: control.albums,
             playlists: control.playlists,
             profiles: control.profiles,
+            onToggleFollowArtist: control.toggleFollowArtist,
+            onToggleLikeSong: control.toggleLikeSong,
+            onToggleSaveAlbum: control.toggleSaveAlbum,
+            onToggleSavePlaylist: control.toggleSavePlaylist,
+            onToggleFollowUser: control.toggleFollowUser,
           );
+
         case 1:
-          return ArtistsList(artists: control.artists);
+          return ArtistsList(
+            artists: control.artists,
+            onToggleFollow: control.toggleFollowArtist,
+          );
+
         case 2:
-          return SongsList(songs: control.songs);
+          return SongsList(
+            songs: control.songs,
+            onToggleLike: control.toggleLikeSong,
+          );
+
         case 3:
-          return AlbumsList(albums: control.albums);
+          return AlbumsList(
+            albums: control.albums,
+            onToggleSave: control.toggleSaveAlbum,
+          );
+
         case 4:
-          return PlaylistsList(playlists: control.playlists);
+          return PlaylistsList(
+            playlists: control.playlists,
+            onToggleSave: control.toggleSavePlaylist,
+          );
+
         case 5:
-          return ProfilesList(profiles: control.profiles);
+          return ProfilesList(
+            profiles: control.profiles,
+            onToggleFollow: control.toggleFollowUser,
+          );
         default:
           return const Text("Error 404: No se encontró la página solicitada");
       }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'ver_artista_controller.dart';
-// Importamos los componentes: SongsList y AlbumsList
 import 'package:waveul/components/albums_list.dart';
 import 'package:waveul/components/songs_list.dart';
 
 class VerArtistaPage extends StatelessWidget {
   VerArtistaPage({super.key});
 
-  // Registramos una sola vez el controller
   final VerArtistaController control = Get.put(VerArtistaController());
 
   Widget _header(BuildContext context) {
@@ -53,17 +51,13 @@ class VerArtistaPage extends StatelessWidget {
                           Icons.arrow_back,
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
-                        onPressed:
-                            () => Navigator.pushNamed(
-                              context,
-                              '/explorar_musica',
-                            ),
+                        onPressed: () => Get.back(),
                       ),
                       const Spacer(),
                       Text(
-                        artist?.stageName ?? "Artista",
+                        artist?.stageName ?? 'Artista',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 32,
                           color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
@@ -78,7 +72,6 @@ class VerArtistaPage extends StatelessWidget {
     });
   }
 
-  /// Zona de info del artista: botón seguir + biografía
   Widget _overview(BuildContext context) {
     return Obx(() {
       final artist = control.artist.value;
@@ -111,7 +104,7 @@ class VerArtistaPage extends StatelessWidget {
           const SizedBox(height: 30),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
                 artist.biography.isNotEmpty
                     ? artist.biography
@@ -125,23 +118,11 @@ class VerArtistaPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "Mostrar Más",
-              style: TextStyle(
-                fontSize: 18,
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ],
       );
     });
   }
 
-  /// Lista de canciones del artista
   Widget _contentBodySongs(BuildContext context) {
     return Obx(() {
       if (control.songs.isEmpty) return const SizedBox.shrink();
@@ -158,32 +139,18 @@ class VerArtistaPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           SongsList(songs: control.songs, onToggleLike: control.toggleLikeSong),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "Escuchar Todo",
-              style: TextStyle(
-                fontSize: 18,
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
         ],
       );
     });
   }
 
-  /// Lista de álbumes del artista
   Widget _contentBodyAlbums(BuildContext context) {
     return Obx(() {
       if (control.albums.isEmpty) return const SizedBox.shrink();
 
       return Column(
         children: [
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           Text(
             "Álbumes",
             style: TextStyle(
@@ -196,32 +163,12 @@ class VerArtistaPage extends StatelessWidget {
             albums: control.albums,
             onToggleSave: control.toggleSaveAlbum,
           ),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "Escuchar Todo",
-              style: TextStyle(
-                fontSize: 18,
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
         ],
       );
     });
   }
 
   Widget _buildBody(BuildContext context) {
-    // Cada vez que se construye la página, revisamos el artistId
-    final args = Get.arguments as Map<String, dynamic>;
-    final int artistId = args['artistId'] as int;
-
-    // 👉 Forzamos al controller a cargar los datos de ese artista
-    control.loadArtistData(artistId);
-
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -20,7 +20,7 @@ class ExplorarMusicaController extends GetxController {
   final SongService _songService = SongService();
   final AlbumService _albumService = AlbumService();
   final PlaylistService _playlistService = PlaylistService();
-  final UserFollowService _userFollowService = UserFollowService();
+  final UserFollowService _userService = UserFollowService();
 
   // Estado
   RxList<Artist> artists = <Artist>[].obs;
@@ -33,24 +33,24 @@ class ExplorarMusicaController extends GetxController {
   RxString errorMessage = ''.obs;
   RxInt selectedTab = 0.obs;
 
-  // Para no spamear al backend si borras todo
   String _lastQuery = '';
 
   void changeTab(int index) {
     selectedTab.value = index;
   }
 
+  // ----------------------------------------------------------
+  // 🔍 BUSCAR EN TODA LA APP
+  // ----------------------------------------------------------
   Future<void> searchAll(String query) async {
-    _lastQuery = query;
+    _lastQuery = query.trim();
 
-    // Si está vacío, limpiamos y no llamamos al backend
-    if (query.trim().isEmpty) {
+    if (_lastQuery.isEmpty) {
       artists.clear();
       songs.clear();
       albums.clear();
       playlists.clear();
       profiles.clear();
-      errorMessage.value = '';
       isSearching.value = false;
       return;
     }
@@ -59,60 +59,143 @@ class ExplorarMusicaController extends GetxController {
     errorMessage.value = '';
 
     try {
-      // Llamamos a todos los servicios en paralelo
-      final results = await Future.wait<GenericResponse<dynamic>>([
-        _artistService.search(query), // 0
-        _songService.search(query), // 1
-        _albumService.search(query), // 2
-        _playlistService.search(query), // 3
-        _userFollowService.search(query), // 4
+      final results = await Future.wait([
+        _artistService.search(_lastQuery),
+        _songService.search(_lastQuery),
+        _albumService.search(_lastQuery),
+        _playlistService.search(_lastQuery),
+        _userService.search(_lastQuery),
       ]);
 
-      // 1) Artistas
+      // ARTISTAS
       final artistResp = results[0] as GenericResponse<List<Artist>>;
-      if (artistResp.success && artistResp.data != null) {
-        artists.assignAll(artistResp.data!);
-      } else {
-        artists.clear();
-      }
+      artists.assignAll(artistResp.data ?? []);
 
-      // 2) Canciones
+      // CANCIONES
       final songResp = results[1] as GenericResponse<List<SongFinal>>;
-      if (songResp.success && songResp.data != null) {
-        songs.assignAll(songResp.data!);
-      } else {
-        songs.clear();
-      }
+      songs.assignAll(songResp.data ?? []);
 
-      // 3) Álbumes
+      // ÁLBUMES
       final albumResp = results[2] as GenericResponse<List<Album>>;
-      if (albumResp.success && albumResp.data != null) {
-        albums.assignAll(albumResp.data!);
-      } else {
-        albums.clear();
-      }
+      albums.assignAll(albumResp.data ?? []);
 
-      // 4) Playlists
+      // PLAYLISTS
       final playlistResp = results[3] as GenericResponse<List<PlaylistFinal>>;
-      if (playlistResp.success && playlistResp.data != null) {
-        playlists.assignAll(playlistResp.data!);
+      playlists.assignAll(playlistResp.data ?? []);
+
+      // PERFILES DE USUARIO
+      final profileResp = results[4] as GenericResponse<List<User>>;
+      profiles.assignAll(profileResp.data ?? []);
+    } catch (e, st) {
+      debugPrint(" Error en searchAll: $e\n$st");
+      errorMessage.value = "Error al buscar información.";
+    } finally {
+      isSearching.value = false;
+    }
+  }
+
+  // ----------------------------------------------------------
+  //  LIKE / UNLIKE SONG
+  // ----------------------------------------------------------
+  Future<void> toggleLikeSong(int songId, bool like) async {
+    try {
+      if (like) {
+        await _songService.likeSongFinal(songId);
       } else {
-        playlists.clear();
+        await _songService.unlikeSongFinal(songId);
       }
 
-      // 5) Perfiles (usuarios)
-      final profilesResp = results[4] as GenericResponse<List<User>>;
-      if (profilesResp.success && profilesResp.data != null) {
-        profiles.assignAll(profilesResp.data!);
-      } else {
-        profiles.clear();
+      final index = songs.indexWhere((s) => s.id == songId);
+      if (index != -1) {
+        songs[index].liked = like;
+        songs.refresh();
       }
-    } catch (e, st) {
-      debugPrint('❌ Error en searchAll: $e\n$st');
-      errorMessage.value = 'Error al buscar. Inténtalo de nuevo.';
-    } finally {
-      // ESTE finally es la clave para que deje de mostrar el loader
-      isSearching.value = false;
+    } catch (e) {
+      print(" Error toggleLikeSong: $e");
+    }
+  }
+
+  // ----------------------------------------------------------
+  //  GUARDAR / QUITAR ÁLBUM
+  // ----------------------------------------------------------
+  Future<void> toggleSaveAlbum(int albumId, bool saved) async {
+    try {
+      if (saved) {
+        await _albumService.saveAlbum(albumId);
+      } else {
+        await _albumService.unsaveAlbum(albumId);
+      }
+
+      final index = albums.indexWhere((a) => a.id == albumId);
+      if (index != -1) {
+        albums[index].saved = saved;
+        albums.refresh();
+      }
+    } catch (e) {
+      print(" Error toggleSaveAlbum: $e");
+    }
+  }
+
+  // ----------------------------------------------------------
+  // 🎵 GUARDAR / QUITAR PLAYLIST
+  // ----------------------------------------------------------
+  Future<void> toggleSavePlaylist(int playlistId, bool saved) async {
+    try {
+      if (saved) {
+        await _playlistService.savePlaylist(playlistId);
+      } else {
+        await _playlistService.unsavePlaylist(playlistId);
+      }
+
+      final index = playlists.indexWhere((p) => p.id == playlistId);
+      if (index != -1) {
+        playlists[index].saved = saved;
+        playlists.refresh();
+      }
+    } catch (e) {
+      print(" Error toggleSavePlaylist: $e");
+    }
+  }
+
+  // ----------------------------------------------------------
+  // 👤 SEGUIR / NO SEGUIR PERFIL
+  // ----------------------------------------------------------
+  Future<void> toggleFollowUser(int userId, bool follow) async {
+    try {
+      if (follow) {
+        await _userService.followUser(userId);
+      } else {
+        await _userService.unfollowUser(userId);
+      }
+
+      final index = profiles.indexWhere((u) => u.id == userId);
+      if (index != -1) {
+        profiles[index].following = follow;
+        profiles.refresh();
+      }
+    } catch (e) {
+      print(" Error toggleFollowUser: $e");
+    }
+  }
+
+  // ----------------------------------------------------------
+  //  SEGUIR / NO SEGUIR ARTISTA
+  // ----------------------------------------------------------
+  Future<void> toggleFollowArtist(int artistId, bool follow) async {
+    try {
+      if (follow) {
+        await _artistService.followArtist(artistId);
+      } else {
+        await _artistService.unfollowArtist(artistId);
+      }
+
+      final index = artists.indexWhere((a) => a.id == artistId);
+      if (index != -1) {
+        artists[index].followed = follow;
+        artists.refresh();
+      }
+    } catch (e) {
+      print(" Error toggleFollowArtist: $e");
     }
   }
 }
