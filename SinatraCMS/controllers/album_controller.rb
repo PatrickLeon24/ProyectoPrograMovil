@@ -76,7 +76,7 @@ class AlbumController < ApplicationController
         }.to_json      
     end
   end
-    #Ahora aqui cuando necesite una cancion en la vista de musica debo filtrarlo por el id
+  #Ahora aqui cuando necesite una cancion en la vista de musica debo filtrarlo por el id
   get '/api/albums/:id' do
   content_type :json
   id = params[:id]
@@ -120,5 +120,110 @@ class AlbumController < ApplicationController
           error: e.message
         }.to_json
       end
+  end
+
+  # Buscar álbumes
+  get '/api/albums/search' do
+    content_type :json
+    query = params[:q]
+
+    begin
+      albums = Album.where(Sequel.ilike(:name, "%#{query}%")).all
+
+      {
+        success: true,
+        message: "Álbumes encontrados",
+        data: albums.map(&:values),
+        error: nil
+      }.to_json
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al buscar álbumes",
+        data: [],
+        error: e.message
+      }.to_json
+    end
+  end
+
+  # Guardar álbum
+  post '/api/albums/:id/save' do
+    content_type :json
+    user_id  = @current_user['user_id']
+    album_id = params[:id]
+
+    begin
+      rel = UserAlbum.where(user_id: user_id, album_id: album_id).first
+
+      if rel
+        status 409
+        return {
+          success: false,
+          message: "El álbum ya está guardado",
+          data: { saved: true },
+          error: nil
+        }.to_json
+      end
+
+      UserAlbum.create(
+        user_id: user_id,
+        album_id: album_id,
+        created_at: Time.now
+      )
+
+      {
+        success: true,
+        message: "Álbum guardado en tu biblioteca",
+        data: { saved: true },
+        error: nil
+      }.to_json
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al guardar álbum",
+        data: nil,
+        error: e.message
+      }.to_json
+    end
+  end
+
+  # Quitar álbum guardado
+  delete '/api/albums/:id/save' do
+    content_type :json
+    user_id  = @current_user['user_id']
+    album_id = params[:id]
+
+    begin
+      rel = UserAlbum.where(user_id: user_id, album_id: album_id).first
+
+      unless rel
+        status 404
+        return {
+          success: false,
+          message: "El álbum no estaba guardado",
+          data: { saved: false },
+          error: nil
+        }.to_json
+      end
+
+      rel.delete
+
+      {
+        success: true,
+        message: "Álbum eliminado de tu biblioteca",
+        data: { saved: false },
+        error: nil
+      }.to_json
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error al eliminar álbum de tu biblioteca",
+        data: nil,
+        error: e.message
+      }.to_json
+    end
   end
 end
