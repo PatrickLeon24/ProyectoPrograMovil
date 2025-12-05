@@ -25,9 +25,7 @@ import 'pages/explorar_musica/explorar_musica_page.dart';
 import 'pages/ver_artista/ver_artista_page.dart';
 import 'pages/lista_reproduccion/playlist_page.dart';
 import 'pages/editar_perfil/editarperfil_main.dart';
-
-
-
+import 'pages/cambiar_contrasena/cambiar_contrasena_main.dart';
 
 import 'package:waveul/services/session_service.dart';
 
@@ -86,6 +84,7 @@ class MyApp extends StatelessWidget {
         '/explorar_musica': (context) => ExplorarMusicaPage(),
         '/ver_artista': (context) => VerArtistaPage(),
         '/editar_perfil': (context) => EditarPerfilPage(),
+        '/cambiar_contrasena': (context) => const CambiarContrasenaPage(),
       },
     );
   }

@@ -143,7 +143,7 @@ class EditarPerfilPage extends StatelessWidget {
                             color: Colors.white,
                           )
                         : const Text(
-                            "Guardar cambios",
+                            "Cambiar nickname",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -153,6 +153,26 @@ class EditarPerfilPage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/cambiar_contrasena');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[600],
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                icon: const Icon(Icons.lock, color: Colors.white),
+                label: const Text(
+                  "Cambiar contraseña",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
               // Mensaje (opcional)
               Obx(() => Text(
                     controller.message.value,
