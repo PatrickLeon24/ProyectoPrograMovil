@@ -99,23 +99,39 @@ class SongController < ApplicationController
     song_id = params[:id]
 
     begin
-      # Ver si ya existe el like
+      # Ver si ya existe el registro
       rel = UserSong.where(user_id: user_id, song_id: song_id).first
 
       if rel
-        status 409
-        return {
-          success: false,
-          message: "Ya marcaste esta canción como que te gusta",
-          data: { liked: true },
-          error: nil
-        }.to_json
+        # Si ya existe, verificar si ya está marcado como favorito
+        if rel.favorite == 1 || rel.favorite == true
+          status 409
+          return {
+            success: false,
+            message: "Ya marcaste esta canción como que te gusta",
+            data: { liked: true },
+            error: nil
+          }.to_json
+        else
+          # Si existe pero NO es favorito, actualizar a favorito
+          DB[:user_song].where(user_id: user_id, song_id: song_id)
+                        .update(favorite: true, liked_at: Time.now)
+          
+          return {
+            success: true,
+            message: "Canción agregada a tus Me gusta",
+            data: { liked: true },
+            error: nil
+          }.to_json
+        end
       end
 
-      # Crear relación user_song
-      UserSong.create(
+      # Si no existe el registro, crear uno nuevo
+      DB[:user_song].insert(
         user_id: user_id,
         song_id: song_id,
+        favorite: true,
+        liked_at: Time.now,
         created_at: Time.now
       )
 
@@ -156,7 +172,9 @@ class SongController < ApplicationController
         }.to_json
       end
 
-      rel.delete
+      # Actualizar directamente en la base de datos
+      DB[:user_song].where(user_id: user_id, song_id: song_id)
+                    .update(favorite: false, liked_at: nil)
 
       {
         success: true,
@@ -170,6 +188,58 @@ class SongController < ApplicationController
       {
         success: false,
         message: "Error al quitar la canción de tus Me gusta",
+        data: nil,
+        error: e.message
+      }.to_json
+    end
+  end
+
+  # Registrar reproducción de canción
+  post '/api/songs/:id/play' do
+    content_type :json
+    user_id = @current_user['user_id']
+    song_id = params[:id]
+
+    begin
+      # Buscar registro existente
+      existing = UserSong.where(user_id: user_id, song_id: song_id).first
+      
+      if existing
+        # Incrementar contador usando SQL directo
+        new_count = existing.play_count + 1
+        DB[:user_song].where(user_id: user_id, song_id: song_id)
+                      .update(play_count: new_count, last_played: Time.now)
+        
+        status 200
+        return {
+          success: true,
+          message: "Reproducción registrada exitosamente",
+          data: { user_id: user_id, song_id: song_id, play_count: new_count }
+        }.to_json
+      else
+        # Crear nuevo registro usando SQL directo
+        DB[:user_song].insert(
+          user_id: user_id,
+          song_id: song_id,
+          favorite: false,
+          play_count: 1,
+          last_played: Time.now,
+          created_at: Time.now
+        )
+        
+        status 200
+        return {
+          success: true,
+          message: "Primera reproducción registrada",
+          data: { user_id: user_id, song_id: song_id, play_count: 1 }
+        }.to_json
+      end
+      
+    rescue => e
+      status 500
+      {
+        success: false,
+        message: "Error interno del servidor",
         data: nil,
         error: e.message
       }.to_json
