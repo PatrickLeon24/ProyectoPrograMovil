@@ -1,70 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/models/playlist_final.dart';
 
-class Playlist {
-  final String title;
-  final String subtitle; // "Canción · Coldplay"
-  final String coverAsset; // assets/images/...
-  bool saved;
-  Playlist({
-    required this.title,
-    required this.subtitle,
-    required this.coverAsset,
-    this.saved = false,
-  });
-}
+class PlaylistsList extends StatelessWidget {
+  final List<PlaylistFinal> playlists;
+  final Function(int playlistId, bool saved)? onToggleSave;
 
-class PlaylistsList extends StatefulWidget {
-  PlaylistsList({super.key});
+  const PlaylistsList({super.key, required this.playlists, this.onToggleSave});
 
   @override
-  State<PlaylistsList> createState() => _PlaylistsListState();
-}
-
-class _PlaylistsListState extends State<PlaylistsList> {
-  final List<Playlist> Playlists = [
-    Playlist(
-      title: 'Mi playlist',
-      subtitle: 'Playlist',
-      coverAsset: 'assets/images/workout_playlist.png',
-      saved: false,
-    ),
-    Playlist(
-      title: 'Playlist Chill',
-      subtitle: 'Playlist',
-      coverAsset: 'assets/images/workout_playlist.png',
-      saved: false,
-    ),
-    Playlist(
-      title: 'Entrenamiento 😎',
-      subtitle: 'Playlist',
-      coverAsset: 'assets/images/workout_playlist.png',
-      saved: false,
-    ),
-  ];
-
-  Widget _buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Playlists.length,
+      itemCount: playlists.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (_, i) {
-        final s = Playlists[i];
+        final p = playlists[i];
+
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           leading: CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage(s.coverAsset),
+            // si coverImage es una URL:
+            // backgroundImage: NetworkImage(p.coverImage),
+            // si solo es nombre de archivo local:
+            backgroundImage: AssetImage('assets/images/workout_playlist.png'),
           ),
           title: Text(
-            s.title,
+            p.name,
             style: TextStyle(
               fontSize: 15,
               color: Theme.of(context).colorScheme.shadow,
             ),
           ),
           subtitle: Text(
-            s.subtitle,
+            p.owner?.username ?? 'Playlist', // o p.owner.name
             style: TextStyle(
               fontSize: 12,
               color: Theme.of(context).colorScheme.primary,
@@ -74,24 +44,30 @@ class _PlaylistsListState extends State<PlaylistsList> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () => setState(() => s.saved = !s.saved),
+                onPressed: () {
+                  final newSaved = !p.saved;
+                  onToggleSave?.call(p.id, newSaved);
+                },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color:
-                        s.saved
+                        p.saved
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        s.saved
+                        p.saved
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    s.saved ? "Guardado" : "Guardar",
+                    p.saved ? "Guardado" : "Guardar",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,
@@ -109,14 +85,11 @@ class _PlaylistsListState extends State<PlaylistsList> {
               ),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            // Aquí luego puedes navegar a la vista de detalle de playlist
+          },
         );
       },
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildBody(context);
   }
 }

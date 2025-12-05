@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:waveul/configs/constants.dart';
 import 'package:waveul/configs/generic_response.dart';
-import 'package:waveul/models/Song_final.dart';
+import 'package:waveul/models/song_final.dart';
 import 'package:waveul/services/application_service.dart';
 import 'package:http/http.dart' as http;
 
@@ -186,6 +186,40 @@ class SongService extends ApplicationService {
         success: false,
         data: null,
         message: "Error al quitar canción de Me gusta",
+        error: stackTrace.toString(),
+      );
+    }
+  }
+
+  Future<GenericResponse<List<SongFinal>>> fetchByArtist(int artistId) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/artists/$artistId/songs'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<List<SongFinal>>.fromJson(
+        jsonMap,
+        fromJsonT: (data) {
+          if (data is List) {
+            return _songListFromJson(data); // tu helper existente
+          }
+          return <SongFinal>[];
+        },
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<List<SongFinal>>(
+        success: false,
+        data: null,
+        message: 'Error al obtener canciones del artista',
         error: stackTrace.toString(),
       );
     }

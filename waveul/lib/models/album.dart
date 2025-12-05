@@ -4,17 +4,19 @@ class Album {
   final int id;
   final String name;
   final String coverImage;
-  final Artist artist;
+  final Artist? artist;
   final DateTime? releaseDate;
   final DateTime? createdAt;
+  bool saved;
 
   Album({
     required this.id,
     required this.name,
     required this.coverImage,
-    required this.artist,
+    this.artist,
     this.releaseDate,
     this.createdAt,
+    this.saved = false,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
@@ -30,7 +32,10 @@ class Album {
           json['created_at'] != null && json['created_at'] != ''
               ? DateTime.parse(json['created_at'])
               : null,
-      artist: Artist.fromJson(json['artist'] as Map<String, dynamic>),
+      artist:
+          json['artist'] != null
+              ? Artist.fromJson(json['artist'] as Map<String, dynamic>)
+              : null,
     );
   }
 
@@ -39,7 +44,7 @@ class Album {
       'id': id,
       'name': name,
       'cover_image': coverImage,
-      'artist': artist.toJson(),
+      if (artist != null) 'artist': artist!.toJson(),
       'release_date': releaseDate?.toIso8601String(),
       'created_at': createdAt?.toIso8601String(),
     };
@@ -47,6 +52,6 @@ class Album {
 
   @override
   String toString() {
-    return 'Album{id: $id, name: $name, artist: ${artist.stageName}}';
+    return 'Album{id: $id, name: $name, artist: ${artist?.stageName}}';
   }
 }

@@ -14,6 +14,7 @@ class User {
   final String? verificationToken;
   final String? resetToken;
   final DateTime? resetTokenExpires;
+  bool following;
 
   User({
     required this.id,
@@ -31,6 +32,7 @@ class User {
     this.verificationToken,
     this.resetToken,
     this.resetTokenExpires,
+    this.following = false,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -42,20 +44,23 @@ class User {
       passwordHash: json['password_hash'] as String,
       email: json['email'] as String,
       profileImage: json['profile_image'] as String?,
-      birthDate: json['birth_date'] != null
-          ? DateTime.parse(json['birth_date'] as String)
-          : null,
+      birthDate:
+          json['birth_date'] != null
+              ? DateTime.parse(json['birth_date'] as String)
+              : null,
       phone: json['phone'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       isVerified: json['is_verified'] == 1 || json['is_verified'] == true,
-      lastLogin: json['last_login'] != null
-          ? DateTime.parse(json['last_login'] as String)
-          : null,
+      lastLogin:
+          json['last_login'] != null
+              ? DateTime.parse(json['last_login'] as String)
+              : null,
       verificationToken: json['verification_token'] as String?,
       resetToken: json['reset_token'] as String?,
-      resetTokenExpires: json['reset_token_expires'] != null
-          ? DateTime.parse(json['reset_token_expires'] as String)
-          : null,
+      resetTokenExpires:
+          json['reset_token_expires'] != null
+              ? DateTime.parse(json['reset_token_expires'] as String)
+              : null,
     );
   }
 

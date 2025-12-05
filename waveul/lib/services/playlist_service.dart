@@ -90,7 +90,42 @@ class PlaylistService extends ApplicationService {
     }
   }
 
-  /// Para POST /api/playlists/:id/save
+  // Para GET /api/playlists/search
+  Future<GenericResponse<List<PlaylistFinal>>> search(String query) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/playlists/search?q=$query'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<List<PlaylistFinal>>.fromJson(
+        jsonMap,
+        fromJsonT: (data) {
+          if (data is List) {
+            return _playlistListFromJson(data);
+          }
+          return <PlaylistFinal>[];
+        },
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<List<PlaylistFinal>>(
+        success: false,
+        data: null,
+        message: "Error al buscar playlists",
+        error: stackTrace.toString(),
+      );
+    }
+  }
+
+  // Para POST /api/playlists/:id/save
   Future<GenericResponse<bool>> savePlaylist(int playlistId) async {
     try {
       final httpResponse = await http.post(

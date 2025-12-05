@@ -1,97 +1,75 @@
 import 'package:flutter/material.dart';
+import 'package:waveul/models/user.dart';
 
-class Profile {
-  final String title;
-  final String subtitle; // "Canción · Coldplay"
-  final String coverAsset; // assets/images/...
-  bool follow;
-  Profile({
-    required this.title,
-    required this.subtitle,
-    required this.coverAsset,
-    this.follow = false,
-  });
-}
+class ProfilesList extends StatelessWidget {
+  final List<User> profiles;
+  final Function(int userId, bool follow)? onToggleFollow;
 
-class ProfilesList extends StatefulWidget {
-  ProfilesList({super.key});
+  const ProfilesList({super.key, required this.profiles, this.onToggleFollow});
 
   @override
-  State<ProfilesList> createState() => _ProfilesListState();
-}
-
-class _ProfilesListState extends State<ProfilesList> {
-  final List<Profile> Profiles = [
-    Profile(
-      title: 'Perfil anonimo 1',
-      subtitle: 'Profile',
-      coverAsset: 'assets/images/Profile_icon.jpg',
-      follow: false,
-    ),
-    Profile(
-      title: 'Perfil anonimo 2',
-      subtitle: 'Profile',
-      coverAsset: 'assets/images/Profile_icon.jpg',
-      follow: false,
-    ),
-    Profile(
-      title: 'Perfil anonimo 3',
-      subtitle: 'Profile',
-      coverAsset: 'assets/images/Profile_icon.jpg',
-      follow: false,
-    ),
-  ];
-
-  Widget _buildBody(BuildContext context) {
+  Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Profiles.length,
+      itemCount: profiles.length,
       separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (_, i) {
-        final s = Profiles[i];
+        final user = profiles[i];
+
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+
           leading: CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage(s.coverAsset),
+            backgroundImage:
+                user.profileImage != null
+                    ? NetworkImage(user.profileImage!)
+                    : AssetImage("assets/images/Profile_icon.jpg")
+                        as ImageProvider,
           ),
+
           title: Text(
-            s.title,
+            "${user.name} ${user.lastName}",
             style: TextStyle(
               fontSize: 15,
               color: Theme.of(context).colorScheme.shadow,
             ),
           ),
+
           subtitle: Text(
-            s.subtitle,
+            "@${user.username}",
             style: TextStyle(
               fontSize: 12,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
+
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
-                onPressed: () => setState(() => s.follow = !s.follow),
+                onPressed: () {
+                  final newFollow = !user.following;
+                  onToggleFollow?.call(user.id, newFollow);
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   decoration: BoxDecoration(
                     color:
-                        s.follow
+                        user.following
                             ? Theme.of(context).colorScheme.surface
                             : Theme.of(context).colorScheme.onPrimary,
                     borderRadius: BorderRadius.circular(50),
                     border:
-                        s.follow
+                        user.following
                             ? null
                             : Border.all(
                               color: Theme.of(context).colorScheme.shadow,
                             ),
                   ),
                   child: Text(
-                    s.follow ? "Siguiendo" : "Seguir",
+                    user.following ? "Siguiendo" : "Seguir",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.shadow,
                       fontSize: 16,
@@ -109,14 +87,10 @@ class _ProfilesListState extends State<ProfilesList> {
               ),
             ],
           ),
+
           onTap: () {},
         );
       },
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildBody(context);
   }
 }

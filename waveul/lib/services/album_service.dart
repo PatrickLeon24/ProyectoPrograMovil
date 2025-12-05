@@ -187,4 +187,38 @@ class AlbumService extends ApplicationService {
       );
     }
   }
+
+  Future<GenericResponse<List<Album>>> fetchByArtist(int artistId) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/artists/$artistId/albums'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<List<Album>>.fromJson(
+        jsonMap,
+        fromJsonT: (data) {
+          if (data is List) {
+            return _albumListFromJson(data);
+          }
+          return <Album>[];
+        },
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<List<Album>>(
+        success: false,
+        data: null,
+        message: 'Error al obtener álbumes del artista',
+        error: stackTrace.toString(),
+      );
+    }
+  }
 }
