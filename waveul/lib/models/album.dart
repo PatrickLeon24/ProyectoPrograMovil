@@ -32,10 +32,13 @@ class Album {
           json['created_at'] != null && json['created_at'] != ''
               ? DateTime.parse(json['created_at'])
               : null,
-      artist:
-          json['artist'] != null
-              ? Artist.fromJson(json['artist'] as Map<String, dynamic>)
-              : null,
+      artist: Artist(
+        id: 0, // No tenemos el ID del artista en esta respuesta
+        stageName: json['artist_name'] as String? ?? '',
+        isBand: false, // Valor por defecto
+        biography: '', // Valor por defecto
+        profileImage: json['artist_image'] as String? ?? '',
+      ),
     );
   }
 

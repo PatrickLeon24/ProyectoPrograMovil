@@ -191,6 +191,37 @@ class SongService extends ApplicationService {
     }
   }
 
+  /// GET ${BASE_URL}api/songs/:id/stream  -> obtener URL de streaming de S3
+  Future<GenericResponse<String>> getStreamingUrl(int songId) async {
+    try {
+      final httpResponse = await http.get(
+        Uri.parse('${BASE_URL}api/songs/$songId/stream'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${session.getToken()?.waveul}',
+        },
+      );
+
+      final Map<String, dynamic> jsonMap = json.decode(httpResponse.body);
+
+      final response = GenericResponse<String>.fromJson(
+        jsonMap,
+        fromJsonT: (data) => data?['streaming_url'] as String? ?? '',
+      );
+
+      return response;
+    } catch (e, stackTrace) {
+      return GenericResponse<String>(
+        success: false,
+        data: null,
+        message: "Error al obtener URL de streaming",
+        error: stackTrace.toString(),
+      );
+    }
+  }
+
+  /// GET ${BASE_URL}api/artists/:id/songs -> obtener canciones de un artista
   Future<GenericResponse<List<SongFinal>>> fetchByArtist(int artistId) async {
     try {
       final httpResponse = await http.get(
@@ -208,7 +239,7 @@ class SongService extends ApplicationService {
         jsonMap,
         fromJsonT: (data) {
           if (data is List) {
-            return _songListFromJson(data); // tu helper existente
+            return _songListFromJson(data);
           }
           return <SongFinal>[];
         },
